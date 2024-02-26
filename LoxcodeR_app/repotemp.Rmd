@@ -1,0 +1,318 @@
+---
+title: "LoxCode"
+output: 
+  flexdashboard::flex_dashboard:
+    theme: yeti
+    orientation: rows
+    vertical_layout: scroll
+    
+params:
+  format: NA
+  functions: NA
+  types: NA
+  inputs: NA
+  annotations: NA
+  loxcodes: NA
+---
+
+
+<style>
+.chart-shim{
+ overflow-x:auto;
+ overflow-y:auto;
+}
+
+
+.navbar {
+  background-color:rgb(255,0,0,0.8);
+  border-color:grey;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    background-color: white;
+    color: black;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: white;
+  background-color: grey;
+}
+
+.navbar-brand {
+color:white!important;
+font-size:30px!important;
+}
+</style>  
+
+
+### **LoxCodeR** 
+
+
+Summary
+=====================================
+
+
+Row {data-width=150}
+--------------------
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(crosstalk)
+library(ggplot2)
+library(ggthemes)
+library(reshape2)
+library(DT)
+library(leaflet)
+library(scatterD3)
+library(highcharter)
+library(flexdashboard)
+
+eval = TRUE
+links = TRUE 
+```
+
+```{r}
+# nPlot = length(params$functions)
+# if (count == 0) { eval = FALSE }
+```
+
+### Data
+
+```{r}
+l1=list()
+for (i in 1:length(names(params$inputs[[1]][[1]]@samples))){
+  l1=append(l1,params$inputs[[1]][[1]]@samples[[i]]@decode_stats$tot_reads)
+}
+count=0
+for (i in unlist(l1,recursive=F)){
+  if (i<5000){count=count+1}
+}
+col = c("Samples","barcodes","average reads/sample","less than 5000 read", "complexity warning",length(unique(params$inputs[[1]][[1]]@samp_table$sample)),0,mean(unlist(l1,recursive=F)),count,0)
+m=matrix(col,ncol=2,byrow = F)
+DT::datatable(m, options = list(
+  bPaginate = FALSE,
+  dom = 't'
+))
+#params$inputs[[1]][[1]]@samp_table
+```
+
+
+<!-- ### Bar Code {data-width=60} -->
+
+<!-- ```{r} -->
+<!-- bar_code <- 45 -->
+<!-- valueBox(bar_code, icon = "ion-erlenmeyer-flask") -->
+<!-- ``` -->
+
+<!-- ### Comments {data-width=60} -->
+
+<!-- ```{r} -->
+<!-- comments <- 10000 -->
+<!-- valueBox(comments, -->
+<!--          color = "rgb(0,128,128)", -->
+<!--          icon = "fa-comments") -->
+<!-- ``` -->
+
+<!-- ### xxx {data-width=60} -->
+
+<!-- ```{r} -->
+<!-- xxx <- 8888 -->
+<!-- valueBox(xxx, -->
+<!--          icon = "ion-android-checkbox-outline", -->
+<!--          color = ifelse(xxx > 10, "warning", "primary")) -->
+<!-- ``` -->
+
+
+
+Row {.tabset .tabset-fade}
+-------------------------------------
+### Experiment 1
+```{r echo=FALSE}
+
+paramsAsText <- function(params) {
+  parametersAsText = list()
+  for (i in 1:length(params)) {
+    n = names(params)[[i]]
+    p = params[[i]]
+    if (is(p, "loxcode_experiment") | is(p, "loxcode_sample")) {
+      parametersAsText = list.append(parametersAsText, paste(n, "=", p@name))
+    }
+    else if (is.character(p)) {
+      parametersAsText = list.append(parametersAsText, paste(n, "=", p))
+    }
+    else if (is.numeric(p)) {
+      parametersAsText = list.append(parametersAsText, paste(n, "=", paste(p, ",")))
+    }
+    else if (rapportools::is.boolean(p)) {
+      parametersAsText = list.append(parametersAsText, paste(n, "=", p))
+    }
+  }
+  return(paste(parametersAsText, collapse=", "))
+}
+
+```
+
+```{r}
+plotTitle <- function(ptype){
+  if(ptype == "size_plot"){
+    cat("###", "Size Plot",  "  \n")
+  } else if (ptype == "complexity_plot"){
+    cat("###", "Complexity Plot",  "  \n")
+  } else if (ptype == "ratio_plot"){
+    cat("###", "Ratio Plot",  "  \n")
+  } else if (ptype == "both_plot"){
+    cat("###", "Both Plot",  "  \n")
+  } else if (ptype == "sample_size_plot"){
+    cat("###", "Sample Size Plot",  "  \n")
+  } else if (ptype == "sample_complexity_plot"){
+    cat("###", "Sample Complexity Plot",  "  \n")
+  } else if (ptype == "heatmap_plot"){
+    cat("###", "Heatmap Plot",  "  \n")
+  } else if (ptype == "bubble_plot"){
+    cat("###", "Bubble Plot",  "  \n")
+  } else if (ptype == "saturation_plot"){
+    cat("###", "Saturation Plot",  "  \n")
+  } else if (ptype == "pair_comparison_plot"){
+    cat("###", "Pair Comparison Plot",  "  \n")
+  }else{
+    cat("###", "Plot",  "  \n")
+  }
+}
+
+```
+
+
+
+
+
+```{r results='asis'}
+plt <- htmltools::tagList()
+#params
+for (i in c(1,2,5,6,7)){
+if(params$types[[i]]=='ratio_plot' || params$types[[i]]=='both_plot'){
+g <- do.call(params$functions[[i]], params$inputs[[i]])
+plt[[i]]=ggplotly(g,height = 6000) }else if(params$types[[i]]=='sample_complexity'){
+  g <- do.call(params$functions[[i]], params$inputs[[i]])
+plt[[i]]=ggplotly(g) }else{
+ g <- do.call(params$functions[[i]], params$inputs[[i]])
+plt[[i]]=ggplotly(g) 
+#params$inputs[[i]]
+cat('\n')
+}
+}
+```
+
+```{r results='asis',autodep=TRUE}
+plt
+```
+
+
+
+```{r results='asis',autodep=TRUE}
+plt <- htmltools::tagList()
+list1=c()
+#params
+if (length(params$types)>5){
+for (i in 8:length(params$types)){
+  if (!(params$inputs[[i]][[2]] %in% list1)){
+    list1=c(list1,params$inputs[[i]][[2]])
+    #cat(paste("### text"))
+  }
+}
+for (i in 8:length(params$types)){
+  if(length(list1)>0){
+  if (params$inputs[[i]][[2]]==list1[1]){
+if(params$types[[i]]=='ratio_plot' || params$types[[i]]=='both_plot'){
+g <- do.call(params$functions[[i]], params$inputs[[i]])
+plt[[i]]=ggplotly(g,height = 6000) }else if(params$types[[i]]=='sample_complexity'){
+  g <- do.call(params$functions[[i]], params$inputs[[i]])
+plt[[i]]=ggplotly(g) }else{
+ g <- do.call(params$functions[[i]], params$inputs[[i]])
+plt[[i]]=ggplotly(g) 
+#params$inputs[[i]]
+
+cat('\n')
+}
+}
+}
+  }
+  if(length(list1)<2){list1=c()}
+   else{list1=list1[2:length(list1)]}
+}
+```
+
+```{r results='asis',autodep=TRUE}
+plt
+```
+
+
+```{r child = '/home/arnav/Desktop/newtest/LoxCodeR2022/LoxcodeR_app/chapter1.Rmd'}
+```
+
+
+
+Sample Comparision
+=====================================
+Row {.tabset .tabset-fade}
+-------------------------------------
+### Ratio Plot
+```{r results='asis',autodep=TRUE}
+ggplotly(do.call(params$functions[[3]], params$inputs[[3]]),height = 6000)
+```
+
+### Both Plot
+```{r results='asis',autodep=TRUE}
+ggplotly(do.call(params$functions[[4]], params$inputs[[4]]),height = 6000)
+```
+Experiment Data
+=====================================
+
+
+Row {.tabset .tabset-fade}
+-------------------------------------
+
+### Samples
+
+```{r }
+library(DT)
+
+#print(params$inputs[[1]][[1]]@samp_table) , scrollY = "1000px", , options = list(pageLength = 5)
+
+datatable(params$inputs[[1]][[1]]@samp_table, options = list(pageLength = 5, scrollY = "2000px"))
+
+
+#datatable(co2sorted, options = list(pageLength = 6))
+```
+
+
+### Code set
+
+```{r }
+
+#print(params$inputs[[1]][[1]]@samp_table) , options = list(pageLength = 5), scrollY = "1000px"
+
+datatable(params$inputs[[1]][[1]]@code_sets[["all_codes"]], options = list(pageLength = 5, scrollY = "2000px"))
+
+
+#datatable(co2sorted, options = list(pageLength = 6))
+```
+
+
+```{r child = '/home/arnav/Desktop/newtest/LoxCodeR2022/LoxcodeR_app/chapter4.Rmd'}
+```
+
+
+
+```{r child = '/home/arnav/Desktop/newtest/LoxCodeR2022/LoxcodeR_app/chapter3.Rmd'}
+```
+
+
+
+Details
+=====================================
+
+```{r child = '/home/arnav/Desktop/newtest/LoxCodeR2022/LoxcodeR_app/chapter5.Rmd'}
+```

@@ -1,0 +1,76 @@
+For Ubuntu 20.04.02 or debian
+download dependencies using sudo apt-get install from terminal:
+	sudo apt-get install libcurl4-openssl-dev
+	sudo apt-get install libssl-dev
+	sudo apt-get install libxml2-dev
+	sudo apt-get install libgit2-dev
+
+For MacOS does not need to do the above installation as it already had those functions.
+
+
+open the file loxcoder.Rproj
+open the file server.R from LoxcodeR_app folder
+go to build (next to Environment and History), click "install and Restart" button to install the loxcoder package
+
+####Packages install:
+Summary:
+install.packages('devtools')
+install.packages('pals')
+install.packages('viridis')
+install.packages('ggplot2')
+install.packages('tidyr')
+install.packages('ggbeeswarm')
+install.packages('dygraphs')
+install.packages('shiny')
+install.packages('dplyr')
+install.packages('htmlwidgets')
+install.packages('digest')
+install.packages('bit')
+install.packages('flexdashboard')
+install.packages('ggthemes')
+install.packages('highcharter')
+install.packages('scatterD3')
+install.packages('comprehenr')
+
+tinytex::install_tinytex()
+devtools::install_github("rstudio/crosstalk")
+devtools::install_github("jcheng5/d3scatter")
+devtools::install_github("hadley/shinySignals")
+
+Details:
+from the R console install devtools package using install.packages('devtools')
+Click on the small promt on the top of Rstudio to install all the libraries required
+If there is no prompt manually install all packages
+
+load the package devtools using command library(devtools) in the console
+use the devtools command install() to build and load the loxcoder package
+use the devtools command load_all() to load the functions
+
+Make sure the report can be downloaded, we need to install latex: on the console type tinytex::install_tinytex()
+
+install tools for web app:
+install.packages("pals")
+install.packages('viridis')
+install.packages('ggplot2')
+install.packages('tidyr')
+install.packages('ggbeeswarm')
+## For Linux systems : to Install the leaflet package, first install libgdal-dev.
+## `sudo aptitude install libgdal-dev`
+
+
+Tools for report:
+install.packages('shiny')
+install.packages('dplyr')
+install.packages('htmlwidgets')
+install.packages('digest')
+install.packages('bit')
+install.packages('flexdashboard')
+install.packages('ggthemes')
+install.packages('highcharter')
+install.packages('scatterD3')
+
+devtools::install_github("rstudio/crosstalk")
+devtools::install_github("jcheng5/d3scatter")
+devtools::install_github("hadley/shinySignals")
+
+click on RunApp or type runApp('LoxcodeR_app') into the console to run the app

@@ -1,0 +1,221 @@
+---
+title: LoxcodeR Report
+output: html_document
+always_allow_html: true
+params:
+  format: NA
+  functions: NA
+  types: NA
+  inputs: NA
+  annotations: NA
+  loxcodes: NA
+---
+
+
+```{r, include=FALSE}
+library( tidyverse )
+library(plotly)
+library(ggplot2)
+
+eval = TRUE
+links = FALSE
+count = length(params$functions)
+if (count == 0) { eval = FALSE }
+if (params$format == "HTML") { links = TRUE }
+
+# source('../R/plots.R', local = knitr::knit_global())
+#source('../R/read_stats_plot.R/', local = knitr::knit_global())
+
+ # sourceDir <- function('./R/', trace = TRUE, ...) {
+ #    for (nm in list.files('./R/', pattern = "[.][RrSsQq]$")) {
+ #       if(trace) cat(nm,":")
+ #       source(file.path('./R/', nm), ...)
+ #       if(trace) cat("\n")
+ #    }
+ # }
+
+```
+
+
+
+```{r include=FALSE}
+#f <- function(functions, inputs) {
+    #list( plot=plotly::ggplotly(do.call(functions, inputs)))
+    #}
+
+
+```
+
+```{r echo=FALSE}
+
+setDownloadURI = function(object, filename = stop("'filename' must be specified"), textHTML = "Download", fileext = ".rds", envir = parent.frame()){
+  require(base64enc,quietly = TRUE)
+  divname = paste(base::sample(LETTERS),collapse="")
+  tf = tempfile(pattern=filename, fileext = fileext)
+  saveRDS(object, file=tf)
+  linkFile = paste(filename,fileext,sep="")
+  filenameWithExt = paste(filename, "-", Sys.time(), fileext, sep="")
+
+  uri = dataURI(file = tf, mime = "application/octet-stream", encoding = "base64")
+  cat("<a style='text-decoration: none' id='",divname,"'></a>
+    <script>
+    var a = document.createElement('a');
+    var div = document.getElementById('",divname,"');
+    div.appendChild(a);
+    a.setAttribute('href', '",uri,"');
+    a.innerHTML = '",textHTML,"' + ' ",linkFile,"';
+    if (typeof a.download != 'undefined') {
+      a.setAttribute('download', '",filenameWithExt,"');
+    }else{
+      a.setAttribute('onclick', 'confirm(\"Your browser does not support the download HTML5 attribute. You must rename the file to ",filenameWithExt," after downloading it (or use Chrome/Firefox/Opera). \")');
+    }
+    </script>",
+    sep="")
+}
+
+```
+
+```{r echo=FALSE}
+
+paramsAsText <- function(params) {
+  parametersAsText = list()
+  for (i in 1:length(params)) {
+    n = names(params)[[i]]
+    p = params[[i]]
+    if (is(p, "loxcode_experiment") | is(p, "loxcode_sample")) {
+      parametersAsText = list.append(parametersAsText, paste(n, "=", p@name))
+    }
+    else if (is.character(p)) {
+      parametersAsText = list.append(parametersAsText, paste(n, "=", p))
+    }
+    else if (is.numeric(p)) {
+      parametersAsText = list.append(parametersAsText, paste(n, "=", paste(p, ",")))
+    }
+    else if (rapportools::is.boolean(p)) {
+      parametersAsText = list.append(parametersAsText, paste(n, "=", p))
+    }
+  }
+  return(paste(parametersAsText, collapse=", "))
+}
+
+```
+
+```{r}
+g <- do.call(params$functions[[1]], params$inputs[[1]])
+ggplotly(g)
+```
+
+
+```{r results='asis', conditional_block, eval=eval, echo=FALSE, message=FALSE}
+
+
+#Try adjust interface, fig.height=
+
+for (i in 1:count) {
+  if(params$types[[i]] == "size_plot"){
+    cat("\n##", "Size Plot",  "  \n")
+  }
+  else if (params$types[[i]] == "complexity_plot"){
+    cat("\n##", "Complexity Plot",  "  \n")
+  }
+  else if (params$types[[i]] == "ratio_plot"){
+    cat("\n##", "Ratio Plot",  "  \n")
+  }
+  else if (params$types[[i]] == "both_plot"){
+    cat("\n##", "Both Plot",  "  \n")
+  }
+  else if (params$types[[i]] == "sample_size_plot"){
+    cat("\n##", "Sample Size Plot",  "  \n")
+  }
+  else if (params$types[[i]] == "sample_complexity_plot"){
+    cat("\n##", "Sample Complexity Plot",  "  \n")
+  }
+  else if (params$types[[i]] == "heatmap_plot"){
+    cat("\n##", "Heatmap Plot",  "  \n")
+  }
+  else if (params$types[[i]] == "bubble_plot"){
+    cat("\n##", "Bubble Plot",  "  \n")
+  }
+  else if (params$types[[i]] == "saturation_plot"){
+    cat("\n##", "Saturation Plot",  "  \n")
+  }
+  else if (params$types[[i]] == "pair_comparison_plot"){
+    cat("\n##", "Pair Comparison Plot",  "  \n")
+  }
+  
+  cat("\n###","Notes: \n",params$annotations[[i]], "  \n")
+  cat("  \n")
+  cat("\n###","Details: \n")
+  cat("Function: ", params$types[[i]], "  \n")
+  cat("Parameters: ", paramsAsText(params$inputs[[i]]))
+  cat("  \n")
+  
+  # withAutoprint({ formals(sourceDir); body(sourceDir) },
+  #             max.dep = 20, verbose = TRUE)
+  # 
+  
+ # withAutoprint({ formals(sourceDir); body(sourceDir) },
+              #params$functions[[i]](params$inputs[[i]]))
+  
+  #g <- params$functions[[i]](params$inputs[[i]])
+  
+  g <- do.call(params$functions[[i]], params$inputs[[i]])
+  # print(typeof(params$functions[[i]]))
+  # print(typeof(params$inputs[[i]]))
+  #g <- do.call(ggplotly, g)
+  
+  
+  #ggplotly(g)
+  print(g)
+  
+  # if (params$types[[i]] == "pair_comparison_plot"){
+  #   g <- do.call(params$functions[[i]], params$inputs[[i]])
+  #   print(marrangeGrob(g, nrow=2, ncol=2))
+  # }
+  #print(params$functions[[i]])
+  #assign("ggp", plotly::ggplotly(gg), envir=parent.frame())
+  #params$functions[[i]](params$inputs[[i]])
+  
+  #f(params$functions[[i]], params$inputs[[i]])
+  
+  #prev
+  #res <- f(params$functions[[i]], params$inputs[[i]])
+  #print(res$plot)
+  
+  #g <- do.call(params$functions[[i]], params$inputs[[i]])
+  #print(g+ggtitle("ggplot"))
+  
+  # gg<- do.call(params$functions[[i]], params$inputs[[i]])
+  # 
+  # do.call(ggplotly,args=list())
+  # 
+  # saveRDS(gg,'gg.RDS')
+  # print(str(gg))
+  # print(gg)
+  # ggplotly(gg)
+  
+  # g <- ggplotly(gg)
+  # print(g)
+  
+  cat("  \n")
+}
+#g <- plotly::ggplotly(do.call(params$functions, params$inputs))
+
+#htmltools::tagList(setNames(plotlist, NULL))
+```
+
+```{r eval=links, results='asis', echo=FALSE}
+
+if (params$format == "HTML") {
+  cat("\n####", "Links to download the loxcode experiments.")
+}
+
+```
+
+```{r eval=links, results='asis', echo=FALSE, message=FALSE}
+
+for (i in 1:count) {
+  setDownloadURI(params$loxcodes[[i]], paste0("Lox", i))
+}
+
+```
