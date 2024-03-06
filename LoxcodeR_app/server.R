@@ -23,6 +23,7 @@ library(plyr)
 library(dplyr)
 library(tidyr)
 library(flexdashboard)
+library(openxlsx)
 #########0#########1#########2#########3#########4#########5#########6#########7
 
 # Source modules
@@ -155,13 +156,25 @@ validateFastq <- function(session, samplesheet, files) {
   }
 
   # find the fastq files for each sample
+  present_sample_names=c()
   for (i in sample_names) {
     if (sum(grepl(i,R1))!=1 || sum(grepl(i,R2))!=1) {
-      showNotification(paste("Could not find *.fastq file for sample", i, "in fastq directory."))
-      return(FALSE)
+      #showNotification(paste("Could not find *.fastq file for sample", i, "in fastq directory."))
+      #return(FALSE)
+    } else{
+      present_sample_names=c(present_sample_names,i)
     }
   }
-
+  if(length(present_sample_names)<2){
+    print(length(present_sample_names))
+    showNotification(paste("Could not find *.fastq file for sample", i, "in fastq directory."))
+    return(FALSE)
+  }
+  print("####")
+  print(present_sample_names)
+  samplesheet=subset(samplesheet,sample%in%present_sample_names)
+  write.xlsx(samplesheet, file = "fastq_available.xlsx")
+  print(samplesheet)
   # checks if there are two runs each in fastq directory
   if (length(R1) != length(R2)) {
     for (s in R1){
@@ -452,6 +465,7 @@ function(input, output, session) {
               dir=input$dir_input,
               load = TRUE,
               full = FALSE)
+            print(newlox)
             print("11")
             react$curr <- newlox
             react$samp <- sample_table(react$curr, "all_samples")

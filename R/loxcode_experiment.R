@@ -232,7 +232,7 @@ setMethod("samptable<-", "loxcode_experiment", function(x, value){
 #' @export
 load_from_xlsx <- function(name, s, dir, load = TRUE, full = FALSE, sat = FALSE){
   x <- new("loxcode_experiment", name = name, dir = dir)
-  x@samp_table <- data.frame(read_excel(s))
+  x@samp_table <- data.frame(read_excel("fastq_available.xlsx"))
 
   samp_table = x@samp_table
 
@@ -394,6 +394,7 @@ setMethod("setup_count_matrix_codesets", "loxcode_experiment", function(x){
   x@code_sets[["all_codes"]]=plyr::rbind.fill(valid.codes,invalid.codes);
   x@code_sets[["valid_codes"]]=valid.codes;
   x@code_sets[["invalid_codes"]]=invalid.codes;
+  rownames(x@count_matrixes$all_samples)=as.list(x@code_sets$all_codes[["code"]])
 
   print(str(x))
 
@@ -405,6 +406,7 @@ setMethod("setup_count_matrix_codesets", "loxcode_experiment", function(x){
 setGeneric("setup_metadata", function(x, ...) {standardGeneric("setup_metadata")})
 
 setMethod("setup_metadata", "loxcode_experiment", function(x){
+
   for (i in 1:length(x@samples)){
     row = data.frame(sample_name = name(x@samples[[i]]), stringsAsFactors = FALSE)
     row <- merge(row, x@samples[[i]]@meta)
