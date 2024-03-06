@@ -1786,8 +1786,6 @@ function(input, output, session) {
 
     )}
 
-
-  ########### Here
   # coordinate sample names and aliases
   observe(
     if (is.null(react$curr)) { return() }

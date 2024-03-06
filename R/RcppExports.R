@@ -43,15 +43,8 @@ min_flip_dist <- function(c, size, v) {
 }
 
 #' Decode FASTQ
-#'
-#' Recover loxcodes from raw Illumina FASTQ output
-#' @param r Paths of R1, 2 respectively
-#' @param meta User-defined data-frame for sample metadata
-#' @param min_read_length min read length for R1, R2 filter respectively
-#' @param full whether to supply full output (including read IDs, etc)
-#' @param saturation whether to keep saturation information
-#' @return S4 loxcode_sample object with decoded results
-#' @export
+NULL
+
 decode <- function(r, name, meta, min_r1_len, min_r2_len, full, sat) {
     .Call(`_loxcoder_decode`, r, name, meta, min_r1_len, min_r2_len, full, sat)
 }

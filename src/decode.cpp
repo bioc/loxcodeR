@@ -264,156 +264,156 @@ vector<int> decR(string R, string head_seq, int head_length, string tail_seq, in
 
 
 //' Decode FASTQ
-//'
-//' Recover loxcodes from raw Illumina FASTQ output
-//' @param r Paths of R1, 2 respectively
-//' @param meta User-defined data-frame for sample metadata
-//' @param min_read_length min read length for R1, R2 filter respectively
-//' @param full whether to supply full output (including read IDs, etc)
-//' @param saturation whether to keep saturation information
-//' @return S4 loxcode_sample object with decoded results
-//' @export
-// [[Rcpp::export]]
-Rcpp::S4 decode(std::vector<std::string> r, std::string name, Rcpp::DataFrame meta,
-                int min_r1_len, int min_r2_len, bool full, bool sat){
+   //'
+   //' Recover loxcodes from raw Illumina FASTQ output
+   //' @param r Paths of R1, 2 respectively
+   //' @param meta User-defined data-frame for sample metadata
+   //' @param min_read_length min read length for R1, R2 filter respectively
+   //' @param full whether to supply full output (including read IDs, etc)
+   //' @param saturation whether to keep saturation information
+   //' @return S4 loxcode_sample object with decoded results
+   //' @export
+   // [[Rcpp::export]]
+   Rcpp::S4 decode(std::vector<std::string> r, std::string name, Rcpp::DataFrame meta,
+                   int min_r1_len, int min_r2_len, bool full, bool sat){
 
-  ifstream fileR1(r[0]); ifstream fileR2(r[1]); // input files
-  int counter=0;
-  /*
-   * code_readout.first = cassette sequence
-   * code_readout.second = line numbers in fastq files corresponding to each
-   */
-  map< std::vector<int>, std::vector<int> > code_readout;
-  vector<int> saturation; // track saturation
+     ifstream fileR1(r[0]); ifstream fileR2(r[1]); // input files
+     int counter=0;
+     /*
+      * code_readout.first = cassette sequence
+      * code_readout.second = line numbers in fastq files corresponding to each
+      */
+     map< std::vector<int>, std::vector<int> > code_readout;
+     vector<int> saturation; // track saturation
 
-  int tot_reads = 0;
-  // breakdown of discarded reads
-  int too_small_reads = 0;
-  int reads_missing_start = 0;
-  int reads_missing_end = 0;
-  int reads_multi_start = 0;
-  int reads_multi_end = 0;
-  int reads_consensus_filtered = 0;
+     int tot_reads = 0;
+     // breakdown of discarded reads
+     int too_small_reads = 0;
+     int reads_missing_start = 0;
+     int reads_missing_end = 0;
+     int reads_multi_start = 0;
+     int reads_multi_end = 0;
+     int reads_consensus_filtered = 0;
 
-  std::vector<std::vector<std::string> > reads_consensus_filtered_data;
+     std::vector<std::vector<std::string> > reads_consensus_filtered_data;
 
-  int keep=0; //keep track of reads that are useful
+     int keep=0; //keep track of reads that are useful
 
-  if(!fileR1.is_open() || !fileR2.is_open()){
-    // file not found
-    Rcpp::stop("no such file");
-  }
+     if(!fileR1.is_open() || !fileR2.is_open()){
+       // file not found
+       Rcpp::stop("no such file");
+     }
 
-  double usable_reads=0;
-  int ok_reads=0,all_mapped=0;
+     double usable_reads=0;
+     int ok_reads=0,all_mapped=0;
 
-  for(int i=0; ;i++){
-    // i is the read counter (starts from zero)
-    if(fileR1.eof() || fileR2.eof()) break;
+     for(int i=0; ;i++){
+       // i is the read counter (starts from zero)
+       if(fileR1.eof() || fileR2.eof()) break;
 
-    std::vector<string> lines(4);
-    readFASTA(fileR1, lines);
-    string R1=lines[1];
-    readFASTA(fileR2, lines);
-    string R2=lines[1];
+       std::vector<string> lines(4);
+       readFASTA(fileR1, lines);
+       string R1=lines[1];
+       readFASTA(fileR2, lines);
+       string R2=lines[1];
 
-    if(R1.size()==0 || R2.size()==0) continue;
+       if(R1.size()==0 || R2.size()==0) continue;
 
-    tot_reads++;
+       tot_reads++;
 
-    /////////////////////////////////////////////////
+       /////////////////////////////////////////////////
 
-    if(R1.size()<75 || R2.size()<70) {cout<<"read too small"<<endl; continue;}
-    cout<<endl<<"read # "<<tot_reads<<endl;
+       if(R1.size()<75 || R2.size()<70) {cout<<"read too small"<<endl; continue;}
+       cout<<endl<<"read # "<<tot_reads<<endl;
 
-    cout<<"R1 ";
-    string start_R1="TCTAGAGGATCCCCGGGTACCGAGCTCGAATTTGCACATAACTTCGTATAATGTATGCTATACGAAGTTAT";
-    string end_R1="ATAACTTCGTATAGCATACATTATACGAAGTTATACACGAATTCATCCAGGC";
-    vector<int> r1= decR(R1, start_R1, 75, end_R1, 60, i, all_mapped, ok_reads);
-    for(auto k: r1) cout<<k<<" "; cout<<endl;
+       cout<<"R1 ";
+       string start_R1="TCTAGAGGATCCCCGGGTACCGAGCTCGAATTTGCACATAACTTCGTATAATGTATGCTATACGAAGTTAT";
+       string end_R1="ATAACTTCGTATAGCATACATTATACGAAGTTATACACGAATTCATCCAGGC";
+       vector<int> r1= decR(R1, start_R1, 75, end_R1, 60, i, all_mapped, ok_reads);
+       for(auto k: r1) cout<<k<<" "; cout<<endl;
 
-    string start_R2="GCCTGGATGAATTCGTGTATAACTTCGTATAATGTATGCTATACGAAGTTAT";
-    string end_R2="GTGCAAATTCGAGCT";
+       string start_R2="GCCTGGATGAATTCGTGTATAACTTCGTATAATGTATGCTATACGAAGTTAT";
+       string end_R2="GTGCAAATTCGAGCT";
 
-    cout<<"R2 ";
-    vector<int> r2 = decR(R2, start_R2, 60, end_R2, 70, i, all_mapped, ok_reads);
-    std::reverse(r2.begin(),r2.end()); for(int j=0; j<r2.size(); j++) r2[j]*=-1;
-    for(auto k: r2) cout<<k<<" "; cout<<endl;
+       cout<<"R2 ";
+       vector<int> r2 = decR(R2, start_R2, 60, end_R2, 70, i, all_mapped, ok_reads);
+       std::reverse(r2.begin(),r2.end()); for(int j=0; j<r2.size(); j++) r2[j]*=-1;
+       for(auto k: r2) cout<<k<<" "; cout<<endl;
 
-    if(r1.size()!=r2.size())
-    {
-      cout<<"unequal"<<endl;
-      for(auto k: r1) cout<<k<<" "; cout<<endl;
-      for(auto k: r2) cout<<k<<" "; cout<<endl;
-    }
+       if(r1.size()!=r2.size())
+       {
+         cout<<"unequal"<<endl;
+         for(auto k: r1) cout<<k<<" "; cout<<endl;
+         for(auto k: r2) cout<<k<<" "; cout<<endl;
+       }
 
-    vector<int> r3= Consensus(r1,r2);
+       vector<int> r3= Consensus(r1,r2);
 
-    if((count(r3.begin(),r3.end(),0)==0 && r3.size()>0) || (r3.size()==13 && count(r3.begin(),r3.end(),0)==1))
-    {
-      usable_reads++;
-      if(code_readout.find(r3)==code_readout.end()){std::vector<int>I={i}; code_readout[r3]=I;}
-      else code_readout[r3].push_back(i);
+       if((count(r3.begin(),r3.end(),0)==0 && r3.size()>0) || (r3.size()==13 && count(r3.begin(),r3.end(),0)==1))
+       {
+         usable_reads++;
+         if(code_readout.find(r3)==code_readout.end()){std::vector<int>I={i}; code_readout[r3]=I;}
+         else code_readout[r3].push_back(i);
 
-    }
+       }
 
-    cout<<"rating "<<usable_reads/(tot_reads)<<endl;
+       cout<<"rating "<<usable_reads/(tot_reads)<<endl;
 
-  }
+     }
 
-  std::vector<int> output_code_sizes; output_code_sizes.reserve(code_readout.size());
-  std::vector<string> output_code_readout; output_code_readout.reserve(code_readout.size());
-  std::vector<int> output_code_counts; output_code_counts.reserve(code_readout.size());
-  std::vector<int> output_code_firstread; output_code_firstread.reserve(code_readout.size());
-  std::vector<std::vector<int> > output_code_readids;
-  if(full) output_code_readids.reserve(code_readout.size());
-  for(auto c : code_readout){
+     std::vector<int> output_code_sizes; output_code_sizes.reserve(code_readout.size());
+     std::vector<string> output_code_readout; output_code_readout.reserve(code_readout.size());
+     std::vector<int> output_code_counts; output_code_counts.reserve(code_readout.size());
+     std::vector<int> output_code_firstread; output_code_firstread.reserve(code_readout.size());
+     std::vector<std::vector<int> > output_code_readids;
+     if(full) output_code_readids.reserve(code_readout.size());
+     for(auto c : code_readout){
 
 
-    output_code_readout.push_back("");
-    for(int i = 0; i < c.first.size(); ++i){ // we suppress start and end
-      output_code_readout.back() += std::regex_replace(to_string(c.first[i]),std::regex("^0"), "?");
-      // remove trailing ' ' - very important when converting back to integer form
-      if(i < c.first.size()-1) output_code_readout.back() += " ";
+       output_code_readout.push_back("");
+       for(int i = 0; i < c.first.size(); ++i){ // we suppress start and end
+         output_code_readout.back() += std::regex_replace(to_string(c.first[i]),std::regex("^0"), "?");
+         // remove trailing ' ' - very important when converting back to integer form
+         if(i < c.first.size()-1) output_code_readout.back() += " ";
 
-    }
+       }
 
-    cout<<"code "<<output_code_readout.back()<<endl;
+       cout<<"code "<<output_code_readout.back()<<endl;
 
-    output_code_counts.push_back(c.second.size());
-    output_code_firstread.push_back(c.second.front());
-    output_code_sizes.push_back(c.first.size());
-    if(full) output_code_readids.push_back(c.second);
-  }
+       output_code_counts.push_back(c.second.size());
+       output_code_firstread.push_back(c.second.front());
+       output_code_sizes.push_back(c.first.size());
+       if(full) output_code_readids.push_back(c.second);
+     }
 
-  Rcpp::DataFrame output_df = Rcpp::DataFrame::create(Named("count") = wrap(output_code_counts),
-                                                      Named("firstread") = wrap(output_code_firstread),
-                                                      Named("code") = wrap(output_code_readout),
-                                                      Named("size") = wrap(output_code_sizes),
-                                                      Named("stringsAsFactors") = false);
-  Rcpp::S4 decode_output("decode_output");
-  decode_output.slot("data") = output_df;
-  decode_output.slot("read_ids") = output_code_readids;
-  decode_output.slot("saturation") = saturation;
-  Rcpp::S4 output("loxcode_sample");
+     Rcpp::DataFrame output_df = Rcpp::DataFrame::create(Named("count") = wrap(output_code_counts),
+                                                         Named("firstread") = wrap(output_code_firstread),
+                                                         Named("code") = wrap(output_code_readout),
+                                                         Named("size") = wrap(output_code_sizes),
+                                                         Named("stringsAsFactors") = false);
+     Rcpp::S4 decode_output("decode_output");
+     decode_output.slot("data") = output_df;
+     decode_output.slot("read_ids") = output_code_readids;
+     decode_output.slot("saturation") = saturation;
+     Rcpp::S4 output("loxcode_sample");
 
-  output.slot("decode") = decode_output;
-  output.slot("name") = name;
-  output.slot("meta") = meta;
-  output.slot("files") = r;
+     output.slot("decode") = decode_output;
+     output.slot("name") = name;
+     output.slot("meta") = meta;
+     output.slot("files") = r;
 
-  Rcpp::List decode_stats;
-  decode_stats["tot_reads"] = tot_reads;
-  decode_stats["too_small"] = too_small_reads;
-  //decode_stats["missing_start"] =  reads_missing_start;
-  //decode_stats["multi_start"] = reads_multi_start;
-  //decode_stats["missing_end"] = reads_missing_end;
-  //decode_stats["multi_end"] = reads_multi_end;
-  decode_stats["consensus_filtered"] = usable_reads;
-  output.slot("decode_stats") = decode_stats;
+     Rcpp::List decode_stats;
+     decode_stats["tot_reads"] = tot_reads;
+     decode_stats["too_small"] = too_small_reads;
+     //decode_stats["missing_start"] =  reads_missing_start;
+     //decode_stats["multi_start"] = reads_multi_start;
+     //decode_stats["missing_end"] = reads_missing_end;
+     //decode_stats["multi_end"] = reads_multi_end;
+     decode_stats["consensus_filtered"] = usable_reads;
+     output.slot("decode_stats") = decode_stats;
 
-  output.slot("consensus_filtered_data") = reads_consensus_filtered_data;
-  fileR1.close();fileR2.close();
+     output.slot("consensus_filtered_data") = reads_consensus_filtered_data;
+     fileR1.close();fileR2.close();
 
-  return output;
-}
+     return output;
+   }

@@ -85,7 +85,7 @@ setMethod("load_samples", "loxcode_experiment", function(x, full = FALSE, sat = 
     matches = sort(files[indices])
     print(c(paste0(x@dir, matches[1]), paste0(x@dir, matches[2])))
     print("A")
-    out <- loxcoder::decode_SP500(c(paste0(x@dir, matches[1]), paste0(x@dir, matches[2])),
+    out <- loxcoder::decode(c(paste0(x@dir, matches[1]), paste0(x@dir, matches[2])),
                             name = z, meta = samp_table_sliced[,!names(samp_table_sliced)%in%c("sample", "prefix", "min_r1_len", "min_r2_len")],
                             min_r1_len = samp_table_sliced$min_r1_len,
                             min_r2_len = samp_table_sliced$min_r2_len, full = full, sat = sat)
@@ -336,54 +336,66 @@ setMethod("setup_count_matrix_codesets", "loxcode_experiment", function(x){
   for(i in x@samp_table$sample){
     m=merge(m,loxcoder::sample(x, i)@decode@data, by="code", all=TRUE)
   }
-  # fine:View(m)
-  # fine: print(names(m))
-  # fine: row.names(m)=m$code
-  #fine: View((m$code))
+
+  codes=m$code[-1];
+
+  #View(m)
+
   m=m[-1,-1]
 
+
+
   mm=m[,grepl("count",names(m))];
-  # fine: View(mm)
   mm[is.na(mm)]=0;
   names(mm)=x@samp_table$sample;
-  #fine: print(grepl("size",names(m)))
-  #fine: View(m[,grepl("size",names(m))])
-
 
   ms= as.data.frame(m[,grepl("size",names(m))]);
-  # fine: View(ms)
-  # View(ms)
   mv= as.data.frame(m[,grepl("valid",names(m))]);
   mo= as.data.frame(m[,grepl("orig",names(m))]);
 
-  # ms= m[,grepl("size",names(m))];
-  # # fine: View(ms)
-  # mv=m[,grepl("valid",names(m))];
-  # mo=m[,grepl("orig",names(m))];
+  merged_ms <- apply(ms, 1, function(x) {
+    non_na_values <- na.omit(x)
+    if (length(non_na_values) > 0) {
+      return(non_na_values[1])
+    } else {
+      return(NA)
+    }
+  })
 
+  merged_mv <- apply(mv, 1, function(x) {
+    non_na_values <- na.omit(x)
+    if (length(non_na_values) > 0) {
+      return(non_na_values[1])
+    } else {
+      return(NA)
+    }
+  })
 
-  print(length(ms)) #1
-  print(length(mv)) # 1
-  print(length(mo)) #1
-  print(length(names(mm))) #221
-  # print(length(names(mm)))
-  print(length(row.names(mm))) #0
-  #print(rowMeans(ms,na.rm=TRUE))
+  merged_mo <- apply(mo, 1, function(x) {
+    non_na_values <- na.omit(x)
+    if (length(non_na_values) > 0) {
+      return(non_na_values[1])
+    } else {
+      return(NA)
+    }
+  })
 
   #define some standard code subsets
   #all.codes=data.frame(code=row.names(mm), size=rowMeans(ms,na.rm=TRUE), is_valid=rowMeans(mv,na.rm=TRUE), dist_orig=rowMeans(mo,na.rm=TRUE),stringsAsFactors = FALSE)
   #all.codes= rbind(code=row.names(mm), size=rowMeans(ms,na.rm=TRUE), is_valid=rowMeans(mv,na.rm=TRUE), dist_orig=rowMeans(mo,na.rm=TRUE),stringsAsFactors = FALSE)
   # all.codes=data.frame(code=names(mm), size=ms, is_valid=mv, dist_orig=mo)
-  all.codes=data.frame(code=names(mm), size=rowMeans(ms,na.rm=TRUE), is_valid=rowMeans(mv,na.rm=TRUE), dist_orig=rowMeans(mo,na.rm=TRUE),stringsAsFactors = FALSE)
+  all.codes=data.frame(code=codes, size=merged_ms, is_valid=merged_mv, dist_orig=merged_mo, stringsAsFactors = FALSE)
   #View(all.codes)
   valid.codes=subset(all.codes,is_valid==1)
-  valid.codes$flp_dist<- loxcoder::min_flip_dist(valid.codes$code, valid.codes$size, valid.codes$is_valid)$d_min
+  #valid.codes$flp_dist<- loxcoder::min_flip_dist(valid.codes$code, valid.codes$size, valid.codes$is_valid)$d_min
   invalid.codes=subset(all.codes,is_valid==0);
 
   x@count_matrixes[["all_samples"]]=mm
   x@code_sets[["all_codes"]]=plyr::rbind.fill(valid.codes,invalid.codes);
   x@code_sets[["valid_codes"]]=valid.codes;
   x@code_sets[["invalid_codes"]]=invalid.codes;
+
+  print(str(x))
 
   return(x)
 })

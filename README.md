@@ -20,6 +20,8 @@ Main objective of the app is to perform data manipulation and data visualization
 	- `sudo apt-get install libxml2-dev`
 	- `sudo apt-get install libgit2-dev`
 	- `sudo aptitude install libgdal-dev`
+	- `sudo apt-get install texlive-latex-extra`
+	- `sudo apt-get install texlive-fonts-extra`
 - For MacOS does not need to do the above installation as it already had those functions.
 - open the file loxcoder.Rproj
 - open the file server.R from LoxcodeR_app folder
