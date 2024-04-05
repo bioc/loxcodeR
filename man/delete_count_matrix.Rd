@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{delete_count_matrix}
 \alias{delete_count_matrix}
+\alias{delete_count_matrix,loxcode_experiment-method}
 \title{Creates a new count_matrix with dataframe of samples}
 \usage{
 delete_count_matrix(x, c)
+
+\S4method{delete_count_matrix}{loxcode_experiment}(x, c)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

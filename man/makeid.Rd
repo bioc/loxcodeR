@@ -2,9 +2,15 @@
 % Please edit documentation in R/loxcode_sample.R
 \name{makeid}
 \alias{makeid}
+\alias{makeid,loxcode_sample-method}
 \title{Get cassette IDs}
 \usage{
 makeid(x)
+
+\S4method{makeid}{loxcode_sample}(x)
+}
+\arguments{
+\item{x}{loxcode data object}
 }
 \description{
 Appends a column of packed cassette IDs, or -1 if it cannot be packed

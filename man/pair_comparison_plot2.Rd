@@ -2,9 +2,23 @@
 % Please edit documentation in R/plots.R
 \name{pair_comparison_plot2}
 \alias{pair_comparison_plot2}
+\alias{pair_comparison_plot2,loxcode_experiment-method}
 \title{Pair Comparison Plot 2}
 \usage{
 pair_comparison_plot2(
+  lox,
+  sampleset = "all_samples",
+  codeset = "all_codes",
+  s1,
+  s2,
+  colorBy = "size",
+  labels = "alias",
+  sizeRange = NULL,
+  dist_origRange = NULL,
+  firstreadRange = NULL
+)
+
+\S4method{pair_comparison_plot2}{loxcode_experiment}(
   lox,
   sampleset = "all_samples",
   codeset = "all_codes",
@@ -31,6 +45,12 @@ pair_comparison_plot2(
 \item{colorBy}{Color points by size or dist_orig or firstread}
 
 \item{labels}{Sample name or alias as labels}
+
+\item{sizeRange}{Range of size available}
+
+\item{dist_origRange}{Range of distance from origin available}
+
+\item{firstreadRange}{Range of first read available}
 }
 \value{
 A plot containing pairwise comparison of the samples

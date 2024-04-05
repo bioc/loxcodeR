@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_sample.R
 \name{data}
 \alias{data}
+\alias{data,loxcode_sample-method}
 \title{Access decoded cassette data}
 \usage{
 data(x)
+
+\S4method{data}{loxcode_sample}(x)
 }
 \arguments{
 \item{x}{loxcode_sample object}

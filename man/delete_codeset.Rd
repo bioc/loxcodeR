@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{delete_codeset}
 \alias{delete_codeset}
+\alias{delete_codeset,loxcode_experiment-method}
 \title{Deletes a specified codeset from a loxcode experiment}
 \usage{
 delete_codeset(x, n)
+
+\S4method{delete_codeset}{loxcode_experiment}(x, n)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

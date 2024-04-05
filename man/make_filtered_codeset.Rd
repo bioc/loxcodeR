@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{make_filtered_codeset}
 \alias{make_filtered_codeset}
+\alias{make_filtered_codeset,loxcode_experiment-method}
 \title{Create new filtered code set according to defined parameters}
 \usage{
 make_filtered_codeset(x, s, c, t, m, n)
+
+\S4method{make_filtered_codeset}{loxcode_experiment}(x, s, c, t, m, n)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

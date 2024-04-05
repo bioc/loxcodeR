@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{new_alias}
 \alias{new_alias}
+\alias{new_alias,loxcode_experiment-method}
 \title{Changes the alias of a sample}
 \usage{
 new_alias(x, c, s, n)
+
+\S4method{new_alias}{loxcode_experiment}(x, c, s, n)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

@@ -2,9 +2,17 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{fill_alias}
 \alias{fill_alias}
+\alias{fill_alias,loxcode_experiment-method}
 \title{Generate alias for the loxcode experiment samples}
 \usage{
 fill_alias(x, ...)
+
+\S4method{fill_alias}{loxcode_experiment}(x)
+}
+\arguments{
+\item{x}{loxcode experiment sample}
+
+\item{...}{value of alias to fill}
 }
 \description{
 Generate alias for the loxcode experiment samples

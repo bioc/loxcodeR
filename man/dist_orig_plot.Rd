@@ -2,9 +2,18 @@
 % Please edit documentation in R/plots.R
 \name{dist_orig_plot}
 \alias{dist_orig_plot}
+\alias{dist_orig_plot,loxcode_experiment-method}
 \title{Dist_orig Plot}
 \usage{
 dist_orig_plot(
+  lox,
+  sample,
+  count_matrix = "all_samples",
+  code_set = "all_codes",
+  labels = "alias"
+)
+
+\S4method{dist_orig_plot}{loxcode_experiment}(
   lox,
   sample,
   count_matrix = "all_samples",

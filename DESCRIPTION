@@ -11,16 +11,40 @@ Encoding: UTF-8
 LazyData: true
 LinkingTo: 
     Rcpp
-Imports: 
+Imports:
     Rcpp,
-Depends:
-    ggplot2,
+Suggests: 
+    knitr, 
+    rmarkdown, 
+    plyr, 
+    stats, 
+    qpdf, 
+    ggplot2, 
+    methods, 
+    ggthemes, 
+    matrixStats, 
+    devtools, 
+    pals, 
+    viridis, 
+    tidyr, 
+    ggbeeswarm,
+    dygraphs,
+    shiny,
+    dplyr,
+    htmlwidgets,
+    digest,
+    bit,
+    flexdashboard,
+    highcharter,
+    scatterD3,
+    comprehenr,
+    VennDiagram,
+    reshape,
+    scatterpie,
+    tidyverse,
+    plotly,
     gridExtra,
     grid,
     readxl,
-    ggbeeswarm,
-    dplyr,
-    VennDiagram
-Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1

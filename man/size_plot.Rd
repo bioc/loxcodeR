@@ -2,9 +2,18 @@
 % Please edit documentation in R/plots.R
 \name{size_plot}
 \alias{size_plot}
+\alias{size_plot,loxcode_experiment-method}
 \title{Size Plot}
 \usage{
 size_plot(
+  lox,
+  sample,
+  count_matrix = "all_samples",
+  code_set = "all_codes",
+  labels
+)
+
+\S4method{size_plot}{loxcode_experiment}(
   lox,
   sample,
   count_matrix = "all_samples",

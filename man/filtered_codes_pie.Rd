@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{filtered_codes_pie}
 \alias{filtered_codes_pie}
+\alias{filtered_codes_pie,loxcode_experiment-method}
 \title{Filtered code frequency pie}
 \usage{
 filtered_codes_pie(x, s = "all_samples", c = "all_codes", t = 0.05, m = 2)
+
+\S4method{filtered_codes_pie}{loxcode_experiment}(x, s = "all_samples", c = "all_codes", t = 0.05, m = 2)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{dist_count_beeswarm_plot}
 \alias{dist_count_beeswarm_plot}
+\alias{dist_count_beeswarm_plot,loxcode_sample-method}
 \title{Show recombination distance distribution by size as beeswarm plot}
 \usage{
 dist_count_beeswarm_plot(x, count_threshold)
+
+\S4method{dist_count_beeswarm_plot}{loxcode_sample}(x, count_threshold)
 }
 \arguments{
 \item{x}{loxcode_sample object}

@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{collapse_old}
 \alias{collapse_old}
+\alias{collapse_old,loxcode_experiment-method}
 \title{Collapses the count matrix into samples with the sample metadata}
 \usage{
 collapse_old(x, count_matrix, collapse, name, union = TRUE, average = FALSE)
+
+\S4method{collapse_old}{loxcode_experiment}(x, count_matrix, collapse, name, union = TRUE, average = FALSE)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

@@ -6,6 +6,11 @@
 \usage{
 retrieve_dist_origin_single(c, size)
 }
+\arguments{
+\item{c}{input cassette}
+
+\item{size}{size of single loxcode}
+}
 \description{
 Assumes that input cassette is valid already!
 }

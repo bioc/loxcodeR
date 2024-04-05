@@ -2,6 +2,7 @@
 % Please edit documentation in R/plots.R
 \name{read_plot}
 \alias{read_plot}
+\alias{read_plot,loxcode_experiment-method}
 \title{Read Plot}
 \usage{
 read_plot(
@@ -10,17 +11,22 @@ read_plot(
   code_set = "all_codes",
   labels = "alias"
 )
+
+\S4method{read_plot}{loxcode_experiment}(
+  lox,
+  count_matrix = "all_samples",
+  code_set = "all_codes",
+  labels = "sample"
+)
 }
 \arguments{
 \item{lox}{loxcode_experiment object}
 
 \item{count_matrix}{A matrix of the selected samples}
 
+\item{code_set}{code set in selected samples}
+
 \item{labels}{specify if graph should be labelled by sample name or alias}
-
-\item{samples}{list of samples by name}
-
-\item{codes}{code_set selected}
 }
 \value{
 A plot of the number of reads

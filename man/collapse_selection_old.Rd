@@ -2,9 +2,20 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{collapse_selection_old}
 \alias{collapse_selection_old}
+\alias{collapse_selection_old,loxcode_experiment-method}
 \title{Collapse selected samples (old version)}
 \usage{
 collapse_selection_old(
+  lox,
+  s = "all_samples",
+  c = "all_codes",
+  i,
+  n = NULL,
+  union = TRUE,
+  average = FALSE
+)
+
+\S4method{collapse_selection_old}{loxcode_experiment}(
   lox,
   s = "all_samples",
   c = "all_codes",

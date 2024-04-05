@@ -2,9 +2,17 @@
 % Please edit documentation in R/loxcode_sample.R
 \name{get_rec_prob}
 \alias{get_rec_prob}
+\alias{get_rec_prob,loxcode_sample-method}
 \title{Get recombination distance distribution}
 \usage{
 get_rec_prob(x, size)
+
+\S4method{get_rec_prob}{loxcode_sample}(x, size)
+}
+\arguments{
+\item{x}{Loxcode object}
+
+\item{size}{size of the loxcode}
 }
 \description{
 Returns the proportion of valid cassettes for each valid recombination distance (dist_orig)

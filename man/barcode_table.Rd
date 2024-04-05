@@ -2,6 +2,7 @@
 % Please edit documentation in R/plots.R
 \name{barcode_table}
 \alias{barcode_table}
+\alias{barcode_table,loxcode_experiment-method}
 \title{Generate bar code table}
 \usage{
 barcode_table(
@@ -10,17 +11,22 @@ barcode_table(
   code_set = "all_codes",
   labels = "alias"
 )
+
+\S4method{barcode_table}{loxcode_experiment}(
+  lox,
+  count_matrix = "all_samples",
+  code_set = "all_codes",
+  labels = "sample"
+)
 }
 \arguments{
 \item{lox}{loxcode_experiment object}
 
 \item{count_matrix}{A matrix of the selected samples}
 
+\item{code_set}{code set of the selected sample}
+
 \item{labels}{specify if graph should be labelled by sample name or alias}
-
-\item{samples}{list of samples by name}
-
-\item{codes}{code_set selected}
 }
 \value{
 A table containing the data about the bar codes

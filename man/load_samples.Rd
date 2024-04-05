@@ -2,14 +2,21 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{load_samples}
 \alias{load_samples}
+\alias{load_samples,loxcode_experiment-method}
 \title{Load data from FASTQ for all samples in a loxcode_experiment object}
 \usage{
 load_samples(x, ...)
+
+\S4method{load_samples}{loxcode_experiment}(x, full = FALSE, sat = FALSE)
 }
 \arguments{
 \item{x}{loxcode_experiment object for which to load samples}
 
-\item{full}{boolean, whether to produce full debugging output (default is FALSE, this uses significantly more memory)}
+\item{...}{Used to pass variable name for loading data}
+
+\item{full}{description}
+
+\item{sat}{desc}
 }
 \value{
 loxcode_experiment object with sample data loaded

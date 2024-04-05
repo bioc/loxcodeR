@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{codeset_table}
 \alias{codeset_table}
+\alias{codeset_table,loxcode_experiment-method}
 \title{codeset table}
 \usage{
 codeset_table(x, n)
+
+\S4method{codeset_table}{loxcode_experiment}(x, n)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

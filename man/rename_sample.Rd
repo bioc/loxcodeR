@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{rename_sample}
 \alias{rename_sample}
+\alias{rename_sample,loxcode_experiment-method}
 \title{Renames a sample in a loxcode_experiment}
 \usage{
 rename_sample(x, c, n, o)
+
+\S4method{rename_sample}{loxcode_experiment}(x, c, n, o)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

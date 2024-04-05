@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{get_data}
 \alias{get_data}
+\alias{get_data,loxcode_experiment-method}
 \title{Get unvalidated readout data for a given sample}
 \usage{
 get_data(x, s)
+
+\S4method{get_data}{loxcode_experiment}(x, s)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

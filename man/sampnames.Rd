@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{sampnames}
 \alias{sampnames}
+\alias{sampnames,loxcode_experiment-method}
 \title{Fetch names of samples}
 \usage{
 sampnames(x)
+
+\S4method{sampnames}{loxcode_experiment}(x)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

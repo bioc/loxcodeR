@@ -2,9 +2,17 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{setup_count_matrix_codesets}
 \alias{setup_count_matrix_codesets}
+\alias{setup_count_matrix_codesets,loxcode_experiment-method}
 \title{Generate count_matrix from individual samples and add standard code_sets}
 \usage{
 setup_count_matrix_codesets(x, ...)
+
+\S4method{setup_count_matrix_codesets}{loxcode_experiment}(x)
+}
+\arguments{
+\item{x}{loxcode object to be updated}
+
+\item{...}{count matrix to be set up}
 }
 \description{
 Generate count_matrix from individual samples and add standard code_sets

@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_sample.R
 \name{retrieve_prob_ensemble}
 \alias{retrieve_prob_ensemble}
+\alias{retrieve_prob_ensemble,loxcode_sample-method}
 \title{Get ensemble generation probability}
 \usage{
 retrieve_prob_ensemble(x)
+
+\S4method{retrieve_prob_ensemble}{loxcode_sample}(x)
 }
 \arguments{
 \item{x}{loxcode_sample object}

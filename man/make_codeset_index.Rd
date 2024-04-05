@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{make_codeset_index}
 \alias{make_codeset_index}
+\alias{make_codeset_index,loxcode_experiment-method}
 \title{Creates a new codeset with dataframe of codesets testing}
 \usage{
 make_codeset_index(x, c, I, n)
+
+\S4method{make_codeset_index}{loxcode_experiment}(x, c, I, n)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

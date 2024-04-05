@@ -131,12 +131,13 @@ std::vector<int> unpack_to_vec(long long c, int size){
     for(int i = 0; i <= size/2; i++){
         out[2*i] = (2*o[i]+1)*(s[2*i] == 1 ? -1 : 1);
         out[2*i+1] = (2*(e[i]+1))*(s[2*i+1] == 1 ? -1 : 1);
-    } 
+    }
     return out;
 }
 
 
 //' Impute missing element in a 13-element cassette
+//' @param c2 string of number of lox present
 //' @export
 // [[Rcpp::export]]
 std::string impute_13_impl(std::string c2){
@@ -186,6 +187,9 @@ std::string impute_13_impl(std::string c2){
 }
 
 //' Impute missing elements
+//'
+//' @param c list of loxcode numbers present in each cassete
+//' @param sizes sizes of loxcode
 //' @export
 // [[Rcpp::export]]
 std::vector<std::string> impute_13(std::vector<std::string> c, std::vector<int> sizes){
@@ -198,16 +202,16 @@ std::vector<std::string> impute_13(std::vector<std::string> c, std::vector<int> 
 }
 
 //' Return the minimum dist_orig obtained by flipping a single element
-//' We assume that the given cassette is valid 
+//' We assume that the given cassette is valid
 //'
-std::pair<int, long long> min_flip_dist_single(std::vector<int> c, int size){    
+std::pair<int, long long> min_flip_dist_single(std::vector<int> c, int size){
     long long id_min = pack_single(c, get_size_idx(c.size()));
-//    int d_min = retrieve_dist_origin_single(id_min, size); 
+//    int d_min = retrieve_dist_origin_single(id_min, size);
     int d_min = INT_MAX;
     for(int i = 0; i < c.size(); i++){
         c[i] = -c[i]; // flip sign
         long long id = pack_single(c, get_size_idx(c.size()));
-        int d = retrieve_dist_origin_single(id, size); 
+        int d = retrieve_dist_origin_single(id, size);
         if(d < d_min){
             d_min = d;
             id_min = id;
@@ -234,6 +238,6 @@ Rcpp::DataFrame min_flip_dist(std::vector<std::string> c, std::vector<int> size,
         out.first.push_back(o.first);
         out.second.push_back(o.second);
     }
-    return Rcpp::DataFrame::create(Named("d_min") = out.first, 
+    return Rcpp::DataFrame::create(Named("d_min") = out.first,
                                    Named("k_min") = out.second);
 }

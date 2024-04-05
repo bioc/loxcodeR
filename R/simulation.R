@@ -1,3 +1,5 @@
+library('plyr')
+library('base')
 #' Lox barcode casette object
 #'
 #' @slot lox_sites vector of cre-binding sites
@@ -176,7 +178,6 @@ setMethod("simulate_sample", "lox_casette", function(lox=NULL, c=3000, n=3, ref 
   decode = new("decode_output")
 
   # decode the simulated casettes
-  library(stats)
   if (!is.null(ref)) {
     dist_orig_dist = ref@decode@data$dist_orig[!is.na(ref@decode@data$dist_orig)]
     dist_orig_dist = getData(ref, "dist_orig")$dist_orig

@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{code_freq_table}
 \alias{code_freq_table}
+\alias{code_freq_table,loxcode_experiment-method}
 \title{Code frequency table}
 \usage{
 code_freq_table(x, s = "all_samples", c = "all_codes")
+
+\S4method{code_freq_table}{loxcode_experiment}(x, s = "all_samples", c = "all_codes")
 }
 \arguments{
 \item{x}{loxcode experiment object}

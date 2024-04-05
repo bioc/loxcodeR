@@ -2,9 +2,18 @@
 % Please edit documentation in R/plots.R
 \name{density_plot}
 \alias{density_plot}
+\alias{density_plot,loxcode_sample-method}
 \title{Density distributions}
 \usage{
 density_plot(
+  ref,
+  npois,
+  dist_type = "sample",
+  samples = list(),
+  plot_type = "dist_orig"
+)
+
+\S4method{density_plot}{loxcode_sample}(
   ref,
   npois,
   dist_type = "sample",

@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{summary_table1}
 \alias{summary_table1}
+\alias{summary_table1,loxcode_experiment-method}
 \title{Summary Table}
 \usage{
 summary_table1(x, c = "all_samples")
+
+\S4method{summary_table1}{loxcode_experiment}(x, c = "all_samples")
 }
 \arguments{
 \item{x}{loxcode_experiment object}

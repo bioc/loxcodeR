@@ -6,6 +6,9 @@
 \usage{
 \S4method{impute}{loxcode_sample}(x)
 }
+\arguments{
+\item{x}{loxcode object}
+}
 \description{
 For 13-element cassettes that are missing a single element, the
 missing element is imputed to minimise the resulting dist_orig.

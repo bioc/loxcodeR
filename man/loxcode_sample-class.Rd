@@ -14,5 +14,13 @@ S4 class to represent loxcode experimental sample data
 \item{\code{decode}}{A data.frame to contain raw decode data from loxcoder::decode()}
 
 \item{\code{meta}}{A data.frame for user-defined sample metadata}
+
+\item{\code{name}}{Contains name of the experiment}
+
+\item{\code{files}}{A vector containing file names of loxcoder experiment}
+
+\item{\code{decode_stats}}{A list containing statistics of decoded data}
+
+\item{\code{consensus_filtered_data}}{A vector containing filtered data}
 }}
 

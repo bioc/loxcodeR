@@ -2,9 +2,25 @@
 % Please edit documentation in R/plots.R
 \name{bubble_plot}
 \alias{bubble_plot}
+\alias{bubble_plot,loxcode_experiment-method}
 \title{Generate bubble from count_matrix}
 \usage{
 bubble_plot(
+  loxcode_experiment,
+  count_matrix = "all_samples",
+  code_set = "all_codes",
+  style = "ggplot",
+  labels = "sample",
+  clustering = "none",
+  agglomeration = "complete",
+  min_reads = 0,
+  max_repeats = 100,
+  min_repeats = 1,
+  split_by1 = "none",
+  split_by2 = "none"
+)
+
+\S4method{bubble_plot}{loxcode_experiment}(
   loxcode_experiment,
   count_matrix = "all_samples",
   code_set = "all_codes",
@@ -31,6 +47,8 @@ bubble_plot(
 \item{labels}{A string containing the name by which to sample}
 
 \item{clustering}{A string containing parameter by which clustering is to be performed}
+
+\item{agglomeration}{Selection of the collection}
 
 \item{min_reads}{Integer containing value for min number of reads}
 

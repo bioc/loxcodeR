@@ -2,9 +2,13 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{sample}
 \alias{sample}
-\title{Get loxcode_sample object by sample name}
+\alias{sample,loxcode_experiment-method}
+\title{#' Set experiment name
+Get loxcode_sample object by sample name}
 \usage{
 sample(x, s)
+
+\S4method{sample}{loxcode_experiment}(x, s)
 }
 \arguments{
 \item{x}{loxcode_experiment object}
@@ -15,5 +19,6 @@ sample(x, s)
 loxcode_sample object corresponding to s
 }
 \description{
+#' Set experiment name
 Get loxcode_sample object by sample name
 }

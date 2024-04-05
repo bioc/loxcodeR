@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{get_valid}
 \alias{get_valid}
+\alias{get_valid,loxcode_experiment-method}
 \title{Get validated readout data for a given sample}
 \usage{
 get_valid(x, s)
+
+\S4method{get_valid}{loxcode_experiment}(x, s)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

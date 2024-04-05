@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{generate_alias}
 \alias{generate_alias}
+\alias{generate_alias,loxcode_experiment-method}
 \title{generate sample aliases}
 \usage{
 generate_alias(lox, s = "all_samples", meta)
+
+\S4method{generate_alias}{loxcode_experiment}(lox, s = "all_samples", meta)
 }
 \arguments{
 \item{lox}{loxcode_experiment object}

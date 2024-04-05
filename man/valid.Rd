@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_sample.R
 \name{valid}
 \alias{valid}
+\alias{valid,loxcode_sample-method}
 \title{Access decoded cassette data, valid cassettes only}
 \usage{
 valid(x)
+
+\S4method{valid}{loxcode_sample}(x)
 }
 \arguments{
 \item{x}{loxcode_sample object}

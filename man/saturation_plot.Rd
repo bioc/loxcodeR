@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{saturation_plot}
 \alias{saturation_plot}
-\title{Saturation plot}
+\alias{saturation_plot,loxcode_experiment-method}
+\title{Plotting the saturation of samples}
 \usage{
 saturation_plot(loxcode_experiment, loxcode_sample, code_set = "all_codes")
+
+\S4method{saturation_plot}{loxcode_experiment}(loxcode_experiment, loxcode_sample, code_set = "all_codes")
 }
 \arguments{
 \item{loxcode_experiment}{loxcode_experiment object}
@@ -17,5 +20,5 @@ saturation_plot(loxcode_experiment, loxcode_sample, code_set = "all_codes")
 Saturation plot of the loxcode sample
 }
 \description{
-Saturation plot
+Plotting the saturation of samples
 }

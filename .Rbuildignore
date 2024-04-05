@@ -1,2 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^installation.txt
+^LoxcodeR_app$
+^Docs$

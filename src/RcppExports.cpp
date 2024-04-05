@@ -85,23 +85,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// decode_SP500
-Rcpp::S4 decode_SP500(std::vector<std::string> files, std::string name, Rcpp::DataFrame meta, int min_r1_len, int min_r2_len, bool full, bool sat);
-RcppExport SEXP _loxcoder_decode_SP500(SEXP filesSEXP, SEXP nameSEXP, SEXP metaSEXP, SEXP min_r1_lenSEXP, SEXP min_r2_lenSEXP, SEXP fullSEXP, SEXP satSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::vector<std::string> >::type files(filesSEXP);
-    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    Rcpp::traits::input_parameter< Rcpp::DataFrame >::type meta(metaSEXP);
-    Rcpp::traits::input_parameter< int >::type min_r1_len(min_r1_lenSEXP);
-    Rcpp::traits::input_parameter< int >::type min_r2_len(min_r2_lenSEXP);
-    Rcpp::traits::input_parameter< bool >::type full(fullSEXP);
-    Rcpp::traits::input_parameter< bool >::type sat(satSEXP);
-    rcpp_result_gen = Rcpp::wrap(decode_SP500(files, name, meta, min_r1_len, min_r2_len, full, sat));
-    return rcpp_result_gen;
-END_RCPP
-}
 // load_origin_files_wrapper
 void load_origin_files_wrapper(std::vector<std::string> paths);
 RcppExport SEXP _loxcoder_load_origin_files_wrapper(SEXP pathsSEXP) {
@@ -224,7 +207,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_loxcoder_impute_13", (DL_FUNC) &_loxcoder_impute_13, 2},
     {"_loxcoder_min_flip_dist", (DL_FUNC) &_loxcoder_min_flip_dist, 3},
     {"_loxcoder_decode", (DL_FUNC) &_loxcoder_decode, 7},
-    {"_loxcoder_decode_SP500", (DL_FUNC) &_loxcoder_decode_SP500, 7},
     {"_loxcoder_load_origin_files_wrapper", (DL_FUNC) &_loxcoder_load_origin_files_wrapper, 1},
     {"_loxcoder_load_pair_files_wrapper", (DL_FUNC) &_loxcoder_load_pair_files_wrapper, 1},
     {"_loxcoder_load_prob_files_wrapper", (DL_FUNC) &_loxcoder_load_prob_files_wrapper, 1},

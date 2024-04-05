@@ -2,6 +2,7 @@
 % Please edit documentation in R/plots.R
 \name{readstats_plot2}
 \alias{readstats_plot2}
+\alias{readstats_plot2,loxcode_experiment-method}
 \title{readstats plot}
 \usage{
 readstats_plot2(
@@ -11,6 +12,15 @@ readstats_plot2(
   plot = "size",
   fill = TRUE,
   labels = "alias"
+)
+
+\S4method{readstats_plot2}{loxcode_experiment}(
+  loxcode_experiment,
+  count_matrix = "all_samples",
+  code_set = "all_codes",
+  plot = "size",
+  fill = TRUE,
+  labels = "sample"
 )
 }
 \arguments{
@@ -23,6 +33,8 @@ readstats_plot2(
 \item{plot}{specify which plot (size/complexity/both/ratio)}
 
 \item{fill}{specify whether reads should be normalized in boxplots}
+
+\item{labels}{labels to use in the plot}
 }
 \value{
 A plot of the selected type explaing details of the samples

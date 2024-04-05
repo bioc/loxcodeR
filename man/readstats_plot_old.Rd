@@ -2,9 +2,19 @@
 % Please edit documentation in R/plots.R
 \name{readstats_plot_old}
 \alias{readstats_plot_old}
+\alias{readstats_plot_old,loxcode_experiment-method}
 \title{Read stats plot}
 \usage{
 readstats_plot_old(
+  x,
+  count_matrix = "all_samples",
+  code_set = "all_codes",
+  plot = "size",
+  fill = TRUE,
+  labels = "sample"
+)
+
+\S4method{readstats_plot_old}{loxcode_experiment}(
   x,
   count_matrix = "all_samples",
   code_set = "all_codes",
@@ -23,6 +33,8 @@ readstats_plot_old(
 \item{plot}{specify which plot (size/complexity/both/ratio)}
 
 \item{fill}{specify whether reads should be normalized in boxplots}
+
+\item{labels}{specify if graph should be labelled by sample name or alias}
 }
 \value{
 A plot of the selected type explaing details of the samples

@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{dist_orig_plot_sample}
 \alias{dist_orig_plot_sample}
+\alias{dist_orig_plot_sample,loxcode_sample-method}
 \title{Dist_orig Plot (v2)}
 \usage{
 dist_orig_plot_sample(sample)
+
+\S4method{dist_orig_plot_sample}{loxcode_sample}(sample)
 }
 \arguments{
 \item{sample}{loxcode sample object}

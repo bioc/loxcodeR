@@ -9,6 +9,8 @@ fillSetAliases(lox, count_matrix)
 }
 \arguments{
 \item{lox}{loxcode_experiment object}
+
+\item{count_matrix}{count matrix of loxcode object}
 }
 \description{
 fill set aliases

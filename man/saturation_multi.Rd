@@ -2,9 +2,17 @@
 % Please edit documentation in R/plots.R
 \name{saturation_multi}
 \alias{saturation_multi}
+\alias{saturation_multi,loxcode_experiment-method}
 \title{Multiple lined saturation plot}
 \usage{
 saturation_multi(
+  loxcode_experiment,
+  loxcode_samples,
+  codesets,
+  colorby = "dist_orig"
+)
+
+\S4method{saturation_multi}{loxcode_experiment}(
   loxcode_experiment,
   loxcode_samples,
   codesets,
@@ -16,9 +24,9 @@ saturation_multi(
 
 \item{loxcode_samples}{A matrix of the selected samples}
 
-\item{colorby}{colour by dist_orig or sample}
+\item{codesets}{A matrix of the selected code sets}
 
-\item{code_set}{A matrix of the selected code sets}
+\item{colorby}{colour by dist_orig or sample}
 }
 \value{
 Saturation plot of the loxcode sample

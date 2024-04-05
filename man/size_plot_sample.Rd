@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{size_plot_sample}
 \alias{size_plot_sample}
+\alias{size_plot_sample,loxcode_sample-method}
 \title{Size Plot (v2)}
 \usage{
 size_plot_sample(sample)
+
+\S4method{size_plot_sample}{loxcode_sample}(sample)
 }
 \arguments{
 \item{sample}{loxcode sample object}

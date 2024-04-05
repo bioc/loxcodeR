@@ -1,3 +1,5 @@
+
+library('shiny')
 #' Loxcode experiment object
 #'
 #' The `loxcode_experiment` object enables handling of data from multiple samples.
@@ -64,11 +66,15 @@ shiny_running = function () {
 #' and distance-from-origin is retrieved.
 #'
 #' @param x loxcode_experiment object for which to load samples
-#' @param full boolean, whether to produce full debugging output (default is FALSE, this uses significantly more memory)
+#' @param ... Used to pass variable name for loading data
+#' @param full description
+#' @param sat desc
 #' @return loxcode_experiment object with sample data loaded
+#' @rdname load_samples
 #' @export
 setGeneric("load_samples", function(x, ...) {standardGeneric("load_samples")})
 
+#' @rdname load_samples
 setMethod("load_samples", "loxcode_experiment", function(x, full = FALSE, sat = FALSE){
 
   x@samples <- lapply(names(x@samples), function(z){
@@ -111,24 +117,30 @@ setMethod("load_samples", "loxcode_experiment", function(x, full = FALSE, sat = 
 #' The names returned by this function can be used to refer to each individual sample
 #' @param x loxcode_experiment object
 #' @return names (handles) of samples
+#' @rdname sampnames
 #' @export
 setGeneric("sampnames", function(x){standardGeneric("sampnames")})
 
+#' @rdname sampnames
 setMethod("sampnames", "loxcode_experiment", function(x){
   return(names(x@samples))
 })
 
-#' Set names of samples
-#'
-#' @export
-setGeneric("sampnames<-", function(x, v){ standardGeneric("sampnames<-")})
-
-setMethod("sampnames<-", "loxcode_experiment", function(x, v){
-  if(length(v) != length(unique(v))){
-    stop("Sample names are not unique")
-  }
-  names(x@samples) <- v
-})
+# #' Set names of samples
+# #'
+# #' @param x lox code object
+# #' @param v samples names
+# # #' @param value updating loxcode object
+# #' @return Names of unique samples
+# #' @export
+# setGeneric("sampnames<-", function(x, v){ standardGeneric("sampnames<-")})
+#
+# setMethod("sampnames<-", "loxcode_experiment", function(x, v){
+#   if(length(v) != length(unique(v))){
+#     stop("Sample names are not unique")
+#   }
+#   names(x@samples) <- v
+# })
 
 #' Fetch experiment name
 #'
@@ -137,27 +149,34 @@ setMethod("sampnames<-", "loxcode_experiment", function(x, v){
 #' @export
 setGeneric("name", function(x){ standardGeneric("name")})
 
+
 setMethod("name", "loxcode_experiment", function(x){
   return(x@name)
 })
 
-#' Set experiment name
-#'
-#' @export
-setGeneric("name<-", function(x, v) {standardGeneric("name<-")})
-
-setMethod("name<-", "loxcode_experiment", function(x, v){
-  x@name <- v
-})
+#' #' Set experiment name
+# #'
+# #' @param x loxcode object
+# #' @param v name of sample
+# # #' @param value updating loxcode object
+# #' @return name of samples
+# #' @export
+# setGeneric("name<-", function(x, v) {standardGeneric("name<-")})
+#
+# setMethod("name<-", "loxcode_experiment", function(x, v){
+#   x@name <- v
+# })
 
 #' Get loxcode_sample object by sample name
 #'
 #' @param x loxcode_experiment object
 #' @param s sample name
 #' @return loxcode_sample object corresponding to s
+#' @rdname sample
 #' @export
 setGeneric("sample", function(x, s){standardGeneric("sample")})
 
+#' @rdname sample
 setMethod("sample", "loxcode_experiment", function(x, s){
   return(x@samples[[s]])
 })
@@ -168,9 +187,11 @@ setMethod("sample", "loxcode_experiment", function(x, s){
 #' @param x loxcode_experiment object
 #' @param s sample name
 #' @return data.frame containing unvalidated readout data for sample s
+#' @rdname get_data
 #' @export
 setGeneric("get_data", function(x, s){standardGeneric("get_data")})
 
+#' @rdname get_data
 setMethod("get_data", "loxcode_experiment", function(x, s){
   return(loxcoder::data(x@samples[[s]]))
 })
@@ -180,27 +201,36 @@ setMethod("get_data", "loxcode_experiment", function(x, s){
 #' Equivalent to performing loxcoder::valid() on the sample s
 #' @param x loxcode_experiment object
 #' @param s sample name
+#' @rdname get_valid
 #' @export
 setGeneric("get_valid", function(x, s){standardGeneric("get_valid")})
 
+#' @rdname get_valid
 setMethod("get_valid", "loxcode_experiment",function(x, s){
   return(loxcoder::valid(x@samples[[s]]))
 })
 
 #' Get sample table
 #'
+#'@param x loxcode object
+#' @rdname samptable
 #' @export
 setGeneric("samptable", function(x){ standardGeneric("samptable")})
 
+#' @rdname samptable
 setMethod("samptable", "loxcode_experiment", function(x){
   return(x@samp_table)
 })
 
 #' Set sample table
 #'
+#' @param x lox code object
+#' @param value value of sample table
+#' @rdname samptable_impl
 #' @export
 setGeneric("samptable<-", function(x, value){ standardGeneric("samptable<-")})
 
+#' @rdname samptable_impl
 setMethod("samptable<-", "loxcode_experiment", function(x, value){
   x@samp_table <- value
   return(x)
@@ -301,9 +331,11 @@ merge_sample <- function(s1, s2){
 #' @param x loxcode_experiment object
 #' @param by name of column in samp_table to merge by
 #' @return loxcode_experiment object containing merged samples
+#' @rdname merge_by
 #' @export
 setGeneric('merge_by', function(x, by){ standardGeneric('merge_by') })
 
+#' @rdname merge_by
 setMethod('merge_by', 'loxcode_experiment', function(x, by){
   vals <- unique(x@samp_table[, by])
   x_merged <- new("loxcode_experiment", name = paste(x@name, 'merge_by', by, sep = '_'),
@@ -327,9 +359,13 @@ setMethod('merge_by', 'loxcode_experiment', function(x, by){
 })
 
 #' Generate count_matrix from individual samples and add standard code_sets
+#' @param x loxcode object to be updated
+#' @param ... count matrix to be set up
+#' @rdname setup_count_matrix_codesets
 #' @export
 setGeneric("setup_count_matrix_codesets", function(x, ...) {standardGeneric("setup_count_matrix_codesets")})
 
+#' @rdname setup_count_matrix_codesets
 setMethod("setup_count_matrix_codesets", "loxcode_experiment", function(x){
 
   m=data.frame(code="")
@@ -402,9 +438,14 @@ setMethod("setup_count_matrix_codesets", "loxcode_experiment", function(x){
 })
 
 #' Generate metadata for the loxcode experiment
+#'
+#' @param x loxcode object to be updated
+#' @param ... metadata
+#' @rdname setup_metadata
 #' @export
 setGeneric("setup_metadata", function(x, ...) {standardGeneric("setup_metadata")})
 
+#' @rdname setup_metadata
 setMethod("setup_metadata", "loxcode_experiment", function(x){
 
   for (i in 1:length(x@samples)){
@@ -416,9 +457,14 @@ setMethod("setup_metadata", "loxcode_experiment", function(x){
 })
 
 #' Generate alias for the loxcode experiment samples
+#'
+#' @param x loxcode experiment sample
+#' @param ... value of alias to fill
+#' @rdname fill_alias
 #' @export
 setGeneric("fill_alias", function(x, ...) {sstandardGeneric("fill_alias")})
 
+#' @rdname fill_alias
 setMethod("fill_alias", "loxcode_experiment", function(x){
   alias = data.frame()
   for (i in 1:length(x@samples)){
@@ -439,9 +485,11 @@ setMethod("fill_alias", "loxcode_experiment", function(x){
 #' @param I indices to include
 #' @param n name of the new codeset
 #' @return new loxcode_experiment object with a new codeset
+#' @rdname make_codeset_index
 #' @export
 setGeneric("make_codeset_index", function(x, c, I, n) {standardGeneric("make_codeset_index")})
 
+#' @rdname make_codeset_index
 setMethod("make_codeset_index", "loxcode_experiment", function(x, c, I, n){
   new_experiment <- x
   newset=data.frame()
@@ -458,9 +506,11 @@ setMethod("make_codeset_index", "loxcode_experiment", function(x, c, I, n){
 #' @param x loxcode_experiment object
 #' @param n name of the codeset to be deleted
 #' @return new loxcode_experiment object with a new codeset
+#' @rdname delete_codeset
 #' @export
 setGeneric("delete_codeset", function(x, n) {standardGeneric("delete_codeset")})
 
+#' @rdname delete_codeset
 setMethod("delete_codeset", "loxcode_experiment", function(x, n){
   # always retain all_codes, valid_codes and invalid_codes
   if(n=="all_codes" | n=="valid_codes" | n=="invalid_codes"){
@@ -478,9 +528,11 @@ setMethod("delete_codeset", "loxcode_experiment", function(x, n){
 #' @param x loxcode_experiment object
 #' @param c name of existing count_matrix to be deleted
 #' @return updated loxcode_experiment object
+#' @rdname delete_count_matrix
 #' @export
 setGeneric("delete_count_matrix", function(x, c) {standardGeneric("delete_count_matrix")})
 
+#' @rdname delete_count_matrix
 setMethod("delete_count_matrix", "loxcode_experiment", function(x, c) {
   if (c=="all_samples"){
     return(x)
@@ -498,9 +550,11 @@ setMethod("delete_count_matrix", "loxcode_experiment", function(x, c) {
 #' @param n new sample name
 #' @param o old sample name
 #' @return new loxcode_experiment object with updated sample name
+#' @rdname rename_sample
 #' @export
 setGeneric("rename_sample", function(x, c, n, o) {standardGeneric("rename_sample")})
 
+#' @rdname rename_sample
 setMethod("rename_sample", "loxcode_experiment", function(x, c, n, o) {
   # count matrixes
   temp <- x@count_matrixes[[c]]
@@ -535,10 +589,12 @@ setMethod("rename_sample", "loxcode_experiment", function(x, c, n, o) {
 #' @param s sample name
 #' @param n new alias
 #' @return loxcode_experiment object with changed sample alias
+#' @rdname new_alias
 #' @export
 
 setGeneric("new_alias", function(x, c, s, n) {standardGeneric("new_alias")})
 
+#' @rdname new_alias
 setMethod("new_alias", "loxcode_experiment", function(x, c, s, n) {
   alias = x@alias[[c]]
   index = match(s, alias$sample_name)
@@ -556,9 +612,11 @@ setMethod("new_alias", "loxcode_experiment", function(x, c, s, n) {
 #' @param union boolean, True if barcodes in either should be counted
 #' @param average boolean, True if counts should be averaged instead of summed
 #' @return loxcode_experiment object with new count_matrix
+#' @rdname collapse_old
 #' @export
 setGeneric("collapse_old", function(x, count_matrix, collapse, name, union=TRUE, average=FALSE) {standardGeneric("collapse_old")})
 
+#' @rdname collapse_old
 setMethod("collapse_old", "loxcode_experiment", function(x, count_matrix, collapse, name, union=TRUE, average=FALSE) {
   M = x@count_matrixes[[count_matrix]]
   S = get_collapsed_meta(x, count_matrix)
@@ -633,10 +691,12 @@ setMethod("collapse_old", "loxcode_experiment", function(x, count_matrix, collap
 #' @param x loxcode_experiment object
 #' @param s set of merged samples
 #' @return a data frame of meta data
+#' @rdname get_collapsed_meta2
 #' @export
 
 setGeneric("get_collapsed_meta2", function(x, s) {standardGeneric("get_collapsed_meta2")})
 
+#' @rdname get_collapsed_meta2
 setMethod("get_collapsed_meta2", "loxcode_experiment", function(x, s) {
 
   counts = x@count_matrixes[[s]]
@@ -670,8 +730,7 @@ setMethod("get_collapsed_meta2", "loxcode_experiment", function(x, s) {
   # metadata of non_collapsed samples
   df2 = subset(x@meta, sample_name %in% non_col_names)
 
-  library(plyr)
-  df = rbind.fill(df2, df1)
+  df = plyr::rbind.fill(df2, df1)
   row.names(df) = df$sample_name
   df$sample_name = NULL
 
@@ -687,9 +746,11 @@ setMethod("get_collapsed_meta2", "loxcode_experiment", function(x, s) {
 #' @param m maximum repeats tolerated
 #' @param n new code set name
 #' @return new loxcode_experiment object
+#' @rdname make_filtered_codeset
 #' @export
 setGeneric("make_filtered_codeset", function(x, s, c, t, m, n) {standardGeneric("make_filtered_codeset")})
 
+#' @rdname make_filtered_codeset
 setMethod("make_filtered_codeset", "loxcode_experiment", function(x, s, c, t, m, n) {
   codeset = x@code_sets[[c]]
   YY = filtered_codes_table(x, s, c, t, m)
@@ -703,9 +764,11 @@ setMethod("make_filtered_codeset", "loxcode_experiment", function(x, s, c, t, m,
 #' @param c code set
 #' @param n new code set name
 #' @return new loxcode_experiment object
+#' @rdname rename_codeset
 #' @export
 setGeneric("rename_codeset", function(x, c, n) {standardGeneric("rename_codeset")})
 
+#' @rdname rename_codeset
 setMethod("rename_codeset", "loxcode_experiment", function(x, c, n) {
   if (c %in% c("all_codes", "invalid_codes", "valid_codes")) {
     return(x)
@@ -723,10 +786,12 @@ setMethod("rename_codeset", "loxcode_experiment", function(x, c, n) {
 #' @param s sample set
 #' @param meta columns of meta data on which to collapse
 #' @return loxcode_experiment object with aliases generated
+#' @rdname generate_alias
 #' @export
 
 setGeneric("generate_alias", function(lox, s="all_samples", meta) {standardGeneric("generate_alias")})
 
+#' @rdname generate_alias
 setMethod("generate_alias", "loxcode_experiment", function(lox, s="all_samples", meta) {
   x = lox
   aliases = x@alias[[s]]
@@ -768,10 +833,12 @@ setMethod("generate_alias", "loxcode_experiment", function(lox, s="all_samples",
 #' @param lox2 loxcode_experiment 2
 #' @param name experiment name
 #' @return new merged loxcode_experiment
+#' @rdname merge_experiments
 #' @export
 
 setGeneric("merge_experiments", function(lox1, lox2, name=NULL) {standardGeneric("merge_experiments")})
 
+#' @rdname merge_experiments
 setMethod("merge_experiments", "loxcode_experiment", function(lox1, lox2, name=NULL) {
   new = new("loxcode_experiment")
   duplicates = c()
@@ -809,9 +876,8 @@ setMethod("merge_experiments", "loxcode_experiment", function(lox1, lox2, name=N
 
   names(rename1) <- duplicates
   names(rename2) <- duplicates
-  library(plyr)
-  names(lox1@samples) = revalue(names(lox1@samples), rename1, warn_missing = FALSE)
-  names(lox2@samples) = revalue(names(lox2@samples), rename2, warn_missing = FALSE)
+  names(lox1@samples) = plyr::revalue(names(lox1@samples), rename1, warn_missing = FALSE)
+  names(lox2@samples) = plyr::revalue(names(lox2@samples), rename2, warn_missing = FALSE)
   new@samples = c(lox1@samples, lox2@samples)
 
   for (i in 1:length(new@samples)) {
@@ -819,11 +885,10 @@ setMethod("merge_experiments", "loxcode_experiment", function(lox1, lox2, name=N
   }
 
   # samp_table slot
-  library(plyr)
   lox1@samp_table$experiment = lox1@name
   lox2@samp_table$experiment = lox2@name
-  lox1@samp_table$sample = revalue(lox1@samp_table$sample, rename1, warn_missing = FALSE)
-  lox2@samp_table$sample = revalue(lox2@samp_table$sample, rename2, warn_missing = FALSE)
+  lox1@samp_table$sample = plyr:revalue(lox1@samp_table$sample, rename1, warn_missing = FALSE)
+  lox2@samp_table$sample = plyr:revalue(lox2@samp_table$sample, rename2, warn_missing = FALSE)
   new@samp_table = plyr::rbind.fill(lox1@samp_table, lox2@samp_table)
 
   # count_matrixes slot
@@ -930,7 +995,6 @@ setMethod("merge_experiments", "loxcode_experiment", function(lox1, lox2, name=N
 #' @param experiments vector of loxcode_experiment objects
 #' @param name name of new loxcode_experiment object
 #' @return loxcode_experiment object
-#'
 #' @export
 
 merge_experiments2 <- function(experiments, name) {
@@ -953,10 +1017,12 @@ merge_experiments2 <- function(experiments, name) {
 #' @param union boolean: use union or intersection of samples
 #' @param average boolean: use average of sum of counts
 #' @return new loxcode_experiment object
+#' @rdname collapse_selection_old
 #' @export
 
 setGeneric("collapse_selection_old", function(lox, s="all_samples", c="all_codes", i, n=NULL, union=TRUE, average=FALSE) {standardGeneric("collapse_selection_old")})
 
+#' @rdname collapse_selection_old
 setMethod("collapse_selection_old", "loxcode_experiment", function(lox, s="all_samples", c="all_codes", i, n=NULL, union=TRUE, average=FALSE) {
   counts = lox@count_matrixes[[s]]
   counts = subset(counts, row.names(counts) %in% lox@code_sets[[c]]$code)

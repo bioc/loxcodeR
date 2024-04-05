@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{get_collapsed_meta2}
 \alias{get_collapsed_meta2}
+\alias{get_collapsed_meta2,loxcode_experiment-method}
 \title{Get metadata of a merged experiment (old version)}
 \usage{
 get_collapsed_meta2(x, s)
+
+\S4method{get_collapsed_meta2}{loxcode_experiment}(x, s)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{exp_table}
 \alias{exp_table}
+\alias{exp_table,list-method}
 \title{Experiments Table}
 \usage{
 exp_table(exp)
+
+\S4method{exp_table}{list}(exp)
 }
 \arguments{
 \item{exp}{list of loxcode experiment objects}

@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{get_samplename}
 \alias{get_samplename}
+\alias{get_samplename,loxcode_experiment-method}
 \title{Get sample name from alias}
 \usage{
 get_samplename(lox, set, name)
+
+\S4method{get_samplename}{loxcode_experiment}(lox, set, name)
 }
 \arguments{
 \item{lox}{loxcode_experiment object}

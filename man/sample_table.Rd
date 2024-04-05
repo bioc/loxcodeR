@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{sample_table}
 \alias{sample_table}
+\alias{sample_table,loxcode_experiment-method}
 \title{Sample Table}
 \usage{
 sample_table(x, c)
+
+\S4method{sample_table}{loxcode_experiment}(x, c)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

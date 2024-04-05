@@ -4,6 +4,7 @@
 
 # Import Libraries
 library(shiny)
+library(shinyDirectoryInput)
 library(plotly)
 library(DT)
 library(loxcoder)
@@ -276,7 +277,8 @@ body <- dashboardBody(
         collapsible = TRUE,
         textInput("name_exp", "Name of the loxcode experiment:", placeholder="Experiment Name"),
         fileInput("samplesheet", "Choose an xlsx file of samples", multiple=FALSE, accept=c("xlsx")),
-        textInput("dir_input", "Choose a fastq directory"),
+        directoryInput('directory', label = 'Choose a fastq directory', value = '~'),
+        #textInput("dir_input", "Choose a fastq directory"),
         actionButton("submit_fastq", "Upload")
       ),
       box(
@@ -540,10 +542,10 @@ body <- dashboardBody(
               checkboxInput("fill_complexity", "Fill"),
               actionButton("includeComplexity", "Add to report")),
 
-            tabPanel("Ratio", plotlyOutput("ratio_plot",height="7000",inline = FALSE),
+            tabPanel("Ratio", plotlyOutput("ratio_plot",height="1000",inline = FALSE),
                      actionButton("includeRatio", "Add to report")),
 
-            tabPanel("Both", plotlyOutput("both_plot",height="7000",inline = FALSE),
+            tabPanel("Both", plotlyOutput("both_plot",height="1000",inline = FALSE),
                      actionButton("includeBoth", "Add to report"))
 
           )

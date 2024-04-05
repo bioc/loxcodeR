@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{rename_codeset}
 \alias{rename_codeset}
+\alias{rename_codeset,loxcode_experiment-method}
 \title{rename code set}
 \usage{
 rename_codeset(x, c, n)
+
+\S4method{rename_codeset}{loxcode_experiment}(x, c, n)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

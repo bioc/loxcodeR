@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{filtered_codes_table}
 \alias{filtered_codes_table}
+\alias{filtered_codes_table,loxcode_experiment-method}
 \title{Filtered Code freq table}
 \usage{
 filtered_codes_table(x, s = "all_samples", c = "all_codes", t = 0.05, m = 2)
+
+\S4method{filtered_codes_table}{loxcode_experiment}(x, s = "all_samples", c = "all_codes", t = 0.05, m = 2)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

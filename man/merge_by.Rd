@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{merge_by}
 \alias{merge_by}
+\alias{merge_by,loxcode_experiment-method}
 \title{Merge samples by label}
 \usage{
 merge_by(x, by)
+
+\S4method{merge_by}{loxcode_experiment}(x, by)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

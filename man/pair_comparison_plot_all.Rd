@@ -2,9 +2,17 @@
 % Please edit documentation in R/plots.R
 \name{pair_comparison_plot_all}
 \alias{pair_comparison_plot_all}
+\alias{pair_comparison_plot_all,loxcode_experiment-method}
 \title{Pair Comparison Plot all}
 \usage{
 pair_comparison_plot_all(
+  lox,
+  min_reads = 10,
+  matrix = "all_samples",
+  codeset = "all_codes"
+)
+
+\S4method{pair_comparison_plot_all}{loxcode_experiment}(
   lox,
   min_reads = 10,
   matrix = "all_samples",

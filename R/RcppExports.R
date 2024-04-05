@@ -2,7 +2,7 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #' Return the minimum dist_orig obtained by flipping a single element
-#' We assume that the given cassette is valid 
+#' We assume that the given cassette is valid
 #'
 NULL
 
@@ -26,12 +26,16 @@ is_valid <- function(c) {
 }
 
 #' Impute missing element in a 13-element cassette
+#' @param c2 string of number of lox present
 #' @export
 impute_13_impl <- function(c2) {
     .Call(`_loxcoder_impute_13_impl`, c2)
 }
 
 #' Impute missing elements
+#'
+#' @param c list of loxcode numbers present in each cassete
+#' @param sizes sizes of loxcode
 #' @export
 impute_13 <- function(c, sizes) {
     .Call(`_loxcoder_impute_13`, c, sizes)
@@ -47,20 +51,6 @@ NULL
 
 decode <- function(r, name, meta, min_r1_len, min_r2_len, full, sat) {
     .Call(`_loxcoder_decode`, r, name, meta, min_r1_len, min_r2_len, full, sat)
-}
-
-#' Decode FASTQ
-#'
-#' Recover loxcodes from raw Illumina FASTQ output
-#' @param r Paths of R1, 2 respectively
-#' @param meta User-defined data-frame for sample metadata
-#' @param min_read_length min read length for R1, R2 filter respectively
-#' @param full whether to supply full output (including read IDs, etc)
-#' @param saturation whether to keep saturation information
-#' @return S4 loxcode_sample object with decoded results
-#' @export
-decode_SP500 <- function(files, name, meta, min_r1_len, min_r2_len, full, sat) {
-    .Call(`_loxcoder_decode_SP500`, files, name, meta, min_r1_len, min_r2_len, full, sat)
 }
 
 load_origin_files_wrapper <- function(paths) {
@@ -90,6 +80,8 @@ pack <- function(c, v) {
 
 #' Assumes that input cassette is valid already!
 #'
+#' @param c input cassette
+#' @param size size of single loxcode
 #' @export
 retrieve_dist_origin_single <- function(c, size) {
     .Call(`_loxcoder_retrieve_dist_origin_single`, c, size)

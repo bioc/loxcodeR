@@ -6,6 +6,12 @@
 \usage{
 \S4method{validate}{loxcode_sample}(x)
 }
+\arguments{
+\item{x}{loxcode cassette object}
+}
+\value{
+Cassette with validation column
+}
 \description{
 Add cassette validation column to decoded cassette data
 }

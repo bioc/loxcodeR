@@ -2,9 +2,17 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{samptable<-}
 \alias{samptable<-}
+\alias{samptable<-,loxcode_experiment-method}
 \title{Set sample table}
 \usage{
 samptable(x) <- value
+
+\S4method{samptable}{loxcode_experiment}(x) <- value
+}
+\arguments{
+\item{x}{lox code object}
+
+\item{value}{value of sample table}
 }
 \description{
 Set sample table

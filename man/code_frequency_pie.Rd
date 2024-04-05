@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{code_frequency_pie}
 \alias{code_frequency_pie}
+\alias{code_frequency_pie,loxcode_experiment-method}
 \title{Code frequency pie}
 \usage{
 code_frequency_pie(x, s = "all_samples", c = "all_codes")
+
+\S4method{code_frequency_pie}{loxcode_experiment}(x, s = "all_samples", c = "all_codes")
 }
 \arguments{
 \item{x}{loxcode_experiment object}

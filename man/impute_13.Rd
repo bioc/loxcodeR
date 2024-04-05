@@ -6,6 +6,11 @@
 \usage{
 impute_13(c, sizes)
 }
+\arguments{
+\item{c}{list of loxcode numbers present in each cassete}
+
+\item{sizes}{sizes of loxcode}
+}
 \description{
 Impute missing elements
 }

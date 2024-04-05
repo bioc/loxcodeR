@@ -1,3 +1,4 @@
+library(plyr)
 #' Summary table (v3)
 #'
 #' @param lox loxcode_experiment object
@@ -39,7 +40,7 @@ setMethod("summary_table", "loxcode_experiment", function(lox, sample_set="all_s
 #' helper function complete the aliases for the specified sample set
 #'
 #' @param lox loxcode_experiment object
-#' @param count_matrix
+#' @param count_matrix count matrix of loxcode object
 
 fillSetAliases <- function(lox, count_matrix) {
 
@@ -125,7 +126,7 @@ setMethod("get_collapsed_meta", "loxcode_experiment", function(x, s) {
   # metadata of non_collapsed samples
   df2 = subset(x@meta, sample_name %in% non_col_names)
 
-  library(plyr)
+
   df = rbind.fill(df2, df1)
   df = df[!is.na(df$sample_name), ]
   row.names(df) = df$sample_name
@@ -164,7 +165,6 @@ setMethod("collapse_selection", "loxcode_experiment", function(lox, count_matrix
   lox@meta = rbind.fill(lox@meta, metadata)
 
   # add to current count_matrix
-  library(matrixStats)
   if (length(index) == 1) {
     counts[[name]] = counts[[samples_list]]
   } else if (union & !average) {
@@ -230,7 +230,6 @@ setMethod("collapse", "loxcode_experiment", function(lox, count_matrix, collapse
   lox@samples = c(lox@samples, new_samples)
 
   # modify count_matrixes
-  library(matrixStats)
   codes = lox@code_sets[["all_codes"]]$code
   new_count_matrix = data.frame(matrix(nrow = length(codes), ncol = length(new_samples)))
   row.names(new_count_matrix) = codes

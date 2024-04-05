@@ -446,9 +446,30 @@ function(input, output, session) {
     }
   )
 
+
+  observeEvent(
+    ignoreNULL = TRUE,
+    eventExpr = {
+      input$directory
+    },
+    handlerExpr = {
+      if (input$directory > 0) {
+        # condition prevents handler execution on initial app launch
+
+        # launch the directory selection dialog with initial path read from the widget
+        path = choose.dir(default = readDirectoryInput(session, 'directory'))
+
+        # update the widget value
+        updateDirectoryInput(session, 'directory', value = path)
+      }
+    }
+  )
   observeEvent(
     input$submit_fastq, {
-      files = list.files(input$dir_input)
+      path = readDirectoryInput(session, 'directory')
+      path=paste(path,'/',sep = '')
+      #print(path)
+      files = list.files(path)
       print("10")
       if (is.null(input$samplesheet)){
         showNotification("Please specify a file path.")
@@ -462,7 +483,7 @@ function(input, output, session) {
             newlox <- load_from_xlsx(
               name = input$name_exp,
               s=input$samplesheet$datapath,
-              dir=input$dir_input,
+              dir=path,
               load = TRUE,
               full = FALSE)
             print(newlox)
@@ -1343,6 +1364,10 @@ function(input, output, session) {
     )}
 
   # Ratio plot
+  output$var1height = reactive({
+    a=input$matrix_stats
+    length(react$curr@count_matrixes$a)*250
+  })
   output$ratio_plot = renderPlotly({
     #graph <-
     readstats_plot_old(react$curr, count_matrix=input$matrix_stats,
@@ -2467,17 +2492,27 @@ function(input, output, session) {
         rmd_content=paste(rmd_content,rmd_title,sep = "\n")
         rmd_content=paste(rmd_content,"```{r results='asis'}
 plt <- htmltools::tagList()
+j=1
 if (length(params$types)>5){
 for (i in 8:length(params$types)){
   if(length(list1)>0){
   if (params$inputs[[i]][[2]]==list1[1]){
 if(params$types[[i]]=='ratio_plot' || params$types[[i]]=='both_plot'){
 g <- do.call(params$functions[[i]], params$inputs[[i]])
-plt[[i]]=ggplotly(g,height = 6000) }else if(params$types[[i]]=='sample_complexity'){
+plt[[j]]=ggplotly(g,height = 6000)
+j=j+1
+plt[[j]]=params$annotations[[i]]
+j=j+1 }else if(params$types[[i]]=='sample_complexity'){
   g <- do.call(params$functions[[i]], params$inputs[[i]])
-plt[[i]]=ggplotly(g) }else{
+plt[[j]]=ggplotly(g)
+j=j+1
+plt[[j]]=params$annotations[[i]]
+j=j+1 }else{
  g <- do.call(params$functions[[i]], params$inputs[[i]])
-plt[[i]]=ggplotly(g)
+plt[[j]]=ggplotly(g)
+j=j+1
+plt[[j]]=params$annotations[[i]]
+j=j+1
 #params$inputs[[i]]
 
 cat('\n')

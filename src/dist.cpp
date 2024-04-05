@@ -234,6 +234,8 @@ std::vector<long long> pack(SEXP c, std::vector<bool> v){
 
 //' Assumes that input cassette is valid already!
 //'
+//' @param c input cassette
+//' @param size size of single loxcode
 //' @export
 // [[Rcpp::export]]
 int retrieve_dist_origin_single(long long c, int size){

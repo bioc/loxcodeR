@@ -6,6 +6,9 @@
 \usage{
 impute_13_impl(c2)
 }
+\arguments{
+\item{c2}{string of number of lox present}
+}
 \description{
 Impute missing element in a 13-element cassette
 }

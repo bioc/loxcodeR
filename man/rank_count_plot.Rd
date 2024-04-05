@@ -2,9 +2,12 @@
 % Please edit documentation in R/plots.R
 \name{rank_count_plot}
 \alias{rank_count_plot}
+\alias{rank_count_plot,loxcode_sample-method}
 \title{Rank Count plot}
 \usage{
 rank_count_plot(x, size, ymax, dmax)
+
+\S4method{rank_count_plot}{loxcode_sample}(x, size, ymax, dmax)
 }
 \arguments{
 \item{x}{loxcode sample object}

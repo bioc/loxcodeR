@@ -2,9 +2,12 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{merge_experiments}
 \alias{merge_experiments}
+\alias{merge_experiments,loxcode_experiment-method}
 \title{Merge two experiments}
 \usage{
 merge_experiments(lox1, lox2, name = NULL)
+
+\S4method{merge_experiments}{loxcode_experiment}(lox1, lox2, name = NULL)
 }
 \arguments{
 \item{lox1}{loxcode_experiment 1}

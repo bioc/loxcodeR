@@ -2,9 +2,15 @@
 % Please edit documentation in R/loxcode_experiment.R
 \name{samptable}
 \alias{samptable}
+\alias{samptable,loxcode_experiment-method}
 \title{Get sample table}
 \usage{
 samptable(x)
+
+\S4method{samptable}{loxcode_experiment}(x)
+}
+\arguments{
+\item{x}{loxcode object}
 }
 \description{
 Get sample table

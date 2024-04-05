@@ -2,9 +2,15 @@
 % Please edit documentation in R/loxcode_sample.R
 \name{get_origin_dist}
 \alias{get_origin_dist}
+\alias{get_origin_dist,loxcode_sample-method}
 \title{Fetch distances from origin (dist_orig)}
 \usage{
 get_origin_dist(x)
+
+\S4method{get_origin_dist}{loxcode_sample}(x)
+}
+\arguments{
+\item{x}{loxcode object}
 }
 \description{
 Appends a column of dist_orig values for valid cassettes

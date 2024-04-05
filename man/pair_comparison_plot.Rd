@@ -2,9 +2,21 @@
 % Please edit documentation in R/plots.R
 \name{pair_comparison_plot}
 \alias{pair_comparison_plot}
+\alias{pair_comparison_plot,loxcode_experiment-method}
 \title{Pair Comparison Scatter Plot}
 \usage{
 pair_comparison_plot(lox, set, codeset = "all_codes", x1, x2, range, ...)
+
+\S4method{pair_comparison_plot}{loxcode_experiment}(
+  lox,
+  set,
+  codeset = "all_codes",
+  x1,
+  x2,
+  range,
+  plot = "size",
+  labels = "alias"
+)
 }
 \arguments{
 \item{lox}{loxcode experiment object of current experiment}
@@ -18,6 +30,12 @@ pair_comparison_plot(lox, set, codeset = "all_codes", x1, x2, range, ...)
 \item{x2}{loxcode_sample object for sample 2}
 
 \item{range}{c(lower, upper), specifying the range of dist_orig values to consider. Both bounds are inclusive.}
+
+\item{...}{Used to pass any extra values}
+
+\item{plot}{type of plot}
+
+\item{labels}{What to use in labels}
 }
 \value{
 A plot of 2 loxcode samples being compared

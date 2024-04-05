@@ -191,14 +191,24 @@ plotTitle <- function(ptype){
 ```{r results='asis'}
 plt <- htmltools::tagList()
 #params
+j=1
 for (i in c(1,2,5,6,7)){
 if(params$types[[i]]=='ratio_plot' || params$types[[i]]=='both_plot'){
 g <- do.call(params$functions[[i]], params$inputs[[i]])
-plt[[i]]=ggplotly(g,height = 6000) }else if(params$types[[i]]=='sample_complexity'){
+plt[[j]]=ggplotly(g,height = 6000) 
+j=j+1
+plt[[j]]=params$annotations[[i]]
+j=j+1 }else if(params$types[[i]]=='sample_complexity'){
   g <- do.call(params$functions[[i]], params$inputs[[i]])
-plt[[i]]=ggplotly(g) }else{
+plt[[j]]=ggplotly(g) 
+j=j+1
+plt[[j]]=params$annotations[[i]]
+j=j+1 }else{
  g <- do.call(params$functions[[i]], params$inputs[[i]])
-plt[[i]]=ggplotly(g) 
+plt[[j]]=ggplotly(g) 
+j=j+1
+plt[[j]]=params$annotations[[i]]
+j=j+1
 #params$inputs[[i]]
 cat('\n')
 }
@@ -214,6 +224,7 @@ plt
 ```{r results='asis',autodep=TRUE}
 plt <- htmltools::tagList()
 list1=c()
+j=1
 #params
 if (length(params$types)>5){
 for (i in 8:length(params$types)){
@@ -227,11 +238,20 @@ for (i in 8:length(params$types)){
   if (params$inputs[[i]][[2]]==list1[1]){
 if(params$types[[i]]=='ratio_plot' || params$types[[i]]=='both_plot'){
 g <- do.call(params$functions[[i]], params$inputs[[i]])
-plt[[i]]=ggplotly(g,height = 6000) }else if(params$types[[i]]=='sample_complexity'){
+plt[[j]]=ggplotly(g,height = 6000) 
+j=j+1
+plt[[j]]=params$annotations[[i]]
+j=j+1 }else if(params$types[[i]]=='sample_complexity'){
   g <- do.call(params$functions[[i]], params$inputs[[i]])
-plt[[i]]=ggplotly(g) }else{
+plt[[j]]=ggplotly(g)
+j=j+1
+plt[[j]]=params$annotations[[i]]
+j=j+1 }else{
  g <- do.call(params$functions[[i]], params$inputs[[i]])
-plt[[i]]=ggplotly(g) 
+plt[[j]]=ggplotly(g) 
+j=j+1
+plt[[j]]=params$annotations[[i]]
+j=j+1
 #params$inputs[[i]]
 
 cat('\n')
@@ -249,7 +269,7 @@ plt
 ```
 
 
-```{r child = '/home/arnav/Desktop/newtest/LoxCodeR2022/LoxcodeR_app/chapter1.Rmd'}
+```{r child = '/home/arnav/Desktop/LoxCodeR2024/LoxcodeR_app/chapter1.Rmd'}
 ```
 
 
@@ -301,12 +321,12 @@ datatable(params$inputs[[1]][[1]]@code_sets[["all_codes"]], options = list(pageL
 ```
 
 
-```{r child = '/home/arnav/Desktop/newtest/LoxCodeR2022/LoxcodeR_app/chapter4.Rmd'}
+```{r child = '/home/arnav/Desktop/LoxCodeR2024/LoxcodeR_app/chapter4.Rmd'}
 ```
 
 
 
-```{r child = '/home/arnav/Desktop/newtest/LoxCodeR2022/LoxcodeR_app/chapter3.Rmd'}
+```{r child = '/home/arnav/Desktop/LoxCodeR2024/LoxcodeR_app/chapter3.Rmd'}
 ```
 
 
@@ -314,5 +334,5 @@ datatable(params$inputs[[1]][[1]]@code_sets[["all_codes"]], options = list(pageL
 Details
 =====================================
 
-```{r child = '/home/arnav/Desktop/newtest/LoxCodeR2022/LoxcodeR_app/chapter5.Rmd'}
+```{r child = '/home/arnav/Desktop/LoxCodeR2024/LoxcodeR_app/chapter5.Rmd'}
 ```

@@ -35,6 +35,7 @@ load_prob_files <- function(path){
 #'
 #' @slot data contains raw output of decode() as a data.frame
 #' @slot read_ids list of FASTQ
+#' @slot saturation list of colected files
 #' @export
 decode_output <- setClass (
   "decode_output",
@@ -65,6 +66,10 @@ remove_existing <- function(x, n){
 #'
 #' @slot decode A data.frame to contain raw decode data from loxcoder::decode()
 #' @slot meta A data.frame for user-defined sample metadata
+#' @slot name Contains name of the experiment
+#' @slot files A vector containing file names of loxcoder experiment
+#' @slot decode_stats A list containing statistics of decoded data
+#' @slot consensus_filtered_data A vector containing filtered data
 #' @export
 loxcode_sample <- setClass (
   "loxcode_sample",
@@ -100,19 +105,23 @@ setGeneric("name", function(x){standardGeneric("name")})
 
 setMethod("name", "loxcode_sample", function(x) x@name)
 
-#' Set loxcode sample name (description)
-#'
-#' @export
-setGeneric("name<-", function(x, v){standardGeneric("name<-")})
-
-setMethod("name<-", "loxcode_sample", function(x, v){
-  x@name <- v
-})
+# #' Set loxcode sample name (description)
+# #'
+# #' @param x sample to be named
+# #' @param v name of sample
+# #' @export
+# setGeneric("name<-", function(x, v){standardGeneric("name<-")})
+#
+# setMethod("name<-", "loxcode_sample", function(x, v){
+#   x@name <- v
+# })
 
 setGeneric("validate", function(x){ standardGeneric("validate") })
 
 #' Add cassette validation column to decoded cassette data
 #'
+#' @param x loxcode cassette object
+#' @return Cassette with validation column
 #' @export
 setMethod("validate", "loxcode_sample", function(x){
   x@decode@data <- remove_existing(x@decode@data, 'is_valid')
@@ -126,6 +135,7 @@ setGeneric("impute", function(x) {standardGeneric("impute")})
 #'
 #' For 13-element cassettes that are missing a single element, the
 #' missing element is imputed to minimise the resulting dist_orig.
+#' @param x loxcode object
 #' @export
 setMethod("impute", "loxcode_sample", function(x){
   x@decode@data$code <- impute_13(x@decode@data$code, x@decode@data$size)
@@ -135,9 +145,12 @@ setMethod("impute", "loxcode_sample", function(x){
 #' Get cassette IDs
 #'
 #' Appends a column of packed cassette IDs, or -1 if it cannot be packed
+#' @param x loxcode data object
+#' @rdname makeid
 #' @export
 setGeneric("makeid", function(x){ standardGeneric("makeid") });
 
+#' @rdname makeid
 setMethod("makeid", "loxcode_sample", function(x){
   x@decode@data <- remove_existing(x@decode@data, 'id')
   x@decode@data <- cbind(x@decode@data, data.frame(id = pack(data(x)$code, data(x)$is_valid)))
@@ -147,9 +160,12 @@ setMethod("makeid", "loxcode_sample", function(x){
 #' Fetch distances from origin (dist_orig)
 #'
 #' Appends a column of dist_orig values for valid cassettes
+#' @param x loxcode object
+#' @rdname get_origin_dist
 #' @export
 setGeneric("get_origin_dist", function(x) { standardGeneric("get_origin_dist") })
 
+#' @rdname get_origin_dist
 setMethod("get_origin_dist", "loxcode_sample", function(x){
   print("G")
   x@decode@data <- remove_existing(x@decode@data, 'dist_orig')
@@ -163,9 +179,13 @@ setMethod("get_origin_dist", "loxcode_sample", function(x){
 #' Get recombination distance distribution
 #'
 #' Returns the proportion of valid cassettes for each valid recombination distance (dist_orig)
+#' @param x Loxcode object
+#' @param size size of the loxcode
+#' @rdname get_rec_prob
 #' @export
 setGeneric("get_rec_prob", function(x, size) {standardGeneric("get_rec_prob")})
 
+#' @rdname get_rec_prob
 setMethod("get_rec_prob", "loxcode_sample", function(x, size){
   r <- data.frame(table(valid(x)$dist_orig))
   names(r) <- c('rec', 'prob')
@@ -182,9 +202,11 @@ setMethod("get_rec_prob", "loxcode_sample", function(x, size){
 #' Results are appended to readout data as a 'prob' column.
 #'
 #' @param x loxcode_sample object
+#' @rdname retrieve_prob_ensemble
 #' @export
 setGeneric("retrieve_prob_ensemble", function(x) {standardGeneric("retrieve_prob_ensemble")})
 
+#' @rdname retrieve_prob_ensemble
 setMethod("retrieve_prob_ensemble", "loxcode_sample", function(x){
   sizes <- unique(loxcoder::valid(x)$size)
   x@decode@data$prob <- NA
@@ -204,9 +226,11 @@ setMethod("retrieve_prob_ensemble", "loxcode_sample", function(x){
 #' Access decoded cassette data, valid cassettes only
 #'
 #' @param x loxcode_sample object
+#' @rdname valid
 #' @export
 setGeneric("valid", function(x){ standardGeneric("valid") })
 
+#' @rdname valid
 setMethod("valid", "loxcode_sample", function(x){
   v=data(x);
   return(v[v$is_valid == TRUE, ])
@@ -215,8 +239,13 @@ setMethod("valid", "loxcode_sample", function(x){
 #' Access decoded cassette data
 #'
 #' @param x loxcode_sample object
+#' @rdname data
 #' @export
 setGeneric("data", function(x){ standardGeneric("data") })
 
-setMethod("data", "loxcode_sample", function(x){ return(x@decode@data) })
+#' @rdname data
+setMethod("data", "loxcode_sample", function(x){
+  x@decode@data
+})
+
 

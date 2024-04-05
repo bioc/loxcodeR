@@ -14,5 +14,7 @@ S4 class to contain output of decode()
 \item{\code{data}}{contains raw output of decode() as a data.frame}
 
 \item{\code{read_ids}}{list of FASTQ}
+
+\item{\code{saturation}}{list of colected files}
 }}
 
