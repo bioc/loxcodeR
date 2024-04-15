@@ -4,16 +4,16 @@
 \alias{run_markov}
 \title{Calculate generation probabilities using Markov chain formulation}
 \usage{
-run_markov(n, T, start_idx, start_id)
+run_markov(n, To, start_idx, start_id)
 }
 \arguments{
 \item{n}{number of steps to generate}
 
-\item{T}{transition probabilities specified as interaction probabilities}
-
 \item{start_idx}{size_idx from which to start}
 
 \item{start_id}{id of cassette to initialise markov chain from (0 for 13-element)}
+
+\item{T}{transition probabilities specified as interaction probabilities}
 }
 \value{
 list of n+1 items, giving the distribution state at step 0, 1, ..., n. (0 for unrecombined 13-elt cassette)

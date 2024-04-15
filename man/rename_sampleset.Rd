@@ -2,9 +2,12 @@
 % Please edit documentation in R/sample_sets.R
 \name{rename_sampleset}
 \alias{rename_sampleset}
+\alias{rename_sampleset,loxcode_experiment-method}
 \title{rename sample set}
 \usage{
 rename_sampleset(x, s, n)
+
+\S4method{rename_sampleset}{loxcode_experiment}(x, s, n)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

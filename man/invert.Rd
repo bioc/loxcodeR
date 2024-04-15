@@ -2,9 +2,12 @@
 % Please edit documentation in R/simulation.R
 \name{invert}
 \alias{invert}
+\alias{invert,lox_casette-method}
 \title{Perform an inversion on the sequence}
 \usage{
 invert(lox, a, b)
+
+\S4method{invert}{lox_casette}(lox, a, b)
 }
 \arguments{
 \item{lox}{vector of lox sites}

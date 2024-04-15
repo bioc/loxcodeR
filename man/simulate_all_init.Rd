@@ -2,9 +2,12 @@
 % Please edit documentation in R/simulation.R
 \name{simulate_all_init}
 \alias{simulate_all_init}
+\alias{simulate_all_init,lox_casette-method}
 \title{Generate all recombination events}
 \usage{
 simulate_all_init(lox)
+
+\S4method{simulate_all_init}{lox_casette}(lox)
 }
 \arguments{
 \item{lox}{lox_casette object}

@@ -129,7 +129,7 @@ double tr(Rcpp::List& T, int size_idx, int m, int n){
 //' @return list of n+1 items, giving the distribution state at step 0, 1, ..., n. (0 for unrecombined 13-elt cassette)
 //' @export
 // [[Rcpp::export]]
-Rcpp::List run_markov(int n, Rcpp::List T, int start_idx, long long start_id){
+Rcpp::List run_markov(int n, Rcpp::List To, int start_idx, long long start_id){
   // sizes 13, 9, 7, 5, 3, 1
   // std::map of [cassette id:prob]
   // outer std::vector corresponds to step
@@ -158,7 +158,7 @@ Rcpp::List run_markov(int n, Rcpp::List T, int start_idx, long long start_id){
           }else{
             new_cassette = pack(o_rec[j], e_rec[j], s_rec[j], rec_size_idx);
           }
-          p[i+1][rec_size_idx][new_cassette] += it->second*tr(T, size_idx, pos_rec[size_idx][j][0], pos_rec[size_idx][j][1]);
+          p[i+1][rec_size_idx][new_cassette] += it->second*tr(To, size_idx, pos_rec[size_idx][j][0], pos_rec[size_idx][j][1]);
         }
       }
     }

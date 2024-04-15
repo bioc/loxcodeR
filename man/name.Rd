@@ -2,11 +2,14 @@
 % Please edit documentation in R/loxcode_experiment.R, R/loxcode_sample.R
 \name{name}
 \alias{name}
+\alias{name,loxcode_sample-method}
 \title{Fetch experiment name}
 \usage{
 name(x)
 
 name(x)
+
+\S4method{name}{loxcode_sample}(x)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

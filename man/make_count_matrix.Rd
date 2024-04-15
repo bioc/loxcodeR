@@ -2,9 +2,12 @@
 % Please edit documentation in R/sample_sets.R
 \name{make_count_matrix}
 \alias{make_count_matrix}
+\alias{make_count_matrix,loxcode_experiment-method}
 \title{Creates a new count_matrix with dataframe of samples}
 \usage{
 make_count_matrix(lox, count_matrix = "all_samples", indices, name = "test")
+
+\S4method{make_count_matrix}{loxcode_experiment}(lox, count_matrix = "all_samples", indices, name = "test")
 }
 \arguments{
 \item{lox}{loxcode_experiment object}

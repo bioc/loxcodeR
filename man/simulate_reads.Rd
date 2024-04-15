@@ -2,9 +2,12 @@
 % Please edit documentation in R/simulation.R
 \name{simulate_reads}
 \alias{simulate_reads}
+\alias{simulate_reads,lox_casette-method}
 \title{Simulate recombination of multiple casettes}
 \usage{
 simulate_reads(lox, c, n)
+
+\S4method{simulate_reads}{lox_casette}(lox, c, n)
 }
 \arguments{
 \item{lox}{original casette}

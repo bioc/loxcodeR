@@ -5,14 +5,12 @@
 \alias{setup_metadata,loxcode_experiment-method}
 \title{Generate metadata for the loxcode experiment}
 \usage{
-setup_metadata(x, ...)
+setup_metadata(x)
 
 \S4method{setup_metadata}{loxcode_experiment}(x)
 }
 \arguments{
 \item{x}{loxcode object to be updated}
-
-\item{...}{metadata}
 }
 \description{
 Generate metadata for the loxcode experiment

@@ -158,6 +158,7 @@ void load_pair_files_wrapper(std::vector<std::string> paths){ distmaps::load_pai
 // [[Rcpp::export]]
 void load_prob_files_wrapper(std::vector<std::vector<std::string> > paths){ distmaps::load_prob_files(paths); }
 
+
 // [[Rcpp::export]]
 void wrapper_fill_tables(){
   // wrapper
@@ -245,6 +246,10 @@ int retrieve_dist_origin_single(long long c, int size){
   return (int)distmaps::read_origin(c, get_size_idx(size))-1;
 }
 
+//' Assumes that input cassette is valid already!
+//'
+//' @param c input cassette
+//' @param sizes sizes of all loxcode
 //' @export
 // [[Rcpp::export]]
 std::vector<int> retrieve_dist_origin(std::vector<long long> c, std::vector<int> sizes){
@@ -265,6 +270,12 @@ std::vector<int> retrieve_dist_origin(std::vector<long long> c, std::vector<int>
   return out;
 }
 
+
+//' Assumes that input cassette is valid already!
+//'
+//' @param c input cassette
+//' @param sizes sizes of all loxcode
+//' @param nrec position in cassette
 //' @export
 // [[Rcpp::export]]
 std::vector<float> retrieve_prob(std::vector<long long> c, std::vector<int> sizes, std::vector<int> nrec){
@@ -364,6 +375,10 @@ std::vector<int> transform_13_9_pair(std::pair<std::vector<int>, std::vector<int
   return out;
 }
 
+//' Assumes that input cassette is valid already!
+//'
+//' @param c1 input cassette 1
+//' @param c2 input cassette 2
 //' @export
 // [[Rcpp::export]]
 Rcpp::NumericMatrix retrieve_dist_pair(std::vector<std::vector<int> > c1, std::vector<std::vector<int> > c2){

@@ -2,9 +2,12 @@
 % Please edit documentation in R/simulation.R
 \name{excise}
 \alias{excise}
+\alias{excise,lox_casette-method}
 \title{Perform an excision on the sequence}
 \usage{
 excise(lox, a, b)
+
+\S4method{excise}{lox_casette}(lox, a, b)
 }
 \arguments{
 \item{lox}{lox_casette object}

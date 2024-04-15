@@ -2,9 +2,20 @@
 % Please edit documentation in R/sample_sets.R
 \name{collapse_selection}
 \alias{collapse_selection}
+\alias{collapse_selection,loxcode_experiment-method}
 \title{Collapse selected samples (v2)}
 \usage{
 collapse_selection(
+  lox,
+  count_matrix = "all_samples",
+  code_set = "all_codes",
+  index,
+  name = NULL,
+  union = TRUE,
+  average = FALSE
+)
+
+\S4method{collapse_selection}{loxcode_experiment}(
   lox,
   count_matrix = "all_samples",
   code_set = "all_codes",

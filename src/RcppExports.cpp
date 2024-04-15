@@ -186,16 +186,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // run_markov
-Rcpp::List run_markov(int n, Rcpp::List T, int start_idx, long long start_id);
-RcppExport SEXP _loxcoder_run_markov(SEXP nSEXP, SEXP TSEXP, SEXP start_idxSEXP, SEXP start_idSEXP) {
+Rcpp::List run_markov(int n, Rcpp::List To, int start_idx, long long start_id);
+RcppExport SEXP _loxcoder_run_markov(SEXP nSEXP, SEXP ToSEXP, SEXP start_idxSEXP, SEXP start_idSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type T(TSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type To(ToSEXP);
     Rcpp::traits::input_parameter< int >::type start_idx(start_idxSEXP);
     Rcpp::traits::input_parameter< long long >::type start_id(start_idSEXP);
-    rcpp_result_gen = Rcpp::wrap(run_markov(n, T, start_idx, start_id));
+    rcpp_result_gen = Rcpp::wrap(run_markov(n, To, start_idx, start_id));
     return rcpp_result_gen;
 END_RCPP
 }

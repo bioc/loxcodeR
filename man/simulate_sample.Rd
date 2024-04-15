@@ -2,9 +2,12 @@
 % Please edit documentation in R/simulation.R
 \name{simulate_sample}
 \alias{simulate_sample}
+\alias{simulate_sample,lox_casette-method}
 \title{Simulate a loxcode_sample}
 \usage{
 simulate_sample(lox = NULL, c = 3000, n = 3, ref = NULL, name = "simulation")
+
+\S4method{simulate_sample}{lox_casette}(lox = NULL, c = 3000, n = 3, ref = NULL, name = "simulation")
 }
 \arguments{
 \item{lox}{original casette}

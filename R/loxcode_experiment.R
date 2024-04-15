@@ -1,5 +1,5 @@
 
-library('shiny')
+# library('shiny')
 #' Loxcode experiment object
 #'
 #' The `loxcode_experiment` object enables handling of data from multiple samples.
@@ -71,6 +71,7 @@ shiny_running = function () {
 #' @param sat desc
 #' @return loxcode_experiment object with sample data loaded
 #' @rdname load_samples
+#' @import shiny
 #' @export
 setGeneric("load_samples", function(x, ...) {standardGeneric("load_samples")})
 
@@ -193,7 +194,7 @@ setGeneric("get_data", function(x, s){standardGeneric("get_data")})
 
 #' @rdname get_data
 setMethod("get_data", "loxcode_experiment", function(x, s){
-  return(loxcoder::data(x@samples[[s]]))
+  return(x@samples[[s]]@decode@data)
 })
 
 #' Get validated readout data for a given sample
@@ -259,6 +260,7 @@ setMethod("samptable<-", "loxcode_experiment", function(x, value){
 #' @param full boolean, whether to produce full debugging output (default is FALSE, this uses significantly more memory)
 #' @param sat boolean, whether to keep saturation info
 #' @return loxcode_experiment object
+#' @importFrom readxl read_excel
 #' @export
 load_from_xlsx <- function(name, s, dir, load = TRUE, full = FALSE, sat = FALSE){
   x <- new("loxcode_experiment", name = name, dir = dir)
@@ -299,7 +301,7 @@ load_from_xlsx_multi <- function(name, s, dir, suffix_R1, suffix_R2, load = TRUE
 #' @return loxcode_sample object corresponding to merged sample
 #' @export
 merge_sample <- function(s1, s2){
-  m <- merge(s1@decode@data, s2@decode@data, by = c('code', 'size', 'is_valid', 'id', 'dist_orig'), all = T)
+  m <- merge(s1@decode@data, s2@decode@data, by = c('code', 'size', 'is_valid', 'id', 'dist_orig'), all = TRUE)
   m$count.x[is.na(m$count.x)] <- 0
   m$count.y[is.na(m$count.y)] <- 0
   m$count <- m$count.x + m$count.y
@@ -440,10 +442,9 @@ setMethod("setup_count_matrix_codesets", "loxcode_experiment", function(x){
 #' Generate metadata for the loxcode experiment
 #'
 #' @param x loxcode object to be updated
-#' @param ... metadata
 #' @rdname setup_metadata
 #' @export
-setGeneric("setup_metadata", function(x, ...) {standardGeneric("setup_metadata")})
+setGeneric("setup_metadata", function(x) {standardGeneric("setup_metadata")})
 
 #' @rdname setup_metadata
 setMethod("setup_metadata", "loxcode_experiment", function(x){
@@ -671,7 +672,7 @@ setMethod("collapse_old", "loxcode_experiment", function(x, count_matrix, collap
   }
 
   names(MM)=n;
-  is.num <- sapply(MM, is.numeric)
+  is.num <- vapply(MM, is.numeric)
   MM[is.num] <- lapply(MM[is.num], round, 2)
 
   x@count_matrixes[[name]] <- MM
@@ -699,6 +700,7 @@ setGeneric("get_collapsed_meta2", function(x, s) {standardGeneric("get_collapsed
 #' @rdname get_collapsed_meta2
 setMethod("get_collapsed_meta2", "loxcode_experiment", function(x, s) {
 
+  sample_name=NULL
   counts = x@count_matrixes[[s]]
   sample_names = names(counts)
 
@@ -840,6 +842,7 @@ setGeneric("merge_experiments", function(lox1, lox2, name=NULL) {standardGeneric
 
 #' @rdname merge_experiments
 setMethod("merge_experiments", "loxcode_experiment", function(lox1, lox2, name=NULL) {
+  plyr=NULL
   new = new("loxcode_experiment")
   duplicates = c()
   rename1 = c()
@@ -887,16 +890,16 @@ setMethod("merge_experiments", "loxcode_experiment", function(lox1, lox2, name=N
   # samp_table slot
   lox1@samp_table$experiment = lox1@name
   lox2@samp_table$experiment = lox2@name
-  lox1@samp_table$sample = plyr:revalue(lox1@samp_table$sample, rename1, warn_missing = FALSE)
-  lox2@samp_table$sample = plyr:revalue(lox2@samp_table$sample, rename2, warn_missing = FALSE)
+  lox1@samp_table$sample = plyr::revalue(lox1@samp_table$sample, rename1, warn_missing = FALSE)
+  lox2@samp_table$sample = plyr::revalue(lox2@samp_table$sample, rename2, warn_missing = FALSE)
   new@samp_table = plyr::rbind.fill(lox1@samp_table, lox2@samp_table)
 
   # count_matrixes slot
   for (i in 1:length(lox1@count_matrixes)) {
-    names(lox1@count_matrixes[[i]]) = revalue(names(lox1@count_matrixes[[i]]), rename1, warn_missing = FALSE)
+    names(lox1@count_matrixes[[i]]) = plyr::revalue(names(lox1@count_matrixes[[i]]), rename1, warn_missing = FALSE)
   }
   for (i in 1:length(lox2@count_matrixes)) {
-    names(lox2@count_matrixes[[i]]) = revalue(names(lox2@count_matrixes[[i]]), rename2, warn_missing = FALSE)
+    names(lox2@count_matrixes[[i]]) = plyr::revalue(names(lox2@count_matrixes[[i]]), rename2, warn_missing = FALSE)
   }
 
   all1 = lox1@count_matrixes[["all_samples"]]
@@ -948,18 +951,18 @@ setMethod("merge_experiments", "loxcode_experiment", function(lox1, lox2, name=N
   }
 
   # meta slot
-  lox1@meta$sample_name = revalue(lox1@meta$sample_name, rename1, warn_missing = FALSE)
-  lox2@meta$sample_name = revalue(lox2@meta$sample_name, rename2, warn_missing = FALSE)
+  lox1@meta$sample_name = plyr::revalue(lox1@meta$sample_name, rename1, warn_missing = FALSE)
+  lox2@meta$sample_name = plyr::revalue(lox2@meta$sample_name, rename2, warn_missing = FALSE)
   lox1@meta$experiment = lox1@name
   lox2@meta$experiment = lox2@name
   new@meta = plyr::rbind.fill(lox1@meta, lox2@meta)
 
   # alias slot
   for (i in 1:length(lox1@alias)) {
-    lox1@alias[[i]]$sample_name = revalue(lox1@alias[[i]]$sample_name, rename1, warn_missing = FALSE)
+    lox1@alias[[i]]$sample_name = plyr::revalue(lox1@alias[[i]]$sample_name, rename1, warn_missing = FALSE)
   }
   for (i in 1:length(lox2@alias)) {
-    lox2@alias[[i]]$sample_name = revalue(lox2@alias[[i]]$sample_name, rename2, warn_missing = FALSE)
+    lox2@alias[[i]]$sample_name = plyr::revalue(lox2@alias[[i]]$sample_name, rename2, warn_missing = FALSE)
   }
 
   all_aliases = data.frame(sample_name = names(all_samples)[!names(all_samples) == "Row.names"],
@@ -995,6 +998,8 @@ setMethod("merge_experiments", "loxcode_experiment", function(lox1, lox2, name=N
 #' @param experiments vector of loxcode_experiment objects
 #' @param name name of new loxcode_experiment object
 #' @return loxcode_experiment object
+#' @importFrom magrittr %>%
+#' @importFrom comprehenr to_vec
 #' @export
 
 merge_experiments2 <- function(experiments, name) {

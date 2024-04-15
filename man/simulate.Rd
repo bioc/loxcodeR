@@ -2,9 +2,12 @@
 % Please edit documentation in R/simulation.R
 \name{simulate}
 \alias{simulate}
+\alias{simulate,lox_casette-method}
 \title{Simulate the lox recombination}
 \usage{
 simulate(lox, site1 = NULL, site2 = NULL)
+
+\S4method{simulate}{lox_casette}(lox, site1 = NULL, site2 = NULL)
 }
 \arguments{
 \item{lox}{lox_casette object}

@@ -2,9 +2,12 @@
 % Please edit documentation in R/sample_sets.R
 \name{summary_table}
 \alias{summary_table}
+\alias{summary_table,loxcode_experiment-method}
 \title{Summary table (v3)}
 \usage{
 summary_table(lox, sample_set = "all_samples")
+
+\S4method{summary_table}{loxcode_experiment}(lox, sample_set = "all_samples")
 }
 \arguments{
 \item{lox}{loxcode_experiment object}

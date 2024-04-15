@@ -27,7 +27,7 @@ Main objective of the app is to perform data manipulation and data visualization
 - open the file server.R from LoxcodeR_app folder
 - go to build (next to Environment and History), click "install and Restart" button to install the loxcoder package
 - Install the following packages:
-    - install.packages(c('devtools','pals','viridis','ggplot2','tidyr','ggbeeswarm','dygraphs','shiny','dplyr','htmlwidgets','digest','bit','flexdashboard','ggthemes','highcharter','scatterD3','comprehenr','VennDiagram','scatterpie','tidyverse','reshape','VennDiagram','scatterpie','tidyverse','reshape'))
+    - install.packages(c('devtools','pals','viridis','ggplot2','tidyr','ggbeeswarm','dygraphs','shiny','dplyr','htmlwidgets','digest','bit','flexdashboard','ggthemes','highcharter','scatterD3','comprehenr','VennDiagram','scatterpie','tidyverse','reshape','qpdf','matrixStats','leaflet'))
     - tinytex::install_tinytex()
     - devtools::install_github("rstudio/crosstalk")
     - devtools::install_github("jcheng5/d3scatter")

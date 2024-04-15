@@ -2,9 +2,12 @@
 % Please edit documentation in R/simulation.R
 \name{simulate_runs}
 \alias{simulate_runs}
+\alias{simulate_runs,lox_casette-method}
 \title{Simulate n lox recombination events}
 \usage{
 simulate_runs(lox, n)
+
+\S4method{simulate_runs}{lox_casette}(lox, n)
 }
 \arguments{
 \item{lox}{vector of lox sites}

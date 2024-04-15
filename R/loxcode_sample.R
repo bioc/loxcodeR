@@ -94,15 +94,21 @@ loxcode_sample <- setClass (
   )
 )
 
+#' Get number of rows in loxcode data
+#'
+#' @param x Loxcode object
+#' @export
 setMethod("length", "loxcode_sample", function(x) nrow(x@decode@data))
 
 setMethod("nrow", "loxcode_sample", function(x) length(x))
 
 #' Get loxcode sample name (description)
 #'
+#' @rdname name
 #' @export
 setGeneric("name", function(x){standardGeneric("name")})
 
+#' @rdname name
 setMethod("name", "loxcode_sample", function(x) x@name)
 
 # #' Set loxcode sample name (description)
@@ -116,27 +122,33 @@ setMethod("name", "loxcode_sample", function(x) x@name)
 #   x@name <- v
 # })
 
-setGeneric("validate", function(x){ standardGeneric("validate") })
-
 #' Add cassette validation column to decoded cassette data
 #'
 #' @param x loxcode cassette object
 #' @return Cassette with validation column
+#' @rdname validate
 #' @export
+
+setGeneric("validate", function(x){ standardGeneric("validate") })
+
+#' @rdname validate
 setMethod("validate", "loxcode_sample", function(x){
   x@decode@data <- remove_existing(x@decode@data, 'is_valid')
   x@decode@data <- cbind(x@decode@data, data.frame(is_valid = is_valid(x@decode@data$code)))
   return(x)
 })
 
-setGeneric("impute", function(x) {standardGeneric("impute")})
-
 #' Impute missing code in 13-element cassettes
 #'
 #' For 13-element cassettes that are missing a single element, the
 #' missing element is imputed to minimise the resulting dist_orig.
 #' @param x loxcode object
+#' @rdname impute
 #' @export
+
+setGeneric("impute", function(x) {standardGeneric("impute")})
+
+#' @rdname impute
 setMethod("impute", "loxcode_sample", function(x){
   x@decode@data$code <- impute_13(x@decode@data$code, x@decode@data$size)
   return(x)
@@ -212,7 +224,7 @@ setMethod("retrieve_prob_ensemble", "loxcode_sample", function(x){
   x@decode@data$prob <- NA
   for(i in sizes){ # stratify by size
     r <- get_rec_prob(x, i)
-    mask <- (x@decode@data$is_valid == T & x@decode@data$size == i)
+    mask <- (x@decode@data$is_valid == TRUE & x@decode@data$size == i)
     probs <- rep(0, sum(mask))
     for(j in 1:nrow(r)){
       print(paste('Weight: ', r$prob[j]))
@@ -236,16 +248,16 @@ setMethod("valid", "loxcode_sample", function(x){
   return(v[v$is_valid == TRUE, ])
 })
 
-#' Access decoded cassette data
+#' #' Access decoded cassette data
+#' #'
+#' #' @param x loxcode_sample object
+#' #' @rdname data
+#' #' @export
+#' setGeneric("data", function(x){ standardGeneric("data") })
 #'
-#' @param x loxcode_sample object
-#' @rdname data
-#' @export
-setGeneric("data", function(x){ standardGeneric("data") })
-
-#' @rdname data
-setMethod("data", "loxcode_sample", function(x){
-  x@decode@data
-})
+#' #' @rdname data
+#' setMethod("data", "loxcode_sample", function(x){
+#'   return(x@decode@data)
+#' })
 
 

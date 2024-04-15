@@ -1,14 +1,17 @@
-library(plyr)
+# library(plyr)
 #' Summary table (v3)
 #'
 #' @param lox loxcode_experiment object
 #' @param sample_set sample set
 #' @return table of sample information
+#' @rdname summary_table
 #' @export
 setGeneric("summary_table", function(lox, sample_set="all_samples") {standardGeneric("summary_table")})
 
+#' @rdname summary_table
 setMethod("summary_table", "loxcode_experiment", function(lox, sample_set="all_samples"){
 
+  sample_name=NULL
   # initialize variables
   samples = lox@samples
   counts = lox@count_matrixes[[sample_set]]
@@ -64,9 +67,11 @@ fillSetAliases <- function(lox, count_matrix) {
 #' @param s sample set
 #' @param n new code set name
 #' @return new loxcode_experiment object
+#' @rdname rename_sampleset
 #' @export
 setGeneric("rename_sampleset", function(x, s, n) {standardGeneric("rename_sampleset")})
 
+#' @rdname rename_sampleset
 setMethod("rename_sampleset", "loxcode_experiment", function(x, s, n) {
   if (s %in% c("all_samples")) {
     return(x)
@@ -86,12 +91,15 @@ setMethod("rename_sampleset", "loxcode_experiment", function(x, s, n) {
 #' @param x loxcode_experiment object
 #' @param s set of merged samples
 #' @return a data frame of meta data
+#' @rdname get_collapsed_meta
 #' @export
 
 setGeneric("get_collapsed_meta", function(x, s) {standardGeneric("get_collapsed_meta")})
 
+#' @rdname get_collapsed_meta
 setMethod("get_collapsed_meta", "loxcode_experiment", function(x, s) {
 
+  sample_name=NULL
   counts = x@count_matrixes[[s]]
   sample_names = names(counts)
 
@@ -145,10 +153,12 @@ setMethod("get_collapsed_meta", "loxcode_experiment", function(x, s) {
 #' @param union boolean: use union or intersection of samples
 #' @param average boolean: use average of sum of counts
 #' @return updated loxcode_experiment object
+#' @rdname collapse_selection
 #' @export
 
 setGeneric("collapse_selection", function(lox, count_matrix="all_samples", code_set="all_codes", index, name=NULL, union=TRUE, average=FALSE) {standardGeneric("collapse_selection")})
 
+#' @rdname collapse_selection
 setMethod("collapse_selection", "loxcode_experiment", function(lox, count_matrix="all_samples", code_set="all_codes", index, name=NULL, union=TRUE, average=FALSE){
 
   counts = lox@count_matrixes[[count_matrix]]
@@ -195,9 +205,11 @@ setMethod("collapse_selection", "loxcode_experiment", function(lox, count_matrix
 #' @param union boolean, True if barcodes in either should be counted
 #' @param average boolean, True if counts should be averaged instead of summed
 #' @return loxcode_experiment object with new collapsed samples
+#' @rdname collapse
 #' @export
 setGeneric("collapse", function(lox, count_matrix, collapse, name, union=TRUE, average=FALSE) {standardGeneric("collapse")})
 
+#' @rdname collapse
 setMethod("collapse", "loxcode_experiment", function(lox, count_matrix, collapse, name, union=TRUE, average=FALSE) {
 
   counts = lox@count_matrixes[[count_matrix]]
@@ -257,9 +269,11 @@ setMethod("collapse", "loxcode_experiment", function(lox, count_matrix, collapse
 #' @param union True if barcodes in either samples should be counted
 #' @param average True if counts should be averaged instead of summed
 #' @return merged loxcode_sample object
+#' @rdname merge_sample_list
 #' @export
 setGeneric("merge_sample_list", function(lox, samples, union=TRUE, average=FALSE) {standardGeneric("merge_sample_list")})
 
+#' @rdname merge_sample_list
 setMethod("merge_sample_list", "loxcode_experiment", function(lox, samples, union=TRUE, average=FALSE) {
 
   # initialize and declare variables
@@ -302,7 +316,7 @@ setMethod("merge_sample_list", "loxcode_experiment", function(lox, samples, unio
 
   # files slot
   new@files = list()
-  new@files = lapply(samples_list, function(x) list.append(new@files, x@files))
+  new@files = lapply(samples_list, function(x) list(new@files, x@files))
 
   # decode stats slot
   for (stat in names(samples_list[[1]]@decode_stats)) {
@@ -320,6 +334,7 @@ setMethod("merge_sample_list", "loxcode_experiment", function(lox, samples, unio
 #' @param indices indices to include
 #' @param name name of the new count_matrix
 #' @return new loxcode_experiment object with a new count_matrix
+#' @rdname make_count_matrix
 #' @export
 
 setGeneric("make_count_matrix", function(lox,
@@ -329,6 +344,7 @@ setGeneric("make_count_matrix", function(lox,
   standardGeneric("make_count_matrix")
 })
 
+#' @rdname make_count_matrix
 setMethod("make_count_matrix", "loxcode_experiment", function(lox,
                                                               count_matrix = "all_samples",
                                                               indices,

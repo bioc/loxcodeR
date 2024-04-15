@@ -201,9 +201,7 @@ std::vector<std::string> impute_13(std::vector<std::string> c, std::vector<int> 
 	return c;
 }
 
-//' Return the minimum dist_orig obtained by flipping a single element
-//' We assume that the given cassette is valid
-//'
+
 std::pair<int, long long> min_flip_dist_single(std::vector<int> c, int size){
     long long id_min = pack_single(c, get_size_idx(c.size()));
 //    int d_min = retrieve_dist_origin_single(id_min, size);
@@ -221,6 +219,13 @@ std::pair<int, long long> min_flip_dist_single(std::vector<int> c, int size){
     return std::make_pair(d_min, id_min);
 }
 
+
+
+//' Distance at which the flip happened
+//'
+//' @param c list of loxcode numbers present in each cassette
+//' @param size sizes of loxcode
+//' @param v flip distance
 //' @export
 // [[Rcpp::export]]
 Rcpp::DataFrame min_flip_dist(std::vector<std::string> c, std::vector<int> size, std::vector<bool> v){

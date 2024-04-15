@@ -2,10 +2,13 @@
 % Please edit documentation in R/sample_sets.R
 \name{merge_sample_list}
 \alias{merge_sample_list}
+\alias{merge_sample_list,loxcode_experiment-method}
 \title{Merge list of samples
 Merges a list of samples into one loxcode_sample object}
 \usage{
 merge_sample_list(lox, samples, union = TRUE, average = FALSE)
+
+\S4method{merge_sample_list}{loxcode_experiment}(lox, samples, union = TRUE, average = FALSE)
 }
 \arguments{
 \item{lox}{loxcode_experiment object}

@@ -1,5 +1,5 @@
-library('plyr')
-library('base')
+# library('plyr')
+# library('base')
 #' Lox barcode casette object
 #'
 #' @slot lox_sites vector of cre-binding sites
@@ -25,10 +25,12 @@ lox_casette <- setClass(
 #' @param a lox_site position 1
 #' @param b lox_site position 2
 #' @return an excised lox_casette object
+#' @rdname excise
 #' @export
 
 setGeneric("excise", function(lox, a, b) {standardGeneric("excise")})
 
+#' @rdname excise
 setMethod("excise", "lox_casette", function(lox, a, b) {
   lox_sites = lox@lox_sites
   code_elements = lox@code_elements
@@ -53,10 +55,12 @@ setMethod("excise", "lox_casette", function(lox, a, b) {
 #' @param a site position 1
 #' @param b site position 2
 #' @return a new vector of lox sites
+#' @rdname invert
 #' @export
 
 setGeneric("invert", function(lox, a, b) {standardGeneric("invert")})
 
+#' @rdname invert
 setMethod("invert", "lox_casette", function(lox, a, b) {
   lox_sites = lox@lox_sites
   code_elements = lox@code_elements
@@ -80,10 +84,12 @@ setMethod("invert", "lox_casette", function(lox, a, b) {
 #' @param site1 of casette
 #' @param site2 of casette
 #' @return lox_casette after random recombination
+#' @rdname simulate
 #' @export
 
 setGeneric("simulate", function(lox, site1=NULL, site2=NULL) {standardGeneric("simulate")})
 
+#' @rdname simulate
 setMethod("simulate", "lox_casette", function(lox, site1=NULL, site2=NULL){
   lox_sites = lox@lox_sites
   code_elements = lox@code_elements
@@ -111,9 +117,11 @@ setMethod("simulate", "lox_casette", function(lox, site1=NULL, site2=NULL){
 #'
 #' @param lox lox_casette object
 #' @return all recombination events
+#' @rdname simulate_all_init
 #' @export
 setGeneric("simulate_all_init", function(lox) {standardGeneric("simulate_all_init")})
 
+#' @rdname simulate_all_init
 setMethod("simulate_all_init", "lox_casette", function(lox) {
   recombinations = c()
   for (site1 in 1:13) {
@@ -129,10 +137,12 @@ setMethod("simulate_all_init", "lox_casette", function(lox) {
 #' @param lox vector of lox sites
 #' @param n number of recombination events to run
 #' @return vector of lox sites after n recombinations
+#' @rdname simulate_runs
 #' @export
 
 setGeneric("simulate_runs", function(lox, n) {standardGeneric("simulate_runs")})
 
+#' @rdname simulate_runs
 setMethod("simulate_runs", "lox_casette", function(lox, n) {
   for (i in 1:n) {
     lox = simulate(lox)
@@ -146,15 +156,17 @@ setMethod("simulate_runs", "lox_casette", function(lox, n) {
 #' @param c number of casettes
 #' @param n number of recombination events per casette
 #' @return list of casettes after cre lox
+#' @rdname simulate_reads
 #' @export
 
 setGeneric("simulate_reads", function(lox, c, n) {standardGeneric("simulate_reads")})
 
+#' @rdname simulate_reads
 setMethod("simulate_reads", "lox_casette", function(lox, c, n) {
   casettes = list(simulate_runs(lox, n))
   for (i in 1:(c-1)) {
     new_lox = simulate_runs(lox, n)
-    casettes = list.append(new_lox, casettes)
+    casettes = list(new_lox, casettes)
   }
   return(casettes)
 })
@@ -167,10 +179,12 @@ setMethod("simulate_reads", "lox_casette", function(lox, c, n) {
 #' @param ref reference sample from which distribution of dist_orig is obtained
 #' @param name sample_name
 #' @return a loxcode_sample with simulated data
+#' @rdname simulate_sample
 #' @export
 
 setGeneric("simulate_sample", function(lox=NULL, c=3000, n=3, ref=NULL, name="simulation") {standardGeneric("simulate_sample")})
 
+#' @rdname simulate_sample
 setMethod("simulate_sample", "lox_casette", function(lox=NULL, c=3000, n=3, ref = NULL, name="simulation") {
 
   if (is.null(lox)) lox = new("lox_casette")
@@ -252,10 +266,12 @@ setMethod("simulate_sample", "lox_casette", function(lox=NULL, c=3000, n=3, ref 
 #' @param ref reference sample from which distribution of dist_orig is obtained
 #' @param name sample_name
 #' @return a list of loxcode_sample with simulated data
+#' @rdname simulate_nsamples
 #' @export
 
 setGeneric("simulate_nsamples", function(lox, nsamples=10, ncodes=3000, dist_type="Poisson", npois=NULL, ref=NULL, name="simulation") {standardGeneric("simulate_nsamples")})
 
+#' @rdname simulate_nsamples
 setMethod("simulate_nsamples", "lox_casette", function(lox, nsamples=10, ncodes=300, dist_type="Poisson", npois=NULL, ref=NULL, name="simulation") {
   samples_list = c()
   samples_list = lapply(c(1:nsamples), function(x) c(samples_list, simulate_sample(lox, c=ncodes, n=npois, ref=ref, name=paste0(name, "_", x))))

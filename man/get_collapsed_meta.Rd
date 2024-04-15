@@ -2,9 +2,12 @@
 % Please edit documentation in R/sample_sets.R
 \name{get_collapsed_meta}
 \alias{get_collapsed_meta}
+\alias{get_collapsed_meta,loxcode_experiment-method}
 \title{Get metadata of a merged experiment}
 \usage{
 get_collapsed_meta(x, s)
+
+\S4method{get_collapsed_meta}{loxcode_experiment}(x, s)
 }
 \arguments{
 \item{x}{loxcode_experiment object}

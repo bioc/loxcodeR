@@ -2,12 +2,23 @@
 % Please edit documentation in R/simulation.R
 \name{simulate_nsamples}
 \alias{simulate_nsamples}
+\alias{simulate_nsamples,lox_casette-method}
 \title{Simulate Loxcode Samples}
 \usage{
 simulate_nsamples(
   lox,
   nsamples = 10,
   ncodes = 3000,
+  dist_type = "Poisson",
+  npois = NULL,
+  ref = NULL,
+  name = "simulation"
+)
+
+\S4method{simulate_nsamples}{lox_casette}(
+  lox,
+  nsamples = 10,
+  ncodes = 300,
   dist_type = "Poisson",
   npois = NULL,
   ref = NULL,

@@ -1,11 +1,11 @@
 Package: loxcoder
 Type: Package
 Title: Loxcode Tools
-Version: 0.1.0
+Version: 0.99.1
 Authors@R: c(person("Stephen", "Zhang", email = "zhang.s@wehi.edu.au", role = c("aut")),
             person("Arnav", "Garg", email = "garg.a@wehi.edu.au", role = c("cre", "aut")), 
             person("Tom","Weber", email = "weber.ts@wehi.edu.au", role = c("cph", "aut")))
-Description: A system to explore and visualise Loxcodes
+Description: A system to explore and visualise Loxcodes. This is a Web application to visualise and analyse different aspects of a Loxcode. The app can be used to manipulate and extract meaningful insights from experiment data. The app has Pdf and Web page based report creation to present data analysed in the application.
 License: MIT
 Encoding: UTF-8
 LazyData: true
@@ -13,10 +13,25 @@ LinkingTo:
     Rcpp
 Imports:
     Rcpp,
+    dplyr,
+    rlang,
+    tidyr,
+    ggplot2,
+    readxl,
+    stats,
+    ggbeeswarm,
+    scatterpie,
+    grid,
+    methods,
+    utils,
+    magrittr,
+    comprehenr,
+    plyr,
+    shiny,
+    pals
 Suggests: 
     knitr, 
-    rmarkdown, 
-    plyr, 
+    rmarkdown,  
     stats, 
     qpdf, 
     ggplot2, 
