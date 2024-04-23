@@ -58,3 +58,11 @@ A plot containing pairwise comparison of the samples
 \description{
 Function to create a pair comparision plot by passing code set and sample set. This function can use custom sample and code set for plot creation.
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming lox, sampleset, codeset, s1, and s2 are defined
+pair_comparison_plot2(lox, sampleset, codeset, s1, s2, colorBy = "size", labels = "Sample Name", sizeRange = c(10, 100), dist_origRange = c(0, 100), firstreadRange = c(0, 100))
+}

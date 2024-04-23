@@ -11,6 +11,17 @@ pack(c, v)
 
 \item{v}{vector of bool, output from validate()}
 }
+\value{
+cassettes with cassette id
+}
 \description{
 Pack cassettes into cassette ID
+}
+\examples{
+# Example usage:
+# Assuming 'cassette' is a list of numeric vectors representing the cassette,
+# 'validity_vector' is a vector of boolean values indicating the validity of each cassette.
+# Pack the cassettes into cassette IDs
+cassettes_with_ID <- pack(cassette, validity_vector)
+cassettes_with_ID
 }

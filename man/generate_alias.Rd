@@ -22,3 +22,14 @@ loxcode_experiment object with aliases generated
 \description{
 generate sample aliases
 }
+\examples{
+# Load necessary libraries and data
+library(LoxCodeR2024)
+data <- read.csv("your_data.csv")
+
+# Create a loxcode experiment object
+lox_experiment <- create_lox_experiment(data)
+
+# Generate sample aliases
+lox_experiment <- generate_alias(lox_experiment, "Sample_A", "Sample_B", "Sample_C")
+}

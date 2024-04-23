@@ -22,3 +22,10 @@ loxcode_sample object corresponding to s
 #' Set experiment name
 Get loxcode_sample object by sample name
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object and 'sample_name' is the name of the sample to retrieve
+# Retrieve the loxcode_sample object corresponding to the sample named 'sample_name'
+sample_object <- get_loxcode_sample_by_sample_name(x = experiment, s = "sample_name")
+sample_object
+}

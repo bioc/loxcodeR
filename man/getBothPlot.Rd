@@ -12,6 +12,9 @@ getBothPlot(countsTable, labels)
 
 \item{labels}{label plot by sample_name or alias}
 }
+\value{
+ggplot object of plot
+}
 \description{
 get both plot
 helper function to generate a bar graph of sizes/complexities for each sample

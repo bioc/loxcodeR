@@ -22,3 +22,15 @@ Fetch experiment name
 
 Get loxcode sample name (description)
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object
+# Retrieve the name of the experiment
+experiment_name <- name(experiment)
+experiment_name
+# Example usage:
+# Assuming 'experiment' is a loxcode_sample object
+# Retrieve the name of the experiment
+experiment_name <- name(experiment)
+experiment_name
+}

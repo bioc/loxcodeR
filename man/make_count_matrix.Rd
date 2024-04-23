@@ -24,3 +24,10 @@ new loxcode_experiment object with a new count_matrix
 \description{
 Creates a new count_matrix with dataframe of samples
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object
+# Create a new count_matrix named 'new_count_matrix' by selecting indices 1, 3, and 5 from an existing count_matrix 'old_count_matrix'
+new_experiment <- make_count_matrix(experiment, count_matrix = "old_count_matrix", indices = c(1, 3, 5), name = "new_count_matrix")
+new_experiment
+}

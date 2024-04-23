@@ -42,3 +42,11 @@ Plot based on the type of plot selected
 \description{
 Function to create size, complexity, both or ratio plot
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming lox, count_matrix, code_set, plot, and fill are defined
+readstats_plot(lox, count_matrix, code_set, plot = "size", fill = TRUE, labels = "Sample Name")
+}

@@ -4,9 +4,16 @@
 #' Convert vector of cassette strings to list of numeric vectors
 #'
 #' @param c vector of cassette strings
+#' @return list of numeric vector
 #' @export
+#' @examples
+#' # Example usage:
+#' # Assuming 'cassette_strings' is a vector of cassette strings
+#' # Convert the vector of cassette strings to a list of numeric vectors
+#' numeric_vectors <- convert_cassette_strings_to_numeric_vectors(cassette_strings)
+#' numeric_vectors
 get_cass_vec <- function(c) {
-    .Call(`_loxcoder_get_cass_vec`, c)
+    .Call(`_LoxCodeR2024_get_cass_vec`, c)
 }
 
 #' Check if cassette is valid
@@ -16,24 +23,46 @@ get_cass_vec <- function(c) {
 #' @param c a list of numeric vectors, or a character vector of decoded loxcodes
 #' @return TRUE if the cassette is valid, otherwise FALSE
 #' @export
+#' @examples
+#' # Example usage:
+#' # Assuming 'cassette' is a list of numeric vectors representing the cassette,
+#' # or a character vector of decoded loxcodes
+#' # Check if the cassette is valid
+#' is_valid <- check_cassette_validity(cassette)
+#' is_valid
 is_valid <- function(c) {
-    .Call(`_loxcoder_is_valid`, c)
+    .Call(`_LoxCodeR2024_is_valid`, c)
 }
 
 #' Impute missing element in a 13-element cassette
 #' @param c2 string of number of lox present
+#' @return 13-element cassette
 #' @export
+#' @examples
+#' # Example usage:
+#' # Assuming 'cassette_string' is a string representing the number of lox present
+#' # Impute the missing element in the 13-element cassette
+#' cassette <- impute_13_impl(cassette_string)
+#' cassette
 impute_13_impl <- function(c2) {
-    .Call(`_loxcoder_impute_13_impl`, c2)
+    .Call(`_LoxCodeR2024_impute_13_impl`, c2)
 }
 
 #' Impute missing elements
 #'
 #' @param c list of loxcode numbers present in each cassete
 #' @param sizes sizes of loxcode
+#' @return 13-element cassette
 #' @export
+#' @examples
+#' # Example usage:
+#' # Assuming 'cassette_list' is a list of loxcode numbers present in each cassette,
+#' # and 'loxcode_sizes' is a vector containing the sizes of the loxcode.
+#' # Impute the missing elements in each cassette to form a 13-element cassette
+#' cassette <- impute_13(cassette_list, loxcode_sizes)
+#' cassette
 impute_13 <- function(c, sizes) {
-    .Call(`_loxcoder_impute_13`, c, sizes)
+    .Call(`_LoxCodeR2024_impute_13`, c, sizes)
 }
 
 #' Distance at which the flip happened
@@ -41,65 +70,97 @@ impute_13 <- function(c, sizes) {
 #' @param c list of loxcode numbers present in each cassette
 #' @param size sizes of loxcode
 #' @param v flip distance
+#' @return Distance at which the flip happened
 #' @export
+#' @examples
+#' # Example usage:
+#' # Assuming 'cassette_list' is a list of loxcode numbers present in each cassette,
+#' # 'loxcode_sizes' is a vector containing the sizes of the loxcode, and 'flip_distance_value' is the flip distance.
+#' # Calculate the distance at which the flip happened
+#' flip_dist <- min_flip_dist(cassette_list, loxcode_sizes, flip_distance_value)
+#' flip_dist
 min_flip_dist <- function(c, size, v) {
-    .Call(`_loxcoder_min_flip_dist`, c, size, v)
+    .Call(`_LoxCodeR2024_min_flip_dist`, c, size, v)
 }
 
 #' Decode FASTQ
 #' Recover loxcodes from raw Illumina FASTQ output
 #' @param r Paths of R1, 2 respectively
 #' @param meta User-defined data-frame for sample metadata
-#' @param min_read_length min read length for R1, R2 filter respectively
+#' @param name Name of the Fastq file
+#' @param min_r1_len Minimum length of r1
+#' @param min_r2_len Minimum length of r2
+#' @param sat Satiration amount
 #' @param full whether to supply full output (including read IDs, etc)
-#' @param saturation whether to keep saturation information
 #' @return S4 loxcode_sample object with decoded results
 #' @export
 decode <- function(r, name, meta, min_r1_len, min_r2_len, full, sat) {
-    .Call(`_loxcoder_decode`, r, name, meta, min_r1_len, min_r2_len, full, sat)
+    .Call(`_LoxCodeR2024_decode`, r, name, meta, min_r1_len, min_r2_len, full, sat)
 }
 
 load_origin_files_wrapper <- function(paths) {
-    invisible(.Call(`_loxcoder_load_origin_files_wrapper`, paths))
+    invisible(.Call(`_LoxCodeR2024_load_origin_files_wrapper`, paths))
 }
 
 load_pair_files_wrapper <- function(paths) {
-    invisible(.Call(`_loxcoder_load_pair_files_wrapper`, paths))
+    invisible(.Call(`_LoxCodeR2024_load_pair_files_wrapper`, paths))
 }
 
 load_prob_files_wrapper <- function(paths) {
-    invisible(.Call(`_loxcoder_load_prob_files_wrapper`, paths))
+    invisible(.Call(`_LoxCodeR2024_load_prob_files_wrapper`, paths))
 }
 
 wrapper_fill_tables <- function() {
-    invisible(.Call(`_loxcoder_wrapper_fill_tables`))
+    invisible(.Call(`_LoxCodeR2024_wrapper_fill_tables`))
 }
 
 #' Pack cassettes into cassette ID
 #'
 #' @param c a list of numeric vectors, or a character vector of decoded loxcodes
 #' @param v vector of bool, output from validate()
+#' @return cassettes with cassette id
 #' @export
+#' @examples
+#' # Example usage:
+#' # Assuming 'cassette' is a list of numeric vectors representing the cassette,
+#' # 'validity_vector' is a vector of boolean values indicating the validity of each cassette.
+#' # Pack the cassettes into cassette IDs
+#' cassettes_with_ID <- pack(cassette, validity_vector)
+#' cassettes_with_ID
 pack <- function(c, v) {
-    .Call(`_loxcoder_pack`, c, v)
+    .Call(`_LoxCodeR2024_pack`, c, v)
 }
 
 #' Assumes that input cassette is valid already!
 #'
 #' @param c input cassette
 #' @param size size of single loxcode
+#' @return distance from origin
 #' @export
+#' @examples
+#' # Example usage:
+#' # Assuming 'cassette' is a valid input cassette and 'loxcode_size' is the size of a single loxcode.
+#' # Calculate the distance from the origin
+#' dist_from_origin <- retrieve_dist_origin_single(cassette, loxcode_size)
+#' dist_from_origin
 retrieve_dist_origin_single <- function(c, size) {
-    .Call(`_loxcoder_retrieve_dist_origin_single`, c, size)
+    .Call(`_LoxCodeR2024_retrieve_dist_origin_single`, c, size)
 }
 
 #' Assumes that input cassette is valid already!
 #'
 #' @param c input cassette
 #' @param sizes sizes of all loxcode
+#' @return distance from origin
 #' @export
+#' @examples
+#' # Example usage:
+#' # Assuming 'cassette' is a valid input cassette and 'loxcode_sizes' is a vector containing sizes of all loxcodes.
+#' # Calculate the distance from the origin
+#' dist_from_origin <- retrieve_dist_origin(cassette, loxcode_sizes)
+#' dist_from_origin
 retrieve_dist_origin <- function(c, sizes) {
-    .Call(`_loxcoder_retrieve_dist_origin`, c, sizes)
+    .Call(`_LoxCodeR2024_retrieve_dist_origin`, c, sizes)
 }
 
 #' Assumes that input cassette is valid already!
@@ -107,18 +168,33 @@ retrieve_dist_origin <- function(c, sizes) {
 #' @param c input cassette
 #' @param sizes sizes of all loxcode
 #' @param nrec position in cassette
+#' @return Probability of a cassette
 #' @export
+#' @examples
+#' # Example usage:
+#' # Assuming 'cassette' is a valid input cassette, 'loxcode_sizes' is a vector containing sizes of all loxcodes,
+#' # and 'position' is the position in the cassette.
+#' # Calculate the probability of the cassette at the given position
+#' cassette_prob <- retrieve_prob(cassette, loxcode_sizes, position)
+#' cassette_prob
 retrieve_prob <- function(c, sizes, nrec) {
-    .Call(`_loxcoder_retrieve_prob`, c, sizes, nrec)
+    .Call(`_LoxCodeR2024_retrieve_prob`, c, sizes, nrec)
 }
 
 #' Assumes that input cassette is valid already!
 #'
 #' @param c1 input cassette 1
 #' @param c2 input cassette 2
+#' @return distance between 2 cassette
 #' @export
+#' @examples
+#' # Example usage:
+#' # Assuming 'cassette1' and 'cassette2' are valid input cassettes.
+#' # Calculate the distance between the two cassettes
+#' dist_between_cassettes <- retrieve_dist_pair(cassette1, cassette2)
+#' dist_between_cassettes
 retrieve_dist_pair <- function(c1, c2) {
-    .Call(`_loxcoder_retrieve_dist_pair`, c1, c2)
+    .Call(`_LoxCodeR2024_retrieve_dist_pair`, c1, c2)
 }
 
 #' Calculate generation probabilities using Markov chain formulation
@@ -132,12 +208,20 @@ retrieve_dist_pair <- function(c1, c2) {
 #' Calculates the generation probability distribution for cassettes
 #' for varying values of n (step number)
 #' @param n number of steps to generate
-#' @param T transition probabilities specified as interaction probabilities
+#' @param To transition probabilities specified as interaction probabilities
 #' @param start_idx size_idx from which to start
 #' @param start_id id of cassette to initialise markov chain from (0 for 13-element)
 #' @return list of n+1 items, giving the distribution state at step 0, 1, ..., n. (0 for unrecombined 13-elt cassette)
 #' @export
+#' @examples
+#' # Example usage:
+#' # Assuming 'transition_probabilities' is a list of transition probabilities,
+#' # 'steps' is the number of steps to generate, 'start_index' is the size_idx from which to start,
+#' # and 'start_id' is the id of the cassette to initialize the Markov chain from.
+#' # Calculate the generation probabilities for the specified parameters
+#' generation_probs <- run_markov(steps, transition_probabilities, start_index, start_id)
+#' generation_probs
 run_markov <- function(n, To, start_idx, start_id) {
-    .Call(`_loxcoder_run_markov`, n, To, start_idx, start_id)
+    .Call(`_LoxCodeR2024_run_markov`, n, To, start_idx, start_id)
 }
 

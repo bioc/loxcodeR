@@ -9,6 +9,16 @@ impute_13_impl(c2)
 \arguments{
 \item{c2}{string of number of lox present}
 }
+\value{
+13-element cassette
+}
 \description{
 Impute missing element in a 13-element cassette
+}
+\examples{
+# Example usage:
+# Assuming 'cassette_string' is a string representing the number of lox present
+# Impute the missing element in the 13-element cassette
+cassette <- impute_13_impl(cassette_string)
+cassette
 }

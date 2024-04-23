@@ -34,3 +34,12 @@ A table containing the data about the bar codes
 \description{
 A function used to generate table for the barcode details.
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assume lox, code_set, and count_matrix are defined
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+barcode_table(lox, code_set= "all_codes", count_matrix= "all_samples", labels = "alias")
+}

@@ -77,7 +77,14 @@ bool is_valid_single(std::vector<int> c){
 //' Convert vector of cassette strings to list of numeric vectors
 //'
 //' @param c vector of cassette strings
+//' @return list of numeric vector
 //' @export
+//' @examples
+//' # Example usage:
+//' # Assuming 'cassette_strings' is a vector of cassette strings
+//' # Convert the vector of cassette strings to a list of numeric vectors
+//' numeric_vectors <- convert_cassette_strings_to_numeric_vectors(cassette_strings)
+//' numeric_vectors
 // [[Rcpp::export]]
 std::vector<std::vector<int> > get_cass_vec(std::vector<std::string> c){
   std::vector<std::vector<int> > out(c.size());
@@ -110,6 +117,13 @@ std::vector<bool> is_valid_impl(std::vector<std::string> c){
 //' @param c a list of numeric vectors, or a character vector of decoded loxcodes
 //' @return TRUE if the cassette is valid, otherwise FALSE
 //' @export
+//' @examples
+//' # Example usage:
+//' # Assuming 'cassette' is a list of numeric vectors representing the cassette,
+//' # or a character vector of decoded loxcodes
+//' # Check if the cassette is valid
+//' is_valid <- check_cassette_validity(cassette)
+//' is_valid
 // [[Rcpp::export]]
 std::vector<bool> is_valid(SEXP c){
   switch(TYPEOF(c)){
@@ -138,7 +152,14 @@ std::vector<int> unpack_to_vec(long long c, int size){
 
 //' Impute missing element in a 13-element cassette
 //' @param c2 string of number of lox present
+//' @return 13-element cassette
 //' @export
+//' @examples
+//' # Example usage:
+//' # Assuming 'cassette_string' is a string representing the number of lox present
+//' # Impute the missing element in the 13-element cassette
+//' cassette <- impute_13_impl(cassette_string)
+//' cassette
 // [[Rcpp::export]]
 std::string impute_13_impl(std::string c2){
 	// impute the missing element
@@ -190,7 +211,15 @@ std::string impute_13_impl(std::string c2){
 //'
 //' @param c list of loxcode numbers present in each cassete
 //' @param sizes sizes of loxcode
+//' @return 13-element cassette
 //' @export
+//' @examples
+//' # Example usage:
+//' # Assuming 'cassette_list' is a list of loxcode numbers present in each cassette,
+//' # and 'loxcode_sizes' is a vector containing the sizes of the loxcode.
+//' # Impute the missing elements in each cassette to form a 13-element cassette
+//' cassette <- impute_13(cassette_list, loxcode_sizes)
+//' cassette
 // [[Rcpp::export]]
 std::vector<std::string> impute_13(std::vector<std::string> c, std::vector<int> sizes){
 	for(int i = 0; i < c.size(); i++){
@@ -226,7 +255,15 @@ std::pair<int, long long> min_flip_dist_single(std::vector<int> c, int size){
 //' @param c list of loxcode numbers present in each cassette
 //' @param size sizes of loxcode
 //' @param v flip distance
+//' @return Distance at which the flip happened
 //' @export
+//' @examples
+//' # Example usage:
+//' # Assuming 'cassette_list' is a list of loxcode numbers present in each cassette,
+//' # 'loxcode_sizes' is a vector containing the sizes of the loxcode, and 'flip_distance_value' is the flip distance.
+//' # Calculate the distance at which the flip happened
+//' flip_dist <- min_flip_dist(cassette_list, loxcode_sizes, flip_distance_value)
+//' flip_dist
 // [[Rcpp::export]]
 Rcpp::DataFrame min_flip_dist(std::vector<std::string> c, std::vector<int> size, std::vector<bool> v){
     std::pair<std::vector<int>, std::vector<std::string> > out;

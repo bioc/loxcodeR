@@ -17,3 +17,15 @@ Pairwise distance between code A and B
 \description{
 Funtion to get pairwise distance of two codesets
 }
+\examples{
+# Load necessary libraries and data
+library(LoxCodeR2024)
+data <- read.csv("your_data.csv")
+
+# Assuming you have two codesets
+codeset_A <- data[data$codeset == "A", ]
+codeset_B <- data[data$codeset == "B", ]
+
+# Get pairwise distance
+pairwise_distance <- get_pairwise_distance(codeset_A, codeset_B)
+}

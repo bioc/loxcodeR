@@ -9,11 +9,11 @@ run_markov(n, To, start_idx, start_id)
 \arguments{
 \item{n}{number of steps to generate}
 
+\item{To}{transition probabilities specified as interaction probabilities}
+
 \item{start_idx}{size_idx from which to start}
 
 \item{start_id}{id of cassette to initialise markov chain from (0 for 13-element)}
-
-\item{T}{transition probabilities specified as interaction probabilities}
 }
 \value{
 list of n+1 items, giving the distribution state at step 0, 1, ..., n. (0 for unrecombined 13-elt cassette)
@@ -28,4 +28,13 @@ For example, starting from the unrecombined cassette, an interaction (0, 12) yie
 \details{
 Calculates the generation probability distribution for cassettes
 for varying values of n (step number)
+}
+\examples{
+# Example usage:
+# Assuming 'transition_probabilities' is a list of transition probabilities,
+# 'steps' is the number of steps to generate, 'start_index' is the size_idx from which to start,
+# and 'start_id' is the id of the cassette to initialize the Markov chain from.
+# Calculate the generation probabilities for the specified parameters
+generation_probs <- run_markov(steps, transition_probabilities, start_index, start_id)
+generation_probs
 }

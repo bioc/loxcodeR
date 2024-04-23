@@ -34,3 +34,11 @@ A plot of the number of reads
 \description{
 plots the number of reads
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming lox, code_set, and count_matrix are defined
+read_plot(lox, code_set, count_matrix, labels = "Sample Name")
+}

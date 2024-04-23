@@ -14,6 +14,20 @@ fill_alias(x, ...)
 
 \item{...}{value of alias to fill}
 }
+\value{
+loxcode object with alias
+}
 \description{
 Generate alias for the loxcode experiment samples
+}
+\examples{
+# Load necessary libraries and data
+library(LoxCodeR2024)
+data <- read.csv("your_data.csv")
+
+# Create a loxcode experiment object
+lox_experiment <- create_lox_experiment(data)
+
+# Generate alias for the samples
+lox_experiment <- fill_alias(lox_experiment, "Sample_A", "Sample_B", "Sample_C")
 }

@@ -12,6 +12,16 @@ makeid(x)
 \arguments{
 \item{x}{loxcode data object}
 }
+\value{
+cassette Id
+}
 \description{
 Appends a column of packed cassette IDs, or -1 if it cannot be packed
+}
+\examples{
+# Example usage:
+# Assuming 'lox_data' is a loxcode data object
+# Get cassette IDs and append them as a new column
+cassette_ids <- get_cassette_IDs(lox_data)
+cassette_ids
 }

@@ -5,13 +5,16 @@
 \alias{loxcode_sample-class}
 \alias{loxcode_sample}
 \title{S4 class to represent loxcode experimental sample data}
+\value{
+Loxcode experiment sample data
+}
 \description{
 S4 class to represent loxcode experimental sample data
 }
 \section{Slots}{
 
 \describe{
-\item{\code{decode}}{A data.frame to contain raw decode data from loxcoder::decode()}
+\item{\code{decode}}{A data.frame to contain raw decode data from LoxCodeR2024::decode()}
 
 \item{\code{meta}}{A data.frame for user-defined sample metadata}
 
@@ -24,3 +27,21 @@ S4 class to represent loxcode experimental sample data
 \item{\code{consensus_filtered_data}}{A vector containing filtered data}
 }}
 
+\examples{
+# Define sample metadata
+sample_meta <- data.frame(
+  sample_name = "Sample1",
+  meta_value1 = 123,
+  meta_value2 = "abc"
+)
+
+# Create a LoxcodeExperimentSample object
+sample_data <- LoxcodeExperimentSample(
+  decode = data.frame(...),  # Raw decode data
+  meta = sample_meta,        # Sample metadata
+  name = "Sample1",          # Name of the experiment
+  files = c("file1.fastq", "file2.fastq"),  # File names
+  decode_stats = list(...),  # Decode statistics
+  consensus_filtered_data = c(...)  # Filtered data
+)
+}

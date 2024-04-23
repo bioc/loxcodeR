@@ -14,6 +14,16 @@ samptable(x) <- value
 
 \item{value}{value of sample table}
 }
+\value{
+sample table
+}
 \description{
 Set sample table
+}
+\examples{
+# Example usage:
+# Assuming 'lox_data' is a loxcode object and 'new_sample_table' is the new sample table to set
+# Set the sample table of the loxcode object to 'new_sample_table'
+lox_data$samptable <- new_sample_table
+lox_data
 }

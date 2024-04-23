@@ -38,3 +38,11 @@ a plot of the distribution of code sizes in the sample
 \description{
 Plots distribution of loxcode sizes found in sample
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming lox, sample, count_matrix, code_set, and labels are defined
+size_plot(lox, sample, count_matrix, code_set, labels = "Sample Name")
+}

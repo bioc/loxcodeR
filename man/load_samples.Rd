@@ -26,3 +26,9 @@ For each sample in the loxcode_experiment, barcodes readout is performed from FA
 followed by element imputation for the 13-element codes. Loxcodes are then validated, IDs fetched,
 and distance-from-origin is retrieved.
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object
+experiment <- load_data_from_FASTQ(experiment)
+experiment
+}

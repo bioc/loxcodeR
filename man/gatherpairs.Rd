@@ -41,3 +41,11 @@ A gathered pair of key pair values
 \description{
 Function used to
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming data is defined
+gather_pairs(data)
+}

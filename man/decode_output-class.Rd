@@ -5,6 +5,9 @@
 \alias{decode_output-class}
 \alias{decode_output}
 \title{S4 class to contain output of decode()}
+\value{
+decoded output
+}
 \description{
 S4 class to contain output of decode()
 }
@@ -18,3 +21,20 @@ S4 class to contain output of decode()
 \item{\code{saturation}}{list of colected files}
 }}
 
+\examples{
+decode_data <- data.frame(
+  barcode = c("ATCG", "CGTA", "GATC"),
+  count = c(10, 20, 15)
+)
+read_ids <- list(FASTQ1 = c("read1", "read2"), FASTQ2 = c("read3", "read4"))
+saturation <- list("file1.txt", "file2.txt")
+
+# Create an instance of decode_output class
+decode_output_instance <- new("decode_output",
+                               data = decode_data,
+                               read_ids = read_ids,
+                               saturation = saturation)
+
+# Print the decode_output object
+print(decode_output_instance)
+}

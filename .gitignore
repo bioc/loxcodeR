@@ -8,3 +8,12 @@ src/*.dll
 R/.Rhistory
 loxcoder.Rproj
 LoxcodeR_app/*.rds
+src/cassutil.o
+src/decode.o
+src/dist.o
+src/edlib.o
+src/loxcoder.dll
+src/loxcoder.so
+src/map_markov.o
+src/pack.o
+src/RcppExports.o

@@ -38,3 +38,11 @@ a plot of the distribution of distance from origin in the sample
 \description{
 Plots distribution of distance from origin found in sample
 }
+\examples{
+# Load a sample loxcode experiment object and sample
+data("loxcode_experiment")
+data("loxcode_sample")
+
+# Plot the distribution of distance from origin
+dist_orig_plot(loxcode_experiment, loxcode_sample, count_matrix, code_set, "Sample Name")
+}

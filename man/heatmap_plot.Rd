@@ -66,3 +66,11 @@ Heat map plot of the selected samples. Also produced with splits and clusters in
 \description{
 Generate heatmap from count_matrix and also perform clustering while plotting
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming loxcode_experiment, count_matrix, and code_set are defined
+heatmap_plot(loxcode_experiment, count_matrix, code_set, style = "ggplot", labels = "Sample", clustering = "ward.D2", min_reads = 10, max_repeats = 100, min_repeats = 5, split_by1 = "Group1", split_by2 = "Group2")
+}

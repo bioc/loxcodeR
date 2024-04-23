@@ -4,7 +4,7 @@
 library(shiny)
 library(plotly)
 library(DT)
-library(loxcoder)
+library(LoxCodeR2024)
 library(shinydashboard)
 library(rlist)
 library(shinyFiles)
@@ -137,7 +137,7 @@ updateSamples <- function(session) {
 }
 
 updateCurrentExp <- function(session, curr, exp) {
-  index = match(curr@name, loxcoder::exp_table(exp)$Experiment_Name)
+  index = match(curr@name, LoxCodeR2024::exp_table(exp)$Experiment_Name)
   exp = list.remove(exp, index)
   exp = list.append(exp, curr)
   return(exp)
@@ -664,7 +664,7 @@ function(input, output, session) {
         ref = react$curr@samples[[input$sim_sample]]
         npois = NULL
       }
-      sims$samples = loxcoder::simulate_nsamples(
+      sims$samples = LoxCodeR2024::simulate_nsamples(
         lox = new("lox_casette"),
         nsamples = input$nsamples,
         ncodes = input$ncodes,
@@ -1592,14 +1592,14 @@ function(input, output, session) {
   })
 
   # correlation plot output
-  output$correlation_plot = renderPlot({
-    correlation_plot(lox = react$curr,
-                     count_matrix = input$matrix_heat,
-                     code_set = input$codeset_heat,
-                     # parameter = input$correlation_parameter,
-                     # data = input$correlation_data,
-                     method_ = input$correlation_method)
-  })
+  # output$correlation_plot = renderPlot({
+  #   correlation_plot(lox = react$curr,
+  #                    count_matrix = input$matrix_heat,
+  #                    code_set = input$codeset_heat,
+  #                    # parameter = input$correlation_parameter,
+  #                    # data = input$correlation_data,
+  #                    method_ = input$correlation_method)
+  # })
 
 
 

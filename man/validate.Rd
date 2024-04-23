@@ -18,3 +18,10 @@ Cassette with validation column
 \description{
 Add cassette validation column to decoded cassette data
 }
+\examples{
+# Example usage:
+# Assuming 'cassette_data' is a loxcode cassette object
+# Add a validation column to the decoded cassette data
+validated_cassette <- validate(cassette_data)
+validated_cassette
+}

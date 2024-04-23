@@ -5,6 +5,9 @@
 \alias{loxcode_experiment-class}
 \alias{loxcode_experiment}
 \title{Loxcode experiment object}
+\value{
+Loxcode experiment object
+}
 \description{
 The `loxcode_experiment` object enables handling of data from multiple samples.
 }

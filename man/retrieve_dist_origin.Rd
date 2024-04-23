@@ -11,6 +11,16 @@ retrieve_dist_origin(c, sizes)
 
 \item{sizes}{sizes of all loxcode}
 }
+\value{
+distance from origin
+}
 \description{
 Assumes that input cassette is valid already!
+}
+\examples{
+# Example usage:
+# Assuming 'cassette' is a valid input cassette and 'loxcode_sizes' is a vector containing sizes of all loxcodes.
+# Calculate the distance from the origin
+dist_from_origin <- retrieve_dist_origin(cassette, loxcode_sizes)
+dist_from_origin
 }

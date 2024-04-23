@@ -34,3 +34,11 @@ Saturation plot of the loxcode sample
 \description{
 Multiple lined saturation plot
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming loxcode_experiment, loxcode_samples, and codesets are defined
+saturation_multi(loxcode_experiment, loxcode_samples, codesets, colorby = "dist_orig")
+}

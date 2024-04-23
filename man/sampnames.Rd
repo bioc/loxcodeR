@@ -18,3 +18,10 @@ names (handles) of samples
 \description{
 The names returned by this function can be used to refer to each individual sample
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object
+# Retrieve the names of all samples in the experiment
+sample_names <- fetch_sample_names(experiment)
+sample_names
+}

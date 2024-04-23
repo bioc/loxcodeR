@@ -12,3 +12,9 @@ True if shiny::runApp is round in callstack
 \description{
 CHECK IF IN SHINY
 }
+\examples{
+# Load the package
+
+# Check if the current environment is within a Shiny app
+shiny_running()
+}

@@ -28,3 +28,10 @@ new loxcode_experiment object
 \description{
 Create new filtered code set according to defined parameters
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object
+# Create a new filtered code set named 'filtered_codeset' based on parameters
+new_experiment <- make_filtered_codeset(experiment, s = "independent_sample_set", c = "code_set", t = 0.1, m = 3, n = "filtered_codeset")
+new_experiment
+}

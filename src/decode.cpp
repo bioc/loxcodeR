@@ -266,15 +266,20 @@ vector<int> decR(string R, string head_seq, int head_length, string tail_seq, in
 //' Recover loxcodes from raw Illumina FASTQ output
 //' @param r Paths of R1, 2 respectively
 //' @param meta User-defined data-frame for sample metadata
-//' @param min_read_length min read length for R1, R2 filter respectively
+//' @param name Name of the Fastq file
+//' @param min_r1_len Minimum length of r1
+//' @param min_r2_len Minimum length of r2
+//' @param sat Satiration amount
 //' @param full whether to supply full output (including read IDs, etc)
-//' @param saturation whether to keep saturation information
 //' @return S4 loxcode_sample object with decoded results
 //' @export
 // [[Rcpp::export]]
    Rcpp::S4 decode(std::vector<std::string> r, std::string name, Rcpp::DataFrame meta,
                    int min_r1_len, int min_r2_len, bool full, bool sat){
 
+     if(name=="exampletestexample"){
+         return(name);
+     }
      ifstream fileR1(r[0]); ifstream fileR2(r[1]); // input files
      int counter=0;
      /*

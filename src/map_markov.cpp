@@ -123,11 +123,19 @@ double tr(Rcpp::List& T, int size_idx, int m, int n){
 //' Calculates the generation probability distribution for cassettes
 //' for varying values of n (step number)
 //' @param n number of steps to generate
-//' @param T transition probabilities specified as interaction probabilities
+//' @param To transition probabilities specified as interaction probabilities
 //' @param start_idx size_idx from which to start
 //' @param start_id id of cassette to initialise markov chain from (0 for 13-element)
 //' @return list of n+1 items, giving the distribution state at step 0, 1, ..., n. (0 for unrecombined 13-elt cassette)
 //' @export
+//' @examples
+//' # Example usage:
+//' # Assuming 'transition_probabilities' is a list of transition probabilities,
+//' # 'steps' is the number of steps to generate, 'start_index' is the size_idx from which to start,
+//' # and 'start_id' is the id of the cassette to initialize the Markov chain from.
+//' # Calculate the generation probabilities for the specified parameters
+//' generation_probs <- run_markov(steps, transition_probabilities, start_index, start_id)
+//' generation_probs
 // [[Rcpp::export]]
 Rcpp::List run_markov(int n, Rcpp::List To, int start_idx, long long start_id){
   // sizes 13, 9, 7, 5, 3, 1

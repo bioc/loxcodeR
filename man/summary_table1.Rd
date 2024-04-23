@@ -20,3 +20,11 @@ A table of the selected samples
 \description{
 Tabulates the barcode counts, total number of reads, maximum complexity and consensus filtered for each sample in an experiment
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming x and c are defined
+summary_table(x, c)
+}

@@ -18,7 +18,18 @@ rank_count_plot(x, size, ymax, dmax)
 
 \item{dmax}{max d-value for dist_orig}
 }
+\value{
+ggplot object of rank count plot
+}
 \description{
 In the resulting plot, barcodes of specified size are ranked by read count. log10(count) is then plotted
 against barcode rank in black. In addition, dist_orig for each barcode is shown in red with the same horizontal axis.
+}
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming x and size are defined
+rank_count_plot(x, size, ymax = 100, dmax = 50)
 }

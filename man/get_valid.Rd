@@ -14,6 +14,18 @@ get_valid(x, s)
 
 \item{s}{sample name}
 }
+\value{
+loxcode object with valid data
+}
 \description{
-Equivalent to performing loxcoder::valid() on the sample s
+Equivalent to performing LoxCodeR2024::valid() on the sample s
+}
+\examples{
+# Load necessary libraries and data
+library(LoxCodeR2024)
+data <- read.csv("your_data.csv")
+
+# Assuming you have a loxcode_experiment object called lox
+sample_name <- "your_sample_name"  # Specify the name of the sample
+valid_data <- get_valid(lox, sample_name)
 }

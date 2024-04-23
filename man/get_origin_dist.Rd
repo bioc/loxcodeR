@@ -12,6 +12,20 @@ get_origin_dist(x)
 \arguments{
 \item{x}{loxcode object}
 }
+\value{
+Distance from origin of valid cassette
+}
 \description{
 Appends a column of dist_orig values for valid cassettes
+}
+\examples{
+# Load necessary libraries and data
+library(LoxCodeR2024)
+data <- read.csv("your_data.csv")
+
+# Create a loxcode object
+lox_obj <- create_lox_object(data)
+
+# Fetch distances from origin
+dist_orig_values <- get_origin_dist(lox_obj)
 }

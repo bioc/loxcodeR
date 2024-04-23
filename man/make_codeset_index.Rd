@@ -24,3 +24,10 @@ new loxcode_experiment object with a new codeset
 \description{
 Creates a new codeset with dataframe of codesets testing
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object
+# Create a new codeset named 'new_codeset' by selecting indices 1, 3, and 5 from an existing codeset 'old_codeset'
+new_experiment <- make_codeset_index(experiment, c = "old_codeset", I = c(1, 3, 5), n = "new_codeset")
+new_experiment
+}

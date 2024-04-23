@@ -20,3 +20,14 @@ dataframe of codeset information
 \description{
 Tabulates the codes in a codeset
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assume x and n are defined
+x <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+n="all_codes"
+codeset_table(x, n)
+
+}

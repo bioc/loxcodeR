@@ -12,7 +12,17 @@ impute(x)
 \arguments{
 \item{x}{loxcode object}
 }
+\value{
+cassette with imputed missing code
+}
 \description{
 For 13-element cassettes that are missing a single element, the
 missing element is imputed to minimise the resulting dist_orig.
+}
+\examples{
+# Example usage:
+# Assuming 'lox_data' is a loxcode object containing 13-element cassettes
+# Impute the missing code in each 13-element cassette
+imputed_cassettes <- impute_missing_code_in_13_element_cassettes(lox_data)
+imputed_cassettes
 }

@@ -18,3 +18,10 @@ loxcode_sample object corresponding to merged sample
 Barcodes from s1 and s2 are merged. For barcodes present in both samples, read counts are
 summed. Sample descriptors and other members are concatenated in order.
 }
+\examples{
+# Example usage:
+# Assuming 'sample1' and 'sample2' are loxcode_sample objects
+# Merge the two samples into a new loxcode_sample object
+merged_sample <- merge_sample(sample1, sample2)
+merged_sample
+}

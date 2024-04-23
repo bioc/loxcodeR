@@ -38,3 +38,11 @@ density plot of the distribution of dist_orig or sizes
 \description{
 Plot the density of the distribution of dist_orig or sizes in simulated samples
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assume ref, npois, dist_type, samples, and plot_type are defined
+density_distributions(ref, npois, dist_type, samples, plot_type = "size")
+}

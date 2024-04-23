@@ -24,3 +24,10 @@ new loxcode_experiment object with updated sample name
 \description{
 Renames a sample in a loxcode_experiment
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object and 'old_name' is the old sample name to be renamed
+# Rename the sample named 'old_name' to 'new_name' in the count matrix 'count_matrix_name'
+new_experiment <- rename_sample(x = experiment, c = "count_matrix_name", n = "new_name", o = "old_name")
+new_experiment
+}

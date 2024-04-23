@@ -21,3 +21,11 @@ A matrix of comparision of two samples
 \description{
 Function used to compare two samples based on barcode counts
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assume rep1, rep2, type, and range are defined
+comparison_table(rep1, rep2, type = "size", range = list(start = 1, end = 100))
+}

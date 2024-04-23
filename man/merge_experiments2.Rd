@@ -17,3 +17,10 @@ loxcode_experiment object
 \description{
 Merge a vector of experiments
 }
+\examples{
+# Example usage:
+# Assuming 'experiment1', 'experiment2', and 'experiment3' are loxcode_experiment objects
+# Merge the three experiments into a new experiment named 'merged_experiment'
+merged_experiment <- merge_experiments2(experiments = c(experiment1, experiment2, experiment3), name = "merged_experiment")
+merged_experiment
+}

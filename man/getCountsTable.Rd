@@ -20,6 +20,9 @@ getCountsTable(lox, samples, codes, count_matrix, counts, data)
 
 \item{data}{data to count (size/complexity)}
 }
+\value{
+Table of counts for each sample
+}
 \description{
 get counts table
 helper function to generate table of counts for each sample by selected data

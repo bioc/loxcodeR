@@ -22,3 +22,11 @@ lox_casette after random recombination
 \description{
 Simulate the lox recombination
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming lox is defined and has the required structure
+simulate(lox, site1 = "Site1", site2 = "Site2")
+}

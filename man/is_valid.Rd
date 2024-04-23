@@ -16,3 +16,11 @@ TRUE if the cassette is valid, otherwise FALSE
 Checks that cassette is an allowed size, even and odd elements are well-positioned
 and that there are no repeated elements.
 }
+\examples{
+# Example usage:
+# Assuming 'cassette' is a list of numeric vectors representing the cassette,
+# or a character vector of decoded loxcodes
+# Check if the cassette is valid
+is_valid <- check_cassette_validity(cassette)
+is_valid
+}

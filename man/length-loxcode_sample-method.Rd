@@ -9,6 +9,9 @@
 \arguments{
 \item{x}{Loxcode object}
 }
+\value{
+length of rows in loxcode
+}
 \description{
 Get number of rows in loxcode data
 }

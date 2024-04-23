@@ -21,6 +21,9 @@ get_ratio_plot(lox, counts, codes, count_matrix, labels)
 
 \item{labels}{list of labels to samples}
 }
+\value{
+ggplot object of plot
+}
 \description{
 get ratio plot
 helper function to generate plot of ratios

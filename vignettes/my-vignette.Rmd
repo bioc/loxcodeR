@@ -19,11 +19,11 @@ The app can also be used to export your analysis into a report of html or pdf fo
 
 # Application Installation
 - For Ubuntu 20.04.02 or debian user download dependencies using sudo apt-get install from terminal:
-	- `sudo apt-get install libcurl4-openssl-dev`
-	- `sudo apt-get install libssl-dev`
-	- `sudo apt-get install libxml2-dev`
-	- `sudo apt-get install libgit2-dev`
-	- `sudo aptitude install libgdal-dev`
+    - `sudo apt-get install libcurl4-openssl-dev`
+    - `sudo apt-get install libssl-dev`
+    - `sudo apt-get install libxml2-dev`
+    - `sudo apt-get install libgit2-dev`
+    - `sudo aptitude install libgdal-dev`
 - For MacOS does not need to do the above installation as it already had those functions.
 - open the file loxcoder.Rproj
 - open the file server.R from LoxcodeR_app folder
@@ -239,4 +239,9 @@ This page shows ratio plot and both plot for each sample in the experiment.
 This page is used to show the experiment data used for the experiment. It also shows us the custom sub experiment data.
 
 ![Details Data](../Docs/DetailsData.png)<br/>
+
+# Session Info
+```{r session_info, echo=FALSE}
+sessionInfo()
+```
 

@@ -18,3 +18,11 @@ a plot of the distribution of code sizes in the sample
 \description{
 Plots distribution of loxcode sizes found in sample. Works for loxcode_samples without loxcode_experiment
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming sample is a loxcode sample object
+size_plot_sample(sample)
+}

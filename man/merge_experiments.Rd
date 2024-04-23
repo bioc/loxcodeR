@@ -22,3 +22,10 @@ new merged loxcode_experiment
 \description{
 Merge two experiments
 }
+\examples{
+# Example usage:
+# Assuming 'experiment1' and 'experiment2' are loxcode_experiment objects
+# Merge the two experiments into a new experiment named 'merged_experiment'
+merged_experiment <- merge_experiments(lox1 = experiment1, lox2 = experiment2, name = "merged_experiment")
+merged_experiment
+}

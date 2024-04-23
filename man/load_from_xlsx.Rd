@@ -38,3 +38,11 @@ Must contain the following columns:
 
 * `min_r2_len` -- minimum R2 length
 }
+\examples{
+# Example usage:
+name <- "MyExperiment"
+s <- "path/to/excel_file.xlsx"
+dir <- "path/to/fastq_directory"
+experiment <- create_experiment(name, s, dir)
+experiment
+}

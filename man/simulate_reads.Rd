@@ -22,3 +22,11 @@ list of casettes after cre lox
 \description{
 Simulate recombination of multiple casettes
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming lox is defined and has the required structure
+simulate_reads(lox, c = 3, n = 10)
+}

@@ -9,6 +9,15 @@ load_prob_files(path)
 \arguments{
 \item{path}{path to directory containing the Markov chain tables}
 }
+\value{
+Probability table
+}
 \description{
 Load probability tables (Markov chain)
+}
+\examples{
+# Example usage:
+path <- "path/to/markov_chain_tables_directory"
+probability_table <- load_probability_tables(path)
+probability_table
 }

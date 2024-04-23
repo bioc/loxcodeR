@@ -42,3 +42,11 @@ A plot of the selected type explaing details of the samples
 \description{
 Generate size, complexity, both, ratio plot for the samples
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming x, count_matrix, code_set, plot, fill, and labels are defined
+readstats_plot(x, count_matrix, code_set, plot = "size", fill = TRUE, labels = "Sample Name")
+}

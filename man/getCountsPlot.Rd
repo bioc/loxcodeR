@@ -16,6 +16,9 @@ getCountsPlot(countsTable, labels, pos, data)
 
 \item{data}{data to plot (size/complexity)}
 }
+\value{
+ggplot object of plot
+}
 \description{
 get counts plot
 helper function to generate a bar graph of sizes/complexities for each sample

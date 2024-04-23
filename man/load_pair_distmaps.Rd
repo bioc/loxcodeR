@@ -9,6 +9,15 @@ load_pair_distmaps(path)
 \arguments{
 \item{path}{path to directory containing the maps 0 (for 13-element distances) and 1 (for 9-element distances)}
 }
+\value{
+distance maps files for pairwise distance
+}
 \description{
 Load distance maps for pairwise distances
+}
+\examples{
+# Example usage:
+path <- "path/to/your/directory"
+pairwise_distance_maps <- load_distance_maps(path)
+pairwise_distance_maps
 }

@@ -12,6 +12,16 @@ valid(x)
 \arguments{
 \item{x}{loxcode_sample object}
 }
+\value{
+valid cassettes
+}
 \description{
 Access decoded cassette data, valid cassettes only
+}
+\examples{
+# Example usage:
+# Assuming 'sample' is a loxcode_sample object
+# Access the decoded cassette data for valid cassettes only
+valid_cassettes <- valid(sample)
+valid_cassettes
 }

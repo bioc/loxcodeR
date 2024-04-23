@@ -18,3 +18,12 @@ a data frame containing the information of loxcode experiment
 \description{
 Presents a list of loxcode experiments in table form
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assume exp is a list of loxcode experiment objects
+experiments_table(exp)
+
+}

@@ -1,4 +1,4 @@
-Package: loxcoder
+Package: LoxCodeR2024
 Type: Package
 Title: Loxcode Tools
 Version: 0.99.1
@@ -61,5 +61,8 @@ Suggests:
     gridExtra,
     grid,
     readxl,
+URL: https://github.com/tomsergeweber/LoxCodeR2024
+BugReports: https://github.com/tomsergeweber/LoxCodeR2024/issues
 VignetteBuilder: knitr
 RoxygenNote: 7.3.1
+biocViews: Software, Visualization, Genetics

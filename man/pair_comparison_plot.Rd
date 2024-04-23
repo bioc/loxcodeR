@@ -43,3 +43,11 @@ A plot of 2 loxcode samples being compared
 \description{
 For each barcode in x1, x2, read counts in each sample are plotted on a log-scale, after adjusting sample x2 to match the total read count (for valid barcodes) in sample x1. Barcodes present in one sample and not the other are shown horizontally and vertically (below 0) using beeswarm plots
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming lox, set, codeset, x1, and x2 are defined
+pair_comparison_plot(lox, set, codeset, x1, x2, range = c(1, 100), plot = "scatter", labels = "Sample Labels")
+}

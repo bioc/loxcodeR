@@ -22,3 +22,10 @@ new loxcode_experiment object
 \description{
 rename sample set
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object and 'old_set_name' is the old sample set name to be renamed
+# Rename the sample set named 'old_set_name' to 'new_set_name'
+new_experiment <- rename_sample_set(x = experiment, s = "old_set_name", n = "new_set_name")
+new_experiment
+}

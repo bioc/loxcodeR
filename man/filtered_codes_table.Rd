@@ -26,3 +26,11 @@ scatterpie of filtered codes
 \description{
 Data frame of filtered codes specified by user parameters
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assume x, s, c, t, and m are defined
+filtered_codes_table(x, s, c, t = 0.1, m = 5)
+}

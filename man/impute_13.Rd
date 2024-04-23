@@ -11,6 +11,17 @@ impute_13(c, sizes)
 
 \item{sizes}{sizes of loxcode}
 }
+\value{
+13-element cassette
+}
 \description{
 Impute missing elements
+}
+\examples{
+# Example usage:
+# Assuming 'cassette_list' is a list of loxcode numbers present in each cassette,
+# and 'loxcode_sizes' is a vector containing the sizes of the loxcode.
+# Impute the missing elements in each cassette to form a 13-element cassette
+cassette <- impute_13(cassette_list, loxcode_sizes)
+cassette
 }

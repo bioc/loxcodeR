@@ -13,6 +13,17 @@ retrieve_prob(c, sizes, nrec)
 
 \item{nrec}{position in cassette}
 }
+\value{
+Probability of a cassette
+}
 \description{
 Assumes that input cassette is valid already!
+}
+\examples{
+# Example usage:
+# Assuming 'cassette' is a valid input cassette, 'loxcode_sizes' is a vector containing sizes of all loxcodes,
+# and 'position' is the position in the cassette.
+# Calculate the probability of the cassette at the given position
+cassette_prob <- retrieve_prob(cassette, loxcode_sizes, position)
+cassette_prob
 }

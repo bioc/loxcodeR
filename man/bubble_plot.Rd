@@ -66,3 +66,12 @@ Bubble plot of the selected samples. Also produced with splits and clusters in s
 \description{
 Generate bubble plot from count_matrix and also perform clustering while plotting
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assume loxcode_experiment, count_matrix, and code_set are defined
+loxcode_experiment <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+bubble_plot(loxcode_experiment,count_matrix="all_samples",code_set="all_codes",style="ggplot", labels="sample", clustering="none",agglomeration="complete",min_reads=0,max_repeats=100,min_repeats=1,split_by1="none",split_by2="none")
+}

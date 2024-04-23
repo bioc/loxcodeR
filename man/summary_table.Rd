@@ -20,3 +20,10 @@ table of sample information
 \description{
 Summary table (v3)
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object and 'sample_set' is the sample set to summarize
+# Generate a summary table for the specified sample set in the experiment
+summary_table <- summary_table(experiment, sample_set)
+summary_table
+}

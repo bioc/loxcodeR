@@ -22,3 +22,10 @@ Merge samples present in a loxcode_experiment object according to a specified la
 samp_table. All samples with a common value for the label column are merged together. The resulting
 loxcode_experiment object contains loxcode_samples named by the corresponding labels in by.
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object and 'label_column' is the name of the column to merge by
+# Merge samples based on the values in the 'label_column'
+merged_experiment <- merge_samples_by_label(experiment, by = "label_column")
+merged_experiment
+}

@@ -12,10 +12,20 @@ retrieve_prob_ensemble(x)
 \arguments{
 \item{x}{loxcode_sample object}
 }
+\value{
+ensemble genration probability
+}
 \description{
 Retrieve ensemble probabilities as a weighted linear combination of Markov probabilities
 where distances (dist_orig) are weighted using the sample distribution of recombination distances.
 }
 \details{
 Results are appended to readout data as a 'prob' column.
+}
+\examples{
+# Example usage:
+# Assuming 'sample' is a loxcode_sample object
+# Retrieve ensemble generation probability for the sample
+ensemble_probability <- get_ensemble_generation_probability(sample)
+ensemble_probability
 }

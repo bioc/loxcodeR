@@ -22,3 +22,11 @@ Saturation plot of the loxcode sample
 \description{
 Plotting the saturation of samples
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming loxcode_experiment, loxcode_sample, and code_set are defined
+saturation_plot(loxcode_experiment, loxcode_sample, code_set)
+}

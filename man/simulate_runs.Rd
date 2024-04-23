@@ -20,3 +20,11 @@ vector of lox sites after n recombinations
 \description{
 Simulate n lox recombination events
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming lox is defined and has the required structure
+simulate_runs(lox = c("lox1", "lox2"), n = 10)
+}

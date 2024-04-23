@@ -11,6 +11,16 @@ retrieve_dist_pair(c1, c2)
 
 \item{c2}{input cassette 2}
 }
+\value{
+distance between 2 cassette
+}
 \description{
 Assumes that input cassette is valid already!
+}
+\examples{
+# Example usage:
+# Assuming 'cassette1' and 'cassette2' are valid input cassettes.
+# Calculate the distance between the two cassettes
+dist_between_cassettes <- retrieve_dist_pair(cassette1, cassette2)
+dist_between_cassettes
 }

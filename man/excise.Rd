@@ -22,3 +22,10 @@ an excised lox_casette object
 \description{
 Perform an excision on the sequence
 }
+\examples{
+# Create a sample lox_casette object
+lox <- create_lox_casette(...)
+
+# Perform excision on the sequence
+excise(lox, 10, 20)
+}

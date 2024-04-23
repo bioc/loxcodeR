@@ -10,6 +10,15 @@ load_origin_distmaps(path)
 \item{path}{path to directory containing maps named 0, 1, 2, 3, 4, corresponding to the size index of
 13, 9, 7, 5, 3 element cassettes respectively}
 }
+\value{
+distance map files
+}
 \description{
 Load distance maps for distance-to-origin
+}
+\examples{
+# Example usage:
+path <- "path/to/your/directory"
+distance_maps <- load_distance_maps(path)
+distance_maps
 }

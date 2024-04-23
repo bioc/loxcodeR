@@ -20,3 +20,11 @@ table of sample information
 \description{
 Summary table (v2)
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming lox and s are defined
+summary_table2(lox, s)
+}

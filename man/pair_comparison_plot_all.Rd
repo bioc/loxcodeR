@@ -34,3 +34,11 @@ A pair comparision plot comparing all samples agaist each other
 \description{
 Pair Comparison Plot all
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming lox, min_reads, matrix, and codeset are defined
+pair_comparison_plot_all(lox, min_reads, matrix, codeset)
+}

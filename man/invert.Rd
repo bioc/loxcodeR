@@ -22,3 +22,7 @@ a new vector of lox sites
 \description{
 Perform an inversion on the sequence
 }
+\examples{
+# Assuming you have a vector of lox sites called lox
+new_lox <- invert(lox, 1, 3)  # Invert positions 1 to 3
+}

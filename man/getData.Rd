@@ -17,3 +17,11 @@ data frame with sizes in a sample
 \description{
 Get a list of sizes from the sample
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming sample is defined
+get_sample_data(sample, plot_type = "size")
+}

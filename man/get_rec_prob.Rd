@@ -14,6 +14,18 @@ get_rec_prob(x, size)
 
 \item{size}{size of the loxcode}
 }
+\value{
+distribution if distance of recombination
+}
 \description{
 Returns the proportion of valid cassettes for each valid recombination distance (dist_orig)
+}
+\examples{
+# Load necessary libraries and data
+library(LoxCodeR2024)
+data <- read.csv("your_data.csv")
+
+# Assuming you have a Loxcode object called lox
+size <- 10  # Set the size of the Loxcode
+distribution <- get_rec_prob(lox, size)
 }

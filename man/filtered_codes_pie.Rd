@@ -26,3 +26,11 @@ scatter pie of filtered codes
 \description{
 Filters out codes that have an overlap between independent samples
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assume x, s, c, t, and m are defined
+filtered_codes_pie(x, s, c, t = 0.1, m = 5)
+}

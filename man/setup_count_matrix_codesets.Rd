@@ -14,6 +14,16 @@ setup_count_matrix_codesets(x, ...)
 
 \item{...}{count matrix to be set up}
 }
+\value{
+count matrix for each sample
+}
 \description{
 Generate count_matrix from individual samples and add standard code_sets
+}
+\examples{
+# Example usage:
+# Assuming 'lox_data' is a loxcode object and 'count_matrix_1', 'count_matrix_2', etc. are individual count matrices
+# Generate count matrices from individual samples and add standard code sets
+updated_lox <- setup_count_matrix_codesets(lox_data, count_matrix_1, count_matrix_2, ...)
+updated_lox
 }

@@ -5,6 +5,9 @@
 \alias{lox_casette-class}
 \alias{lox_casette}
 \title{Lox barcode casette object}
+\value{
+loxcode casette for simulation
+}
 \description{
 Lox barcode casette object
 }

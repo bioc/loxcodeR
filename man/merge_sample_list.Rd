@@ -26,3 +26,10 @@ merged loxcode_sample object
 Merge list of samples
 Merges a list of samples into one loxcode_sample object
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object and 'sample_list' is a list of sample names to be merged
+# Merge the samples in 'sample_list' into a single loxcode_sample object, summing their counts
+merged_sample <- merge_sample_list(lox = experiment, samples = sample_list, union = TRUE, average = FALSE)
+merged_sample
+}

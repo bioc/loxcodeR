@@ -17,3 +17,11 @@ A data frame of comparision of two samples
 \description{
 Function used to compare two samples based on barcode counts
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming s1 and s2 are defined
+comparison_table(s1, s2)
+}

@@ -22,3 +22,12 @@ A beeswarm plot of the recombinaton distance
 Produces a beeswarm plot where for each cassette size, individual distinct barcodes are shown as
 points. Size and color of points correspond to the read count of each barcode.
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assume x and count_threshold are defined
+dist_count_beeswarm_plot(x, count_threshold = 100)
+
+}

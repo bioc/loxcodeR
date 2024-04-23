@@ -22,3 +22,11 @@ sample alias
 \description{
 Get sample name from alias
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming lox, set, and name are defined
+get_samplename(lox, set = "Sample_Set_Name", name = "Alias_Name")
+}

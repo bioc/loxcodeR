@@ -12,6 +12,16 @@ samptable(x)
 \arguments{
 \item{x}{loxcode object}
 }
+\value{
+sample table
+}
 \description{
 Get sample table
+}
+\examples{
+# Example usage:
+# Assuming 'lox_data' is a loxcode object
+# Retrieve the sample table from the loxcode object
+sample_table <- get_sample_table(lox_data)
+sample_table
 }

@@ -17,3 +17,11 @@ A object containing the barcode and data on the matched barcode in the sample
 \description{
 Number of times a barcode is seen in a sample
 }
+\examples{
+# Load required packages
+library(LoxCodeR2024)
+
+# Example usage
+# Assuming union_bc and rep are defined
+barcode_stats(union_bc, rep)
+}

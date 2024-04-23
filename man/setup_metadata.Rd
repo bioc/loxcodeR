@@ -12,6 +12,16 @@ setup_metadata(x)
 \arguments{
 \item{x}{loxcode object to be updated}
 }
+\value{
+metadata for loxcode experiment
+}
 \description{
 Generate metadata for the loxcode experiment
+}
+\examples{
+# Example usage:
+# Assuming 'lox_data' is a loxcode object
+# Generate metadata for the loxcode experiment
+experiment_metadata <- setup_metadata(lox_data)
+experiment_metadata
 }

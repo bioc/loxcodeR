@@ -24,3 +24,10 @@ loxcode_experiment object with changed sample alias
 \description{
 Changes the alias of a sample
 }
+\examples{
+# Example usage:
+# Assuming 'experiment' is a loxcode_experiment object
+# Change the alias of the sample named 'old_sample' to 'new_sample'
+new_experiment <- change_sample_alias(x = experiment, c = "current_count_matrix", s = "old_sample", n = "new_sample")
+new_experiment
+}

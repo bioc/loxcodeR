@@ -22,6 +22,9 @@ stats_bar_plot(lox, counts, codes, count_matrix, plot, pos, labels)
 
 \item{labels}{specify if samples should be labelled by sample_name or alias}
 }
+\value{
+ggplot object of stats bar plot
+}
 \description{
 stats bar plot
 helper function for readstats_plot to generate size and complexity plots
