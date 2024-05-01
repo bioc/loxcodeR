@@ -4,7 +4,8 @@
 library(shiny)
 library(plotly)
 library(DT)
-library(LoxCodeR2024)
+library(loxcoder)
+library(readxl)
 library(shinydashboard)
 library(rlist)
 library(shinyFiles)
@@ -137,7 +138,7 @@ updateSamples <- function(session) {
 }
 
 updateCurrentExp <- function(session, curr, exp) {
-  index = match(curr@name, LoxCodeR2024::exp_table(exp)$Experiment_Name)
+  index = match(curr@name, loxcoder::exp_table(exp)$Experiment_Name)
   exp = list.remove(exp, index)
   exp = list.append(exp, curr)
   return(exp)
@@ -664,7 +665,7 @@ function(input, output, session) {
         ref = react$curr@samples[[input$sim_sample]]
         npois = NULL
       }
-      sims$samples = LoxCodeR2024::simulate_nsamples(
+      sims$samples = loxcoder::simulate_nsamples(
         lox = new("lox_casette"),
         nsamples = input$nsamples,
         ncodes = input$ncodes,
@@ -686,17 +687,17 @@ function(input, output, session) {
     }
   })
 
-  output$size_sim = renderPlotly({
-    if (length(sims$samples) == 0 |
-        is.null(input$simulated_samples_rows_selected))
-    { return() }
-    else {
-      index = input$simulated_samples_rows_selected
-      index = index[length(index)]
-      sample = sims$samples[[index]][[1]]
-      size_plot_sample(sample)
-    }
-  })
+  # output$size_sim = renderPlotly({
+  #   if (length(sims$samples) == 0 |
+  #       is.null(input$simulated_samples_rows_selected))
+  #   { return() }
+  #   else {
+  #     index = input$simulated_samples_rows_selected
+  #     index = index[length(index)]
+  #     sample = sims$samples[[index]][[1]]
+  #     size_plot_sample(sample)
+  #   }
+  # })
 
   output$dist_orig_density = renderPlotly({
     if (length(sims$samples) == 0 |
@@ -2313,7 +2314,7 @@ function(input, output, session) {
       }
     }, ignoreInit = TRUE)
 
-  ##Ratio plot box
+  ##t plot box
   observeEvent(
     input$includeRatio1, {
       if(input$includeRatio1==TRUE){

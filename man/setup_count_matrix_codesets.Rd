@@ -24,6 +24,7 @@ Generate count_matrix from individual samples and add standard code_sets
 # Example usage:
 # Assuming 'lox_data' is a loxcode object and 'count_matrix_1', 'count_matrix_2', etc. are individual count matrices
 # Generate count matrices from individual samples and add standard code sets
-updated_lox <- setup_count_matrix_codesets(lox_data, count_matrix_1, count_matrix_2, ...)
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+updated_lox <- setup_count_matrix_codesets(lox)
 updated_lox
 }

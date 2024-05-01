@@ -48,7 +48,7 @@ Collapse selected samples (v2)
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assuming lox, count_matrix, code_set, index, name, union, and average are defined and have the required structure

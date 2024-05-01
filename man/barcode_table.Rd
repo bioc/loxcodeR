@@ -36,7 +36,7 @@ A function used to generate table for the barcode details.
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assume lox, code_set, and count_matrix are defined

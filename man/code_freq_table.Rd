@@ -24,7 +24,7 @@ Creates a data.frame of the frequency for each size and complexity combination
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assume x, s, and c are defined

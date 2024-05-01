@@ -22,6 +22,7 @@ Get sample table
 # Example usage:
 # Assuming 'lox_data' is a loxcode object
 # Retrieve the sample table from the loxcode object
-sample_table <- get_sample_table(lox_data)
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+sample_table <- samptable(lox)
 sample_table
 }

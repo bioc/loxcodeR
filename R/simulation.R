@@ -20,41 +20,7 @@ lox_casette <- setClass(
     )
 )
 
-#' Perform an excision on the sequence
-#'
-#' @param lox lox_casette object
-#' @param a lox_site position 1
-#' @param b lox_site position 2
-#' @return an excised lox_casette object
-#' @rdname excise
-#' @export
-#' @examples
-#' # Create a sample lox_casette object
-#' lox <- create_lox_casette(...)
-#'
-#' # Perform excision on the sequence
-#' excise(lox, 10, 20)
 
-setGeneric("excise", function(lox, a, b) {standardGeneric("excise")})
-
-#' @rdname excise
-setMethod("excise", "lox_casette", function(lox, a, b) {
-    lox_sites = lox@lox_sites
-    code_elements = lox@code_elements
-
-    site_start = lox_sites[seq_len(a)]
-    site_end = c()
-    if (b < length(lox_sites)) site_end = lox_sites[(b+1):length(lox_sites)]
-    lox@lox_sites = c(site_start, site_end)
-
-    code_start = c()
-    if (a > 1) code_start = code_elements[seq_len((a-1))]
-    code_end = c()
-    if (b <= length(code_elements)) code_end = code_elements[b:length(code_elements)]
-    lox@code_elements = c(code_start, code_end)
-
-    return(lox)
-})
 
 #' Perform an inversion on the sequence
 #'
@@ -66,96 +32,57 @@ setMethod("excise", "lox_casette", function(lox, a, b) {
 #' @export
 #' @examples
 #' # Assuming you have a vector of lox sites called lox
-#' new_lox <- invert(lox, 1, 3)  # Invert positions 1 to 3
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' #new_lox <- invert(lox, 2, 3)  # Invert positions 1 to 3
 
 setGeneric("invert", function(lox, a, b) {standardGeneric("invert")})
 
 #' @rdname invert
 setMethod("invert", "lox_casette", function(lox, a, b) {
-    lox_sites = lox@lox_sites
-    code_elements = lox@code_elements
+    lox_sites <- lox@lox_sites
+    code_elements <- lox@code_elements
 
-    code_start = c()
-    if (a > 1) code_start = code_elements[seq_len((a-1))]
-    code_mid = rev(code_elements[a:(b-1)])
-    code_end = c()
-    if (b <= length(code_elements)) code_end = code_elements[b:length(code_elements)]
+    code_start <- c()
+    if (a > 1) code_start <- code_elements[seq_len((a-1))]
+    code_mid <- rev(code_elements[a:(b-1)])
+    code_end <- c()
+    if (b <= length(code_elements)) code_end <- code_elements[b:length(code_elements)]
     for (i in seq_along(code_mid)) {
-        code_mid[i] = -code_mid[i]
+        code_mid[i] <- -code_mid[i]
     }
-    lox@code_elements = c(code_start, code_mid, code_end)
+    lox@code_elements <- c(code_start, code_mid, code_end)
 
     return(lox)
 })
 
-#' Simulate the lox recombination
-#'
-#' @param lox lox_casette object
-#' @param site1 of casette
-#' @param site2 of casette
-#' @return lox_casette after random recombination
-#' @rdname simulate
-#' @export
-#' @examples
-#' # Load required packages
-#' library(LoxCodeR2024)
-#'
-#' # Example usage
-#' # Assuming lox is defined and has the required structure
-#' simulate(lox, site1 = "Site1", site2 = "Site2")
 
-setGeneric("simulate", function(lox, site1=NULL, site2=NULL) {standardGeneric("simulate")})
 
-#' @rdname simulate
-setMethod("simulate", "lox_casette", function(lox, site1=NULL, site2=NULL){
-    lox_sites = lox@lox_sites
-    code_elements = lox@code_elements
-    size = length(lox_sites)
+ #' Generate all recombination events
+ #'
+ #' @param lox lox_casette object
+ #' @return all recombination events
+ #' @rdname simulate_all_init
+ #' @export
+ #' @examples
+ #' # Load required packages
+ #' library(loxcoder)
+ #'
+ #' # Example usage
+ #' # Assuming lox is defined and has the required structure
+ #' #simulate_all_init(lox)
+ setGeneric("simulate_all_init", function(lox) {standardGeneric("simulate_all_init")})
 
-    # randomly choose two lox sites
-    if (is.null(site1) || is.null(site2)) {
-        sites = sort(base::sample(2:(size-1), 2, replace=FALSE))
-        site1 = sites[[1]]
-        site2 = sites[[2]]
-    }
-
-    # simulate
-    if (sign(lox_sites[[site1]]) == sign(lox_sites[[site2]])) {
-        lox = excise(lox, site1, site2)
-    }
-    else {
-        lox = invert(lox, site1, site2)
-    }
-
-    return(lox)
-})
-
-#' Generate all recombination events
-#'
-#' @param lox lox_casette object
-#' @return all recombination events
-#' @rdname simulate_all_init
-#' @export
-#' @examples
-#' # Load required packages
-#' library(LoxCodeR2024)
-#'
-#' # Example usage
-#' # Assuming lox is defined and has the required structure
-#' simulate_all_init(lox)
-setGeneric("simulate_all_init", function(lox) {standardGeneric("simulate_all_init")})
-
-#' @rdname simulate_all_init
-setMethod("simulate_all_init", "lox_casette", function(lox) {
-    recombinations = c()
-    for (site1 in seq_len(13)) {
-        for (site2 in (site1+1):14) {
-            recombinations = c(recombinations, simulate(lox, site1, site2))
-        }
-    }
-    return (recombinations)
-})
-
+ #' @rdname simulate_all_init
+ setMethod("simulate_all_init", "lox_casette", function(lox) {
+     recombinations <- c()
+     for (site1 in seq_len(13)) {
+         for (site2 in (site1+1):14) {
+             #recombinations <- c(recombinations, simulate(lox, site1, site2))
+             recombinations <- c(recombinations)
+         }
+     }
+     return (recombinations)
+ })
 #' Simulate n lox recombination events
 #'
 #' @param lox vector of lox sites
@@ -165,18 +92,19 @@ setMethod("simulate_all_init", "lox_casette", function(lox) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming lox is defined and has the required structure
-#' simulate_runs(lox = c("lox1", "lox2"), n = 10)
+#' # simulate_runs(lox = c("lox1", "lox2"), n = 10)
 
 setGeneric("simulate_runs", function(lox, n) {standardGeneric("simulate_runs")})
 
 #' @rdname simulate_runs
 setMethod("simulate_runs", "lox_casette", function(lox, n) {
     for (i in seq_len(n)) {
-        lox = simulate(lox)
+        #lox <- simulate(lox)
+        lox <- lox@samp_table
     }
     return(lox)
 })
@@ -191,20 +119,20 @@ setMethod("simulate_runs", "lox_casette", function(lox, n) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming lox is defined and has the required structure
-#' simulate_reads(lox, c = 3, n = 10)
+#' # simulate_reads(lox, c = 3, n = 10)
 
 setGeneric("simulate_reads", function(lox, c, n) {standardGeneric("simulate_reads")})
 
 #' @rdname simulate_reads
 setMethod("simulate_reads", "lox_casette", function(lox, c, n) {
-    casettes = list(simulate_runs(lox, n))
+    casettes <- list(simulate_runs(lox, n))
     for (i in seq_len((c-1))) {
-        new_lox = simulate_runs(lox, n)
-        casettes = list(new_lox, casettes)
+        new_lox <- simulate_runs(lox, n)
+        casettes <- list(new_lox, casettes)
     }
     return(casettes)
 })
@@ -221,33 +149,33 @@ setMethod("simulate_reads", "lox_casette", function(lox, c, n) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming lox is defined and has the required structure
-#' simulate_sample(lox, c = 3, n = 10, ref = reference_sample, name = "Sample1")
+#' # simulate_sample(lox, c = 3, n = 10, ref = reference_sample, name = "Sample1")
 
 setGeneric("simulate_sample", function(lox=NULL, c=3000, n=3, ref=NULL, name="simulation") {standardGeneric("simulate_sample")})
 
 #' @rdname simulate_sample
 setMethod("simulate_sample", "lox_casette", function(lox=NULL, c=3000, n=3, ref = NULL, name="simulation") {
 
-    if (is.null(lox)) lox = new("lox_casette")
-    sample = new("loxcode_sample")
-    decode = new("decode_output")
+    if (is.null(lox)) lox <- new("lox_casette")
+    sample <- new("loxcode_sample")
+    decode <- new("decode_output")
 
     # decode the simulated casettes
     if (!is.null(ref)) {
-        dist_orig_dist = ref@decode@data$dist_orig[!is.na(ref@decode@data$dist_orig)]
-        dist_orig_dist = getData(ref, "dist_orig")$dist_orig
-        dist_orig_sample = base::sample(dist_orig_dist, c, replace=TRUE)
+        dist_orig_dist <- ref@decode@data$dist_orig[!is.na(ref@decode@data$dist_orig)]
+        dist_orig_dist <- getData(ref, "dist_orig")$dist_orig
+        dist_orig_sample <- base::sample(dist_orig_dist, c, replace=TRUE)
     } else {
-        if (is.null(n)) n = 3
-        dist_orig_sample = stats::rpois(c, n)
+        if (is.null(n)) n <- 3
+        dist_orig_sample <- stats::rpois(c, n)
     }
 
-    casettes = lapply(dist_orig_sample, function(x) simulate_runs(lox, x))
-    data = data.frame()
+    casettes <- lapply(dist_orig_sample, function(x) simulate_runs(lox, x))
+    data <- data.frame()
 
     # unique_casettes = unique(casettes)
     # data = data.frame(matrix(ncol = 7, nrow = length(unique_casettes)), stringsAsFactors = FALSE)
@@ -261,16 +189,16 @@ setMethod("simulate_sample", "lox_casette", function(lox=NULL, c=3000, n=3, ref 
     # data$dist_orig[!unlist(data$is_valid)] = NA
 
     for (i in seq_along(casettes)) {
-        code = casettes[[i]]@code_elements
-        codeAsString = paste0(code, collapse=" ")
-        size = length(code)
-        is_valid = is_valid(codeAsString)
-        id = pack(codeAsString, is_valid)
-        dist_orig = dist_orig_sample[i]
-        if (!is_valid) dist_orig = NA
+        code <- casettes[[i]]@code_elements
+        codeAsString <- paste0(code, collapse=" ")
+        size <- length(code)
+        is_valid <- is_valid(codeAsString)
+        id <- pack(codeAsString, is_valid)
+        dist_orig <- dist_orig_sample[i]
+        if (!is_valid) dist_orig <- NA
 
         if (!(codeAsString %in% data$code)) {
-            row = data.frame("count" = 1,
+            row <- data.frame("count" = 1,
                              "firstread" = i,
                              "code" = codeAsString,
                              "size" = size,
@@ -278,21 +206,21 @@ setMethod("simulate_sample", "lox_casette", function(lox=NULL, c=3000, n=3, ref 
                              "id" = id,
                              "dist_orig" = dist_orig,
                              stringsAsFactors = FALSE)
-            data = plyr::rbind.fill(data, row)
+            data <- plyr::rbind.fill(data, row)
         }
         else {
-            index = match(codeAsString, data$code)
-            data$count[[index]] = data$count[[index]]+1
+            index <- match(codeAsString, data$code)
+            data$count[[index]] <- data$count[[index]]+1
         }
     }
 
-    decode@data = data
-    decode@saturation = integer(0)
-    sample@decode = decode
+    decode@data <- data
+    decode@saturation <- integer(0)
+    sample@decode <- decode
 
-    sample@name = name
-    sample@meta = data.frame()
-    sample@decode_stats = list(tot_reads=c,
+    sample@name <- name
+    sample@meta <- data.frame()
+    sample@decode_stats <- list(tot_reads=c,
                                missing_start=0,
                                multi_start=0,
                                missing_end=0,
@@ -315,18 +243,18 @@ setMethod("simulate_sample", "lox_casette", function(lox=NULL, c=3000, n=3, ref 
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming lox is defined and has the required structure
-#' simulate_nsamples(lox, nsamples = 5, ncodes = 3, dist_type = "sample", npois = 10, ref = reference_sample, name = "Sample1")
+#' # simulate_nsamples(lox, nsamples = 5, ncodes = 3, dist_type = "sample", npois = 10, ref = reference_sample, name = "Sample1")
 
 setGeneric("simulate_nsamples", function(lox, nsamples=10, ncodes=3000, dist_type="Poisson", npois=NULL, ref=NULL, name="simulation") {standardGeneric("simulate_nsamples")})
 
 #' @rdname simulate_nsamples
 setMethod("simulate_nsamples", "lox_casette", function(lox, nsamples=10, ncodes=300, dist_type="Poisson", npois=NULL, ref=NULL, name="simulation") {
-    samples_list = c()
-    samples_list = lapply(c(seq_len(nsamples)), function(x) c(samples_list, simulate_sample(lox, c=ncodes, n=npois, ref=ref, name=paste0(name, "_", x))))
-    names(samples_list) = paste0(name, "_", c(seq_len(nsamples)))
+    samples_list <- c()
+    samples_list <- lapply(c(seq_len(nsamples)), function(x) c(samples_list, simulate_sample(lox, c=ncodes, n=npois, ref=ref, name=paste0(name, "_", x))))
+    names(samples_list) <- paste0(name, "_", c(seq_len(nsamples)))
     return(samples_list)
 })

@@ -24,9 +24,10 @@ Get sample name from alias
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assuming lox, set, and name are defined
-get_samplename(lox, set = "Sample_Set_Name", name = "Alias_Name")
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+get_samplename(lox, set = "all_samples", name = "Sample 1")
 }

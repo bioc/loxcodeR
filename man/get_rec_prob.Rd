@@ -22,10 +22,10 @@ Returns the proportion of valid cassettes for each valid recombination distance 
 }
 \examples{
 # Load necessary libraries and data
-library(LoxCodeR2024)
-data <- read.csv("your_data.csv")
+library(loxcoder)
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 
 # Assuming you have a Loxcode object called lox
 size <- 10  # Set the size of the Loxcode
-distribution <- get_rec_prob(lox, size)
+distribution <- get_rec_prob(lox@samples$N709_N501, size)
 }

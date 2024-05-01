@@ -22,9 +22,9 @@ Simulate n lox recombination events
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assuming lox is defined and has the required structure
-simulate_runs(lox = c("lox1", "lox2"), n = 10)
+# simulate_runs(lox = c("lox1", "lox2"), n = 10)
 }

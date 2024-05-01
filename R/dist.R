@@ -8,15 +8,15 @@
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(LoxCodeR2024)
-#' data <- read.csv("your_data.csv")
+#' library(loxcoder)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 #'
 #' # Assuming you have two codesets
-#' codeset_A <- data[data$codeset == "A", ]
-#' codeset_B <- data[data$codeset == "B", ]
+#' #codeset_A <- data[data$codeset == "A", ]
+#' #codeset_B <- data[data$codeset == "B", ]
 #'
 #' # Get pairwise distance
-#' pairwise_distance <- get_pairwise_distance(codeset_A, codeset_B)
+#' #pairwise_distance <- get_pairwise_distance(codeset_A, codeset_B)
 get_pair_dist <- function(codesA, codesB) {
     if (!all(c(
         all(codesA$is_valid),

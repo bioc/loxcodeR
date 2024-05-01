@@ -30,11 +30,11 @@ read_ids <- list(FASTQ1 = c("read1", "read2"), FASTQ2 = c("read3", "read4"))
 saturation <- list("file1.txt", "file2.txt")
 
 # Create an instance of decode_output class
-decode_output_instance <- new("decode_output",
-                               data = decode_data,
-                               read_ids = read_ids,
-                               saturation = saturation)
+#decode_output_instance <- new("decode_output",
+#                               data = decode_data,
+#                               read_ids = read_ids,
+#                               saturation = saturation)
 
 # Print the decode_output object
-print(decode_output_instance)
+#print(decode_output_instance)
 }

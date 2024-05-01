@@ -28,9 +28,10 @@ Data frame of filtered codes specified by user parameters
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assume x, s, c, t, and m are defined
-filtered_codes_table(x, s, c, t = 0.1, m = 5)
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+filtered_codes_table(lox, s = "all_samples", c = "all_codes", t = 3, m = 5)
 }

@@ -68,7 +68,7 @@ Generate bubble plot from count_matrix and also perform clustering while plottin
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assume loxcode_experiment, count_matrix, and code_set are defined

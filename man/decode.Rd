@@ -29,3 +29,7 @@ S4 loxcode_sample object with decoded results
 Decode FASTQ
 Recover loxcodes from raw Illumina FASTQ output
 }
+\examples{
+# Example usage:
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+}

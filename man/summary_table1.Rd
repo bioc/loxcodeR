@@ -22,9 +22,10 @@ Tabulates the barcode counts, total number of reads, maximum complexity and cons
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assuming x and c are defined
-summary_table(x, c)
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+summary_table1(lox,"all_samples")
 }

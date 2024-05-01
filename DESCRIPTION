@@ -1,4 +1,4 @@
-Package: LoxCodeR2024
+Package: loxcoder
 Type: Package
 Title: Loxcode Tools
 Version: 0.99.1
@@ -6,7 +6,7 @@ Authors@R: c(person("Stephen", "Zhang", email = "zhang.s@wehi.edu.au", role = c(
             person("Arnav", "Garg", email = "garg.a@wehi.edu.au", role = c("cre", "aut")), 
             person("Tom","Weber", email = "weber.ts@wehi.edu.au", role = c("cph", "aut")))
 Description: A system to explore and visualise Loxcodes. This is a Web application to visualise and analyse different aspects of a Loxcode. The app can be used to manipulate and extract meaningful insights from experiment data. The app has Pdf and Web page based report creation to present data analysed in the application.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 LinkingTo: 
@@ -31,36 +31,24 @@ Imports:
     pals
 Suggests: 
     knitr, 
-    rmarkdown,  
-    stats, 
+    rmarkdown, 
     qpdf, 
-    ggplot2, 
-    methods, 
     ggthemes, 
     matrixStats, 
     devtools, 
-    pals, 
     viridis, 
-    tidyr, 
-    ggbeeswarm,
     dygraphs,
-    shiny,
-    dplyr,
     htmlwidgets,
     digest,
     bit,
     flexdashboard,
     highcharter,
     scatterD3,
-    comprehenr,
     VennDiagram,
     reshape,
-    scatterpie,
     tidyverse,
     plotly,
     gridExtra,
-    grid,
-    readxl,
 URL: https://github.com/tomsergeweber/LoxCodeR2024
 BugReports: https://github.com/tomsergeweber/LoxCodeR2024/issues
 VignetteBuilder: knitr

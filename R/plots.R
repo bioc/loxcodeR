@@ -32,11 +32,11 @@
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
-#'
+#' library(loxcoder)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 #' # Example usage
 #' # Assuming lox, sample, count_matrix, code_set, and labels are defined
-#' size_plot(lox, sample, count_matrix, code_set, labels = "Sample Name")
+#' size_plot(lox, sample="Sample 1", count_matrix="all_samples", code_set="all_codes", labels = "alias")
 setGeneric("size_plot", function(lox,
                                  sample,
                                  count_matrix = "all_samples",
@@ -51,8 +51,8 @@ setMethod("size_plot", "loxcode_experiment", function(lox,
                                                       count_matrix = "all_samples",
                                                       code_set = "all_codes",
                                                       labels) {
-    code = NULL
-    size = NULL
+    code <- NULL
+    size <- NULL
     # If labels is equal to "alias", certain operations are performed,
     # including filtering the counts data based on the specified sample,
     # subset operations on codes and data,
@@ -61,30 +61,30 @@ setMethod("size_plot", "loxcode_experiment", function(lox,
         #print("hi1")
         # which(grepl("Sample 1", Week2@alias$all_samples))
         #temp = which(grepl(count_matrix, lox@alias$all_samples))
-        counts = lox@count_matrixes[[count_matrix]]
+        counts <- lox@count_matrixes[[count_matrix]]
         #print("hi2")
         #print(counts)
-        counts$codes = row.names(counts)
+        counts$codes <- row.names(counts)
         #print("hi3")
         # Week2@alias$all_samples[[1]][[2]]
         #View(lox@alias$all_samples)
         #Week2@alias$all_samples[Week2@alias$all_samples$alias == "Sample 1",]$sample_name
-        tempp = lox@alias$all_samples[lox@alias$all_samples$alias == sample, ]$sample_name
+        tempp <- lox@alias$all_samples[lox@alias$all_samples$alias == sample, ]$sample_name
         #print(tempp)
         #print("hi4")
         #fin = lox@alias$count_matrix[[1]][[tempp]]
         #print("hi5")
         #print(fin)
-        counts = subset(counts, counts[, tempp] > 0)
+        counts <- subset(counts, counts[, tempp] > 0)
         #print("hi6")
-        codes = lox@code_sets[[code_set]]
+        codes <- lox@code_sets[[code_set]]
         #print("hi7")
         #print(codes)
-        data = subset(codes, code %in% counts$codes)
+        data <- subset(codes, code %in% counts$codes)
         #print("hi8")
         #print(data)
         #title = lables
-        g1 = ggplot(data) + geom_bar(aes(as.factor(size), fill = as.factor(is_valid)),
+        g1 <- ggplot(data) + geom_bar(aes(as.factor(size), fill = as.factor(is_valid)),
                                      position = "stack",
                                      stat = "count") +
             xlab("size") + ylab("diversity")
@@ -98,19 +98,19 @@ setMethod("size_plot", "loxcode_experiment", function(lox,
     # subset operations on codes and data,
     # and creating a ggplot object g with stacked bar plots.
     else{
-        counts = lox@count_matrixes[[count_matrix]]
-        counts$codes = row.names(counts)
-        counts = subset(counts, counts[, sample] > 0)
-        codes = lox@code_sets[[code_set]]
-        data = subset(codes, code %in% counts$codes)
+        counts <- lox@count_matrixes[[count_matrix]]
+        counts$codes <- row.names(counts)
+        counts <- subset(counts, counts[, sample] > 0)
+        codes <- lox@code_sets[[code_set]]
+        data <- subset(codes, code %in% counts$codes)
         #title = labels
     }
 
-    title = switch(labels,
+    title <- switch(labels,
                    "sample" = sample,
                    "alias" = get_alias(lox, count_matrix, sample))
 
-    g = ggplot(data) + geom_bar(aes(as.factor(size), fill = as.factor(is_valid)),
+    g <- ggplot(data) + geom_bar(aes(as.factor(size), fill = as.factor(is_valid)),
                                 position = "stack",
                                 stat = "count") +
         xlab("size") + ylab("diversity") +
@@ -119,38 +119,38 @@ setMethod("size_plot", "loxcode_experiment", function(lox,
     return(g)
 })
 
-#' Size Plot (v2)
-#'
-#' Plots distribution of loxcode sizes found in sample. Works for loxcode_samples without loxcode_experiment
-#'
-#' @param sample loxcode sample object
-#' @return a plot of the distribution of code sizes in the sample
-#' @rdname size_plot_sample
-#' @export
-#' @examples
-#' # Load required packages
-#' library(LoxCodeR2024)
-#'
-#' # Example usage
-#' # Assuming sample is a loxcode sample object
-#' size_plot_sample(sample)
-setGeneric("size_plot_sample", function(sample) {
-    standardGeneric("size_plot_sample")
-})
-
-#' @rdname size_plot_sample
-setMethod("size_plot_sample", "loxcode_sample", function(sample) {
-    size = NULL
-    dist_orig = NULL
-    g = ggplot(sample@decode@data) +
-        geom_bar(aes(as.factor(size), fill = as.factor(dist_orig)),
-                 position = "stack",
-                 stat = "count") +
-        xlab("size") + ylab("diversity") +
-        ggtitle(sample@name) +
-        labs(fill = "dist_orig")
-    return(g)
-})
+# #' Size Plot (v2)
+# #'
+# #' Plots distribution of loxcode sizes found in sample. Works for loxcode_samples without loxcode_experiment
+# #'
+# #' @param sample loxcode sample object
+# #' @return a plot of the distribution of code sizes in the sample
+# #' @rdname size_plot_sample
+# #' @export
+# #' @examples
+# #' # Load required packages
+# #' library(loxcoder)
+# #'
+# #' # Example usage
+# #' # Assuming sample is a loxcode sample object
+# #' size_plot_sample(sample)
+# setGeneric("size_plot_sample", function(sample) {
+#     standardGeneric("size_plot_sample")
+# })
+#
+# #' @rdname size_plot_sample
+# setMethod("size_plot_sample", "loxcode_sample", function(sample) {
+#     size = NULL
+#     dist_orig = NULL
+#     g = ggplot(sample@decode@data) +
+#         geom_bar(aes(as.factor(size), fill = as.factor(dist_orig)),
+#                  position = "stack",
+#                  stat = "count") +
+#         xlab("size") + ylab("diversity") +
+#         ggtitle(sample@name) +
+#         labs(fill = "dist_orig")
+#     return(g)
+# })
 
 #' Dist_orig Plot
 #'
@@ -166,14 +166,15 @@ setMethod("size_plot_sample", "loxcode_sample", function(sample) {
 #' @import ggplot2
 #' @importFrom ggplot2 ggtitle
 #' @importFrom ggplot2 scale_x_continuous
+#' @importFrom ggplot2 ggtitle
+#' @importFrom scatterpie geom_scatterpie
 #' @export
 #' @examples
 #' # Load a sample loxcode experiment object and sample
-#' data("loxcode_experiment")
-#' data("loxcode_sample")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 #'
 #' # Plot the distribution of distance from origin
-#' dist_orig_plot(loxcode_experiment, loxcode_sample, count_matrix, code_set, "Sample Name")
+#' dist_orig_plot(lox, sample="Sample 1", count_matrix= "all_samples", code_set= "all_codes", labels = "alias")
 
 setGeneric("dist_orig_plot", function(lox,
                                       sample,
@@ -189,28 +190,28 @@ setMethod("dist_orig_plot", "loxcode_experiment", function(lox,
                                                            count_matrix = "all_samples",
                                                            code_set = "all_codes",
                                                            labels = "alias") {
-    code = NULL
-    dist_orig = NULL
+    code <- NULL
+    dist_orig <- NULL
     # x = loxcode_sample
     # u <- valid(x)
     # #u <- u[u$size == size, ]
     # fill_scale <- scale_fill_manual(breaks = 0:15, values = rep('blue', 16)) # use twice since gradient is hard to see otherwise
     # g <- ggplot(data = u) + facet_wrap(~size) + geom_bar(aes(x = dist_orig, fill = factor(dist_orig)), show.legend = F) + scale_x_continuous(breaks = 0:10, limits = c(0, 10)) +
-    #   xlab("Distance from origin") + ylab("Diversity") + ggtitle(LoxCodeR2024::name(x))
+    #   xlab("Distance from origin") + ylab("Diversity") + ggtitle(loxcoder::name(x))
 
     # If labels is equal to "alias", certain operations are performed,
     # including filtering the counts data based on the specified sample,
     # subset operations on codes and data,
     # and creating a ggplot object g with faceted bar plots based on the "size" variable.
     if (labels == "alias") {
-        counts = lox@count_matrixes[[count_matrix]]
-        counts$codes = row.names(counts)
-        tempp = lox@alias$all_samples[lox@alias$all_samples$alias == sample, ]$sample_name
-        counts = subset(counts, counts[, tempp] > 0)
-        codes = lox@code_sets[[code_set]]
-        codes[is.na(codes)] = 0
-        data = subset(codes, code %in% counts$codes)
-        g = ggplot(data) + facet_wrap( ~ size, ncol = 2) + geom_bar(aes(dist_orig, fill = factor(dist_orig)), show.legend = TRUE) +
+        counts <- lox@count_matrixes[[count_matrix]]
+        counts$codes <- row.names(counts)
+        tempp <- lox@alias$all_samples[lox@alias$all_samples$alias == sample, ]$sample_name
+        counts <- subset(counts, counts[, tempp] > 0)
+        codes <- lox@code_sets[[code_set]]
+        codes[is.na(codes)] <- 0
+        data <- subset(codes, code %in% counts$codes)
+        g <- ggplot(data) + facet_wrap( ~ size, ncol = 2) + geom_bar(aes(dist_orig, fill = factor(dist_orig)), show.legend = TRUE) +
             scale_x_continuous(breaks = 0:10, limits = c(0, 10)) +
             xlab("Distance from origin") + ylab("diversity")
 
@@ -222,20 +223,20 @@ setMethod("dist_orig_plot", "loxcode_experiment", function(lox,
     # subset operations on codes and data,
     # and creating a ggplot object g with faceted bar plots based on the "size" variable.
     else{
-        counts = lox@count_matrixes[[count_matrix]]
-        counts$codes = row.names(counts)
-        counts = subset(counts, counts[, sample] > 0)
-        codes = lox@code_sets[[code_set]]
-        codes[is.na(codes)] = 0
-        data = subset(codes, code %in% counts$codes)
+        counts <- lox@count_matrixes[[count_matrix]]
+        counts$codes <- row.names(counts)
+        counts <- subset(counts, counts[, sample] > 0)
+        codes <- lox@code_sets[[code_set]]
+        codes[is.na(codes)] <- 0
+        data <- subset(codes, code %in% counts$codes)
     }
 
 
-    title = switch(labels,
+    title <- switch(labels,
                    "sample" = sample,
                    "alias" = get_alias(lox, count_matrix, sample))
 
-    g = ggplot(data) + facet_wrap( ~ size, ncol = 2) + geom_bar(aes(dist_orig, fill = factor(dist_orig)), show.legend = FALSE) +
+    g <- ggplot(data) + facet_wrap( ~ size, ncol = 2) + geom_bar(aes(dist_orig, fill = factor(dist_orig)), show.legend = FALSE) +
         scale_x_continuous(breaks = 0:10, limits = c(0, 10)) +
         xlab("Distance from origin") + ylab("diversity")
     ggtitle(title)
@@ -243,258 +244,10 @@ setMethod("dist_orig_plot", "loxcode_experiment", function(lox,
     return(g)
 })
 
-#' Dist_orig Plot (v2)
-#'
-#' Plots distribution of distance from origin found in sample. Works for loxcode_samples without loxcode_experiment
-#'
-#' @param sample loxcode sample object
-#' @return a plot of the distribution of distance from origin in the sample
-#' @rdname dist_orig_plot_sample
-#' @importFrom ggplot2 ggtitle
-#' @importFrom scatterpie geom_scatterpie
-#' @export
-#' @examples
-#' # Load a sample loxcode_sample object
-#' data("loxcode_sample")
-#'
-#' # Plot the distribution of distance from origin
-#' dist_orig_plot_sample(loxcode_sample)
-setGeneric("dist_orig_plot_sample", function(sample) {
-    standardGeneric("dist_orig_plot_sample")
-})
-
-#' @rdname dist_orig_plot_sample
-setMethod("dist_orig_plot_sample", "loxcode_sample", function(sample) {
-    dist_orig = NULL
-    size = NULL
-    # fill_scale <- scale_fill_manual(breaks = 0:15, values = rep('blue', 16)) # use twice since gradient is hard to see otherwise
-    # g <- ggplot(valid(sample)) +
-    #   facet_wrap(~size) +
-    #   geom_bar(aes(x = dist_orig, fill = factor(dist_orig)), show.legend = F) +
-    #   scale_x_continuous(breaks = 0:10, limits = c(0, 10)) +
-    #   xlab("Distance from origin") +
-    #   ylab("Diversity") +
-    #   ggtitle(sample@name)
-
-    # Implementation creates a ggplot object g using the ggplot function with sample@decode@data
-    # as the data source. It then adds a stacked bar plot using geom_bar with dist_orig as the
-    # x-axis variable and size as the fill variable. The x-axis label is set to "dist_orig",
-    # the y-axis label is set to "diversity", and the plot title is set to sample@name. The labs
-    # function is used to set the fill legend label to "Size".
-    g = ggplot(sample@decode@data) +
-        geom_bar(aes(as.factor(dist_orig), fill = as.factor(size)),
-                 position = "stack",
-                 stat = "count") +
-        xlab("dist_orig") + ylab("diversity") +
-        ggtitle(sample@name) +
-        labs(fill = "Size")
-
-    return (g)
-})
-
-#' Rank Count plot
-#'
-#' In the resulting plot, barcodes of specified size are ranked by read count. log10(count) is then plotted
-#' against barcode rank in black. In addition, dist_orig for each barcode is shown in red with the same horizontal axis.
-#' @param x loxcode sample object
-#' @param size loxcode size to consider
-#' @param ymax max y-value for counts
-#' @param dmax max d-value for dist_orig
-#' @return ggplot object of rank count plot
-#' @rdname rank_count_plot
-#' @export
-#' @examples
-#' # Load required packages
-#' library(LoxCodeR2024)
-#'
-#' # Example usage
-#' # Assuming x and size are defined
-#' rank_count_plot(x, size, ymax = 100, dmax = 50)
-setGeneric("rank_count_plot", function(x, size, ymax, dmax) {
-    standardGeneric("rank_count_plot")
-})
-
-#' @rdname rank_count_plot
-setMethod("rank_count_plot", "loxcode_sample", function(x, size, ymax, dmax) {
-    count = NULL
-    dist_orig = NULL
-    # the valid function is applied to x to obtain the valid data points,
-    # and then the subset of data points with the specified size is selected.
-    # The data points are then ordered based on the count variable in decreasing order.
-    u <- valid(x)
-    u <- u[u$size == size,]
-    u <- u[order(u$count, decreasing = TRUE),]
-    # u$count <- u$count/sum(u$count) # use frequency instead of raw count
-
-    # The ggplot object is created using the ggplot function with u as the data source.
-    # The method adds a scatter plot of the log-transformed count values using geom_point,
-    # where the x-axis represents the rank of the data points (1:nrow(u)) and the y-axis
-    # represents the log10-transformed count values (log10(count)).
-
-    # Another scatter plot is added using geom_point, where the x-axis and y-axis represent the
-    # same rank values as before, but the y-values are transformed based on the dist_orig
-    # variable, multiplied by ymax/dmax, and colored red.
-    ggplot(data = u) + geom_point(aes(x = seq_len(nrow(u)), y = log10(count))) +
-        geom_point(aes(x = seq_len(nrow(u)), y = dist_orig * ymax / dmax), color = 'red') +
-        scale_x_log10(breaks = seq_len(10), labels = u$code[seq_len(10)]) +
-        theme(axis.text.x = element_text(
-            angle = 45,
-            hjust = 1,
-            vjust = 1
-        )) +
-        xlab('code') + ylab('log10(count)') +
-        ggtitle(sprintf('%s; size = %d', LoxCodeR2024::name(x), size)) +
-        scale_y_continuous(limits = c(0, ymax),
-                           sec.axis = sec_axis( ~ . * (dmax / ymax), name = 'distance'))
-})
-
-#' Pair Comparison Scatter Plot
-#'
-#' For each barcode in x1, x2, read counts in each sample are plotted on a log-scale, after adjusting sample x2 to match the total read count (for valid barcodes) in sample x1. Barcodes present in one sample and not the other are shown horizontally and vertically (below 0) using beeswarm plots
-#'
-#' @param lox loxcode experiment object of current experiment
-#' @param set sample set of current experiment
-#' @param codeset code set of current experiment
-#' @param x1 loxcode_sample object for sample 1
-#' @param x2 loxcode_sample object for sample 2
-#' @param range c(lower, upper), specifying the range of dist_orig values to consider. Both bounds are inclusive.
-#' @param ... Used to pass any extra values
-#' @param plot type of plot
-#' @param labels What to use in labels
-#' @return A plot of 2 loxcode samples being compared
-#' @rdname pair_comparison_plot
-#' @export
-#' @examples
-#' # Load required packages
-#' library(LoxCodeR2024)
-#'
-#' # Example usage
-#' # Assuming lox, set, codeset, x1, and x2 are defined
-#' pair_comparison_plot(lox, set, codeset, x1, x2, range = c(1, 100), plot = "scatter", labels = "Sample Labels")
-setGeneric("pair_comparison_plot", function(lox, set, codeset = "all_codes", x1, x2, range, ...) {
-    standardGeneric("pair_comparison_plot")
-})
-
-#' @rdname pair_comparison_plot
-setMethod("pair_comparison_plot", "loxcode_experiment", function(lox,
-                                                                 set,
-                                                                 codeset = "all_codes",
-                                                                 x1,
-                                                                 x2,
-                                                                 range,
-                                                                 plot = "size",
-                                                                 labels = "alias") {
-    # the get_comparison_table function is called to obtain a comparison table (u) between
-    # x1 and x2 based on the specified plot type.
-    u <- get_comparison_table(x1, x2, plot)
-    # The comparison table is then filtered to include only the codes present in the specified
-    # codeset of the lox object.
-    u <- u[u$code %in% lox@code_sets[[codeset]]$code, ]
-
-    # The name1 and name2 variables are assigned based on the labels argument, where the
-    # values depend on whether the labels are set as "alias" or "sample". This represents
-    # the names or aliases of x1 and x2.
-    name1 = switch(labels,
-                   "alias" = get_alias(lox, set, x1@name),
-                   "sample" = x1@name)
-    name2 = switch(labels,
-                   "alias" = get_alias(lox, set, x2@name),
-                   "sample" = x2@name)
-
-    # Next, masks (nonzero_mask, rep1_zero_mask, and rep2_zero_mask) are created based on
-    # the conditions of u$rep1_count and u$rep2_count being nonzero or zero.
-    nonzero_mask <- (u$rep1_count > 0 & u$rep2_count > 0)
-    rep1_zero_mask <- (u$rep1_count == 0)
-    rep2_zero_mask <- (u$rep2_count == 0)
-
-    theme_update(plot.title = element_text(hjust = 0.5))
-
-    # If the plot argument is set to "size", the method creates a ggplot object g for a size plot.
-    # It uses geom_point to plot the log-transformed rep1 and rep2 counts against each other,
-    # with the color representing the factorized size values. An geom_abline is added for
-    # reference, and the axis labels, plot title, and color legend are set accordingly.
-    # Additionally, if name1 is not equal to name2, geom_quasirandom is used to add quasirandom
-    # points for rep1 counts with rep2 counts as zero and vice versa.
-    if (plot == "size") {
-        # Size Plot
-        g <- ggplot() +
-            geom_point(aes(
-                y = log10(1 + u$rep1_count[nonzero_mask]) ,
-                x = log10(1 + u$rep2_count[nonzero_mask]),
-                color = as.factor(u$size[nonzero_mask])
-            ), alpha = 1)  +
-            geom_abline(alpha = 0.75) + ylab(paste('log10(reads in ', name1, ')')) + xlab(paste('log10(reads in ', name2, ')')) +
-            ggtitle(paste(name1, 'vs', name2)) + scale_color_discrete(name =
-                                                                          "Size")
 
 
-        if (name1 != name2) {
-            g <- g +
-                geom_quasirandom(
-                    aes(
-                        y = rep(-0.2, sum(rep1_zero_mask)),
-                        x = log10(1 + u$rep2_count[rep1_zero_mask]),
-                        color = as.factor(u$size[rep1_zero_mask])
-                    ),
-                    groupOnX = FALSE,
-                    width = 0.2,
-                    alpha = 1
-                ) +
-                geom_quasirandom(
-                    aes(
-                        y = log10(1 + u$rep1_count[rep2_zero_mask]),
-                        x = rep(-0.2, sum(rep2_zero_mask)),
-                        color = as.factor(u$size[rep2_zero_mask])
-                    ),
-                    groupOnX = TRUE,
-                    width = 0.2,
-                    alpha = 1
-                )
-        }
-    }
 
-    # If the plot argument is set to "complexity", the method creates a ggplot object g for a
-    # complexity plot. It follows a similar structure to the size plot, but the color represents
-    # the factorized dist_orig values.
-    if (plot == "complexity") {
-        #complexity plot
-        g <- ggplot() +
-            geom_point(aes(
-                y = log10(1 + u$rep1_count[nonzero_mask]) ,
-                x = log10(1 + u$rep2_count[nonzero_mask]),
-                color = as.factor(u$dist_orig[nonzero_mask])
-            ), alpha = 1) +
-            geom_abline(alpha = 0.75) + ylab(paste('log10(reads in ', name1, ')')) + xlab(paste('log10(reads in ', name2, ')')) +
-            ggtitle(paste(name1, 'vs', name2)) + scale_color_discrete(name =
-                                                                          "Complexity")
 
-        if (name1 != name2) {
-            g <- g +
-                geom_quasirandom(
-                    aes(
-                        y = rep(-0.2, sum(rep1_zero_mask)),
-                        x = log10(1 + u$rep2_count[rep1_zero_mask]),
-                        color = as.factor(u$size[rep1_zero_mask])
-                    ),
-                    groupOnX = FALSE,
-                    width = 0.2,
-                    alpha = 1
-                ) +
-                geom_quasirandom(
-                    aes(
-                        y = log10(1 + u$rep1_count[rep2_zero_mask]),
-                        x = rep(-0.2, sum(rep2_zero_mask)),
-                        color = as.factor(u$size[rep2_zero_mask])
-                    ),
-                    groupOnX = TRUE,
-                    width = 0.2,
-                    alpha = 1
-                )
-        }
-    }
-
-    return(g)
-})
 
 #' Barcode union
 #'
@@ -509,7 +262,7 @@ setMethod("pair_comparison_plot", "loxcode_experiment", function(lox,
 #' @importFrom dplyr filter
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assume rep1, rep2, type, and range are defined
@@ -517,8 +270,8 @@ setMethod("pair_comparison_plot", "loxcode_experiment", function(lox,
 #' rep2 <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")@samples$N709_N502
 #' barcode_union(rep1, rep2, type = "size", range = list(start = 10, end = 100))
 barcode_union <- function(rep1, rep2, type = "size", range) {
-    size = NULL
-    dist_orig = NULL
+    size <- NULL
+    dist_orig <- NULL
     # if-else condition based on the value of the type argument. If type is equal to "size",
     # the function performs the following steps:
     # 1. It filters the rep1 object's decode@data based on the size values within the specified range.
@@ -526,7 +279,7 @@ barcode_union <- function(rep1, rep2, type = "size", range) {
     # 3. It extracts the unique codes from both filtered results using the unique function.
     # 4. It combines the unique codes from both rep1 and rep2 into a single vector x.
     if (type == "size") {
-        x = unique(c(
+        x <- unique(c(
             filter(rep1@decode@data, size >= range[1], size <= range[2])$code,
             filter(rep2@decode@data, size >= range[1], size <= range[2])$code
         ))
@@ -534,7 +287,7 @@ barcode_union <- function(rep1, rep2, type = "size", range) {
     # If type is equal to "complexity", the function performs similar steps as above,
     # but filters the dist_orig values instead of the size values.
     else if (type == "complexity") {
-        x = unique(c(
+        x <- unique(c(
             filter(
                 rep1@decode@data,
                 dist_orig >= range[1],
@@ -560,16 +313,19 @@ barcode_union <- function(rep1, rep2, type = "size", range) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming union_bc and rep are defined
-#' barcode_stats(union_bc, rep)
+#' rep1 <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")@samples$N709_N501
+#' rep2 <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")@samples$N709_N502
+#' bc_union <- barcode_union(rep1, rep2, type="size", range=c(1, 13))
+#' get_barcode_stats_rep(bc_union, rep1)
 get_barcode_stats_rep <- function(union_bc, rep) {
     # the match function is used to find the indices of the elements in union_bc that match the
     # codes in rep@decode@data$code. These indices are stored in the index variable.
     index <- match(union_bc, rep@decode@data$code)
-    # u <- LoxCodeR2024::valid(rep)[index, ]
+    # u <- loxcoder::valid(rep)[index, ]
     # The function then selects the corresponding rows from rep@decode@data using the indices in
     # index and assigns the result to the variable u. This step retrieves the rows in
     # rep@decode@data that match the codes in union_bc
@@ -583,74 +339,7 @@ get_barcode_stats_rep <- function(union_bc, rep) {
     return(u)
 }
 
-#' Comparison Table
-#'
-#' Function used to compare two samples based on barcode counts
-#'
-#' @param rep1 loxcode object containing data of a sample
-#' @param rep2 loxcode object containing data of a sample
-#' @param type string containing "size" or "complexity"
-#' @param range A list containg the start and end of size or dist_origin to perform union on
-#' @return A matrix of comparision of two samples
-#' @export
-#' @examples
-#' # Load required packages
-#' library(LoxCodeR2024)
-#'
-#' # Example usage
-#' # Assume rep1, rep2, type, and range are defined
-#' comparison_table(rep1, rep2, type = "size", range = list(start = 1, end = 100))
-get_comparison_table <-
-    function(rep1,
-             rep2,
-             type = "size",
-             range = c(1, 13)) {
-        # Inside the function, the barcode_union function is called to obtain the union of barcodes
-        # between rep1 and rep2 based on the specified type and range. The resulting union barcodes
-        # are stored in the variable bc_union
-        bc_union <- barcode_union(rep1, rep2, type, range)
-        # The function then calls the get_barcode_stats_rep function twice, passing bc_union and
-        # rep1 as well as bc_union and rep2 as arguments. This retrieves the statistics for the
-        # union barcodes in both rep1 and rep2, and the results are stored in variables u1 and u2,
-        # respectively.
-        u1 <- get_barcode_stats_rep(bc_union, rep1)
-        u2 <- get_barcode_stats_rep(bc_union, rep2)
-        # performs data alignment between u1 and u2 by filling missing values in the size and
-        # dist_orig columns. If a value is missing in u1, it is replaced with the corresponding
-        # value from u2, and vice versa.
-        u1$size <- ifelse(is.na(u1$size), u2$size, u1$size)
-        u2$size <- u1$size
-        u1$dist_orig <-
-            ifelse(is.na(u1$dist_orig), u2$dist_orig, u1$dist_orig)
-        u2$dist_orig <- u1$dist_orig
-        # scale by total number of reads
-        u1$count <- u1$count
-        u2$count <-
-            u2$count * (sum(rep1@decode@data$count) / sum(rep2@decode@data$count))
 
-        # A new data frame u is created with columns for code, size, dist_orig, rep1_count,
-        # and rep2_count, using the union barcodes from bc_union and the aligned values from u1 and u2.
-        u <- data.frame(
-            code = bc_union,
-            size = u1$size,
-            dist_orig = u1$dist_orig,
-            rep1_count = u1$count,
-            rep2_count = u2$count
-        )
-
-        # Masks (nonzero_mask, rep1_zero_mask, and rep2_zero_mask) are created based on conditions
-        # of rep1_count and rep2_count being nonzero or zero.
-        nonzero_mask <- (u$rep1_count > 0 & u$rep2_count > 0)
-        rep1_zero_mask <- (u$rep1_count == 0)
-        rep2_zero_mask <- (u$rep2_count == 0)
-
-        # The log_rep1 and log_rep2 columns in u are assigned values based on the rep1_count and
-        # rep2_count values, respectively, for rows where both counts are nonzero.
-        u$log_rep1[nonzero_mask] = u$rep1_count[nonzero_mask]
-        u$log_rep2[nonzero_mask] = u$rep2_count[nonzero_mask]
-
-        return(u)
-    }
 
 #' Pair Comparison Plot 2
 #'
@@ -668,14 +357,18 @@ get_comparison_table <-
 #' @param firstreadRange Range of first read available
 #' @return A plot containing pairwise comparison of the samples
 #' @rdname pair_comparison_plot2
+#' @importFrom ggbeeswarm geom_quasirandom
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming lox, sampleset, codeset, s1, and s2 are defined
-#' pair_comparison_plot2(lox, sampleset, codeset, s1, s2, colorBy = "size", labels = "Sample Name", sizeRange = c(10, 100), dist_origRange = c(0, 100), firstreadRange = c(0, 100))
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' #s1 = switch("N709_N501","sample" = lox@samples[["N709_N501"]],"alias" = lox@samples[["N709_N501"]])
+#' #s2 = switch("N709_N502","sample" = lox@samples[["N709_N502"]],"alias" = lox@samples[["N709_N502"]])
+#' #pair_comparison_plot2(lox, sampleset = "all_samples", codeset = "all_codes", s1, s2, colorBy = "size", labels = "alias", sizeRange = NULL, dist_origRange = NULL, firstreadRange = NULL)
 setGeneric("pair_comparison_plot2", function(lox,
                                              sampleset = "all_samples",
                                              codeset = "all_codes",
@@ -700,19 +393,19 @@ setMethod("pair_comparison_plot2", "loxcode_experiment", function(lox,
                                                                   sizeRange = NULL,
                                                                   dist_origRange = NULL,
                                                                   firstreadRange = NULL) {
-    size = NULL
-    dist_orig = NULL
-    firstread = NULL
+    size <- NULL
+    dist_orig <- NULL
+    firstread <- NULL
     # Labels
-    name1 = switch(labels,
+    name1 <- switch(labels,
                    "alias" = get_alias(lox, sampleset, s1@name),
                    "sample" = s1@name)
-    name2 = switch(labels,
+    name2 <- switch(labels,
                    "alias" = get_alias(lox, sampleset, s2@name),
                    "sample" = s2@name)
 
     # Comparison Table
-    comp_table = get_comparison_table2(s1, s2)
+    comp_table <- get_comparison_table2(s1, s2)
 
 
     # Subset Comparison Table
@@ -739,7 +432,7 @@ setMethod("pair_comparison_plot2", "loxcode_experiment", function(lox,
     s2_zero_mask <- (comp_table$s2_count == 0)
 
     theme_update(plot.title = element_text(hjust = 0.5))
-    color = switch(
+    color <- switch(
         colorBy,
         "size" = as.factor(comp_table$size[nonzero_mask]),
         "dist_orig" = as.factor(comp_table$dist_orig[nonzero_mask]),
@@ -759,7 +452,7 @@ setMethod("pair_comparison_plot2", "loxcode_experiment", function(lox,
     #   ggtitle(paste(name1, 'vs', name2))
 
 
-    g = ggplot() +
+    g <- ggplot() +
         #s1_count[nonzero_mask]
         geom_point(aes(
             y = comp_table$s1_count[nonzero_mask] ,
@@ -774,20 +467,20 @@ setMethod("pair_comparison_plot2", "loxcode_experiment", function(lox,
 
 
     if (colorBy == "firstread") {
-        g = g + scale_color_continuous(name = colorBy)
+        g <- g + scale_color_continuous(name = colorBy)
     } else {
-        g = g + scale_color_discrete(name = colorBy)
+        g <- g + scale_color_discrete(name = colorBy)
     }
 
     # Barcodes only in one sample
     if (name1 != name2) {
-        color1 = switch(
+        color1 <- switch(
             colorBy,
             "size" = as.factor(comp_table$size[s1_zero_mask]),
             "dist_orig" = as.factor(comp_table$dist_orig[s1_zero_mask]),
             "firstread" = log10(comp_table$firstread[s1_zero_mask])
         )
-        color2 = switch(
+        color2 <- switch(
             colorBy,
             "size" = as.factor(comp_table$size[s2_zero_mask]),
             "dist_orig" = as.factor(comp_table$dist_orig[s2_zero_mask]),
@@ -795,15 +488,15 @@ setMethod("pair_comparison_plot2", "loxcode_experiment", function(lox,
         )
 
         # g = g +
-        #   geom_quasirandom(aes(y = rep(-0.2, sum(s1_zero_mask)),
+        #   ggbeeswarm::geom_quasirandom(aes(y = rep(-0.2, sum(s1_zero_mask)),
         #                             x = log10(1 + comp_table$s2_count[s1_zero_mask]),
         #                             color = color1), groupOnX = FALSE, width = 0.2) +
-        #   geom_quasirandom(aes(y = log10(1 + comp_table$s1_count[s2_zero_mask]),
+        #   ggbeeswarm::geom_quasirandom(aes(y = log10(1 + comp_table$s1_count[s2_zero_mask]),
         #                        x = rep(-0.2, sum(s2_zero_mask)), color = color2),
         #                    groupOnX = TRUE, width = 0.2)
 
-        g = g +
-            geom_quasirandom(
+        g <- g +
+            ggbeeswarm::geom_quasirandom(
                 aes(
                     y = 0.5,
                     x = comp_table$s2_count[s1_zero_mask],
@@ -812,7 +505,7 @@ setMethod("pair_comparison_plot2", "loxcode_experiment", function(lox,
                 groupOnX = FALSE,
                 width = 0.2
             ) +
-            geom_quasirandom(
+            ggbeeswarm::geom_quasirandom(
                 aes(
                     y = comp_table$s1_count[s2_zero_mask],
                     x = 0.5,
@@ -827,11 +520,11 @@ setMethod("pair_comparison_plot2", "loxcode_experiment", function(lox,
 
 
         #
-        #       geom_quasirandom(aes(0.5, y = rep(-0.2, sum(s1_zero_mask)),
+        #       ggbeeswarm::geom_quasirandom(aes(0.5, y = rep(-0.2, sum(s1_zero_mask)),
         #                            #x = log10(1 + comp_table$s2_count[s1_zero_mask]),
         #                            x = comp_table$s2_count[s1_zero_mask],
         #                            color = color1), groupOnX = FALSE, width = 0.2) +
-        #       geom_quasirandom(aes(0.5, #y = log10(1 + comp_table$s1_count[s2_zero_mask]),
+        #       ggbeeswarm::geom_quasirandom(aes(0.5, #y = log10(1 + comp_table$s1_count[s2_zero_mask]),
         #                            y = comp_table$s1_count[s2_zero_mask],
         #                            x = rep(-0.2, sum(s2_zero_mask)), color = color2),
         #                        groupOnX = TRUE, width = 0.2)+
@@ -853,11 +546,12 @@ setMethod("pair_comparison_plot2", "loxcode_experiment", function(lox,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming lox, min_reads, matrix, and codeset are defined
-#' pair_comparison_plot_all(lox, min_reads, matrix, codeset)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' #pair_comparison_plot_all(lox,matrix = lox@count_matrixes$`all_samples_ST114_Bcells ST114_2 NN167_Week2`,codeset = lox@code_sets$invalid_codes_ST111)
 
 setGeneric("pair_comparison_plot_all", function(lox,
                                                 min_reads = 10,
@@ -873,18 +567,18 @@ setMethod("pair_comparison_plot_all", "loxcode_experiment",
                    min_reads = 10,
                    matrix = "all_samples",
                    codeset = "all_codes") {
-              .xvalue = NULL
-              . = NULL
-              .yvalue = NULL
+              .xvalue <- NULL
+              . <- NULL
+              .yvalue <- NULL
 
               # The select variable is assigned the value of the matrix argument.
               # This represents the count matrix to be used for the plot.
-              select = matrix
+              select <- matrix
               # The select matrix is modified such that any entry less than min_reads is set to 0.
-              select[select < min_reads] = 0
+              select[select < min_reads] <- 0
 
               # Rows in the select matrix with zero sums are removed using subset and rowSums.
-              select = subset(select, rowSums(select) > 0)
+              select <- subset(select, rowSums(select) > 0)
               #g = list()
               #marrangeGrob(react$pairs, nrow=2, ncol=2)
 
@@ -903,13 +597,13 @@ setMethod("pair_comparison_plot_all", "loxcode_experiment",
                       )
                   ) +
                       geom_point(alpha = 0.8) +
-                      geom_quasirandom(
+                      ggbeeswarm::geom_quasirandom(
                           aes(0.5, .yvalue , size = .yvalue, name = ""),
                           subset(., .xvalue == 0 &
                                      .yvalue > 0),
                           alpha = 0.8
                       ) +
-                      geom_quasirandom(
+                      ggbeeswarm::geom_quasirandom(
                           aes(.xvalue, 0.5, size = .xvalue),
                           subset(., .xvalue > 0 &
                                      .yvalue == 0),
@@ -957,14 +651,6 @@ setMethod("pair_comparison_plot_all", "loxcode_experiment",
 #' @importFrom ggplot2 scale_fill_discrete
 #' @importFrom ggplot2 scale_size_area
 #' @importFrom ggplot2 scale_color_gradient
-#' @export
-#' @examples
-#' # Load required packages
-#' library(LoxCodeR2024)
-#'
-#' # Example usage
-#' # Assuming data is defined
-#' gather_pairs(data)
 gatherpairs <- function(data,
                         ...,
                         xkey = '.xkey',
@@ -974,8 +660,8 @@ gatherpairs <- function(data,
                         na.rm = FALSE,
                         convert = FALSE,
                         factor_key = FALSE) {
-    . = NULL
-    size = NULL
+    . <- NULL
+    size <- NULL
     # Check if 'value' argument is passed in '...'
     if ("value" %in% names(list(...))) {
         # If 'value' is passed, capture its value and remove it from '...'
@@ -1039,24 +725,26 @@ gatherpairs <- function(data,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
-#'
+#' library(loxcoder)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' s1=lox@samples$N709_N501
+#' s2=lox@samples$N709_N502
 #' # Example usage
 #' # Assuming s1 and s2 are defined
-#' comparison_table(s1, s2)
+#' get_comparison_table2(s1, s2)
 get_comparison_table2 <- function(s1, s2) {
     # table of barcodes in both samples
     # The counts data frame is created by merging the decode data of s1 and s2 based on the
     # common barcode ("code") using the merge function. The all=TRUE argument ensures that
     # all barcodes from both samples are included in the result. The columns related to
     # "dist_orig," "size," and "firstread" are extracted and stored in the counts data frame.
-    counts = merge(s1@decode@data,
+    counts <- merge(s1@decode@data,
                    s2@decode@data,
                    by = "code",
                    all = TRUE)
-    counts$dist_orig = rowMeans(counts[, grepl("dist_orig", names(counts))], na.rm = TRUE)
-    counts$size = rowMeans(counts[, grepl("size", names(counts))], na.rm = TRUE)
-    counts$firstread = rowMeans(counts[, grepl("firstread", names(counts))], na.rm = TRUE)
+    counts$dist_orig <- rowMeans(counts[, grepl("dist_orig", names(counts))], na.rm = TRUE)
+    counts$size <- rowMeans(counts[, grepl("size", names(counts))], na.rm = TRUE)
+    counts$firstread <- rowMeans(counts[, grepl("firstread", names(counts))], na.rm = TRUE)
     # The counts data frame is modified by replacing any missing values with 0 using the is.na
     # and assignment operations.
     counts$count.x[is.na(counts$count.x)] <- 0
@@ -1064,7 +752,7 @@ get_comparison_table2 <- function(s1, s2) {
 
     # The table data frame is created with columns for "code," "size," "dist_orig," "firstread,"
     # "s1_count," and "s2_count" using the data from the counts data frame.
-    table = data.frame(
+    table <- data.frame(
         code = counts$code,
         size = counts$size,
         dist_orig = counts$dist_orig,
@@ -1089,8 +777,8 @@ get_comparison_table2 <- function(s1, s2) {
     # The log_s1 and log_s2 columns in the table data frame are populated with the corresponding
     # barcode counts from s1_count and s2_count for the rows where both counts are greater than
     # zero. These columns represent the log-transformed counts.
-    table$log_s1[nonzero_mask] = table$s1_count[nonzero_mask]
-    table$log_s2[nonzero_mask] = table$s2_count[nonzero_mask]
+    table$log_s1[nonzero_mask] <- table$s1_count[nonzero_mask]
+    table$log_s2[nonzero_mask] <- table$s2_count[nonzero_mask]
 
     # table$log_s1[nonzero_mask] = log10(1 + table$s1_count[nonzero_mask])
     # table$log_s2[nonzero_mask] = log10(1 + table$s2_count[nonzero_mask])
@@ -1098,15 +786,78 @@ get_comparison_table2 <- function(s1, s2) {
     return(table)
 }
 
-#' Show recombination distance distribution by size as beeswarm plot
+# #' Show recombination distance distribution by size as beeswarm plot
+# #'
+# #' Produces a beeswarm plot where for each cassette size, individual distinct barcodes are shown as
+# #' points. Size and color of points correspond to the read count of each barcode.
+# #' @param x loxcode_sample object
+# #' @param count_threshold counts threshold, barcodes with a count number exceeding this threshold are ignored. This is in order
+# #' to avoid having very large points resulting from barcodes with disproportionate read counts.
+# #' @return A beeswarm plot of the recombinaton distance
+# #' @rdname dist_count_beeswarm_plot
+# #' @export
+# #' @examples
+# #' # Load required packages
+# #' library(loxcoder)
+# #'
+# #' # Example usage
+# #' # Assume x and count_threshold are defined
+# #' x <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+# #' dist_count_beeswarm_plot(x, count_threshold = 100)
+# #'
+# setGeneric("dist_count_beeswarm_plot", function(x, count_threshold) {
+#     standardGeneric("dist_count_beeswarm_plot")
+# })
+#
+# #' @rdname dist_count_beeswarm_plot
+# setMethod("dist_count_beeswarm_plot", "loxcode_sample", function(x, count_threshold) {
+#     count = NULL
+#     dist_orig = NULL
+#     size = NULL
+#     # The function first applies the valid function from the loxcoder package to the input
+#     # sample x, and filters the results to include only barcodes with a "count" value below the
+#     # specified "count_threshold". The filtered data is assigned to the variable y.
+#     loxcoder::valid(x) %>% filter(count < count_threshold) -> y
+#     # The ggplot function is used to initialize the plotting object, with the data set to y.
+#     # The ggbeeswarm::geom_quasirandom function is called to create a beeswarm plot.
+#     g <- ggplot(data = y) +
+#         ggbeeswarm::geom_quasirandom(
+#             width = 0.9,
+#             groupOnX = FALSE,
+#             aes(
+#                 x = dist_orig,
+#                 y = size,
+#                 size = count,
+#                 color = count
+#             ),
+#             alpha = 0.2
+#         ) +
+#         scale_size_area("num_reads") +
+#         scale_x_continuous("distance from origin", breaks = 0:15) +
+#         scale_y_continuous("size", breaks = c(3, 5, 7, 9, 13)) +
+#         scale_color_gradient(low = 'blue', high = 'red') +
+#         ggtitle(loxcoder::name(x))
+#     return(g)
+# })
+
+#' Heatmap Plot
 #'
-#' Produces a beeswarm plot where for each cassette size, individual distinct barcodes are shown as
-#' points. Size and color of points correspond to the read count of each barcode.
-#' @param x loxcode_sample object
-#' @param count_threshold counts threshold, barcodes with a count number exceeding this threshold are ignored. This is in order
-#' to avoid having very large points resulting from barcodes with disproportionate read counts.
-#' @return A beeswarm plot of the recombinaton distance
-#' @rdname dist_count_beeswarm_plot
+#' Generate heatmap from count_matrix and also perform clustering while plotting
+#'
+#' @param loxcode_experiment loxcode_experiment object
+#' @param count_matrix A matrix of the selected samples
+#' @param code_set A matrix of the selected code sets
+#' @param style string containing "ggplot" or "plotly"
+#' @param labels A string containing the name by which to sample
+#' @param clustering A string containing parameter by which clustering is to be performed
+#' @param min_reads Integer containing value for min number of reads
+#' @param max_repeats Integer containing value for max number of repeats
+#' @param min_repeats Integer containing value for min number of repeats
+#' @param split_by1 String containing parameter to perform first split by
+#' @param split_by2 String containing parameter to perform second split by
+#' @param agglomeration setting default as complete. Used for clustering
+#' @return Heat map plot of the selected samples. Also produced with splits and clusters in some cases.
+#' @rdname heatmap_plot
 #' @importFrom ggbeeswarm geom_quasirandom
 #' @importFrom ggplot2 scale_x_continuous
 #' @importFrom ggplot2 scale_y_continuous
@@ -1144,73 +895,12 @@ get_comparison_table2 <- function(s1, s2) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
-#'
-#' # Example usage
-#' # Assume x and count_threshold are defined
-#' dist_count_beeswarm_plot(x, count_threshold = 100)
-#'
-setGeneric("dist_count_beeswarm_plot", function(x, count_threshold) {
-    standardGeneric("dist_count_beeswarm_plot")
-})
-
-#' @rdname dist_count_beeswarm_plot
-setMethod("dist_count_beeswarm_plot", "loxcode_sample", function(x, count_threshold) {
-    count = NULL
-    dist_orig = NULL
-    size = NULL
-    # The function first applies the valid function from the loxcoder package to the input
-    # sample x, and filters the results to include only barcodes with a "count" value below the
-    # specified "count_threshold". The filtered data is assigned to the variable y.
-    LoxCodeR2024::valid(x) %>% filter(count < count_threshold) -> y
-    # The ggplot function is used to initialize the plotting object, with the data set to y.
-    # The geom_quasirandom function is called to create a beeswarm plot.
-    g <- ggplot(data = y) +
-        geom_quasirandom(
-            width = 0.9,
-            groupOnX = FALSE,
-            aes(
-                x = dist_orig,
-                y = size,
-                size = count,
-                color = count
-            ),
-            alpha = 0.2
-        ) +
-        scale_size_area("num_reads") +
-        scale_x_continuous("distance from origin", breaks = 0:15) +
-        scale_y_continuous("size", breaks = c(3, 5, 7, 9, 13)) +
-        scale_color_gradient(low = 'blue', high = 'red') +
-        ggtitle(LoxCodeR2024::name(x))
-    return(g)
-})
-
-#' Heatmap Plot
-#'
-#' Generate heatmap from count_matrix and also perform clustering while plotting
-#'
-#' @param loxcode_experiment loxcode_experiment object
-#' @param count_matrix A matrix of the selected samples
-#' @param code_set A matrix of the selected code sets
-#' @param style string containing "ggplot" or "plotly"
-#' @param labels A string containing the name by which to sample
-#' @param clustering A string containing parameter by which clustering is to be performed
-#' @param min_reads Integer containing value for min number of reads
-#' @param max_repeats Integer containing value for max number of repeats
-#' @param min_repeats Integer containing value for min number of repeats
-#' @param split_by1 String containing parameter to perform first split by
-#' @param split_by2 String containing parameter to perform second split by
-#' @param agglomeration setting default as complete. Used for clustering
-#' @return Heat map plot of the selected samples. Also produced with splits and clusters in some cases.
-#' @rdname heatmap_plot
-#' @export
-#' @examples
-#' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming loxcode_experiment, count_matrix, and code_set are defined
-#' heatmap_plot(loxcode_experiment, count_matrix, code_set, style = "ggplot", labels = "Sample", clustering = "ward.D2", min_reads = 10, max_repeats = 100, min_repeats = 5, split_by1 = "Group1", split_by2 = "Group2")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' heatmap_plot(lox)
 setGeneric("heatmap_plot", function(loxcode_experiment,
                                     count_matrix = "all_samples",
                                     code_set = "all_codes",
@@ -1240,23 +930,23 @@ setMethod("heatmap_plot", "loxcode_experiment",
                    min_repeats = 1,
                    split_by1,
                    split_by2) {
-              pos = NULL
-              code = NULL
-              variable = NULL
-              value = NULL
+              pos <- NULL
+              code <- NULL
+              variable <- NULL
+              value <- NULL
               # xtracting the necessary parameters from the loxcode_experiment object and assigning them to local variables.
-              x = loxcode_experiment
+              x <- loxcode_experiment
 
               #clustering
               if (clustering != "none") {
-                  cluster_row = switch(
+                  cluster_row <- switch(
                       clustering,
                       "none" = FALSE,
                       "row" = TRUE,
                       "col" = FALSE,
                       "both" = TRUE
                   )
-                  cluster_col = switch(
+                  cluster_col <- switch(
                       clustering,
                       "none" = FALSE,
                       "row" = FALSE,
@@ -1265,21 +955,21 @@ setMethod("heatmap_plot", "loxcode_experiment",
                   )
               }
               else{
-                  cluster_row = FALSE
-                  cluster_col = FALSE
+                  cluster_row <- FALSE
+                  cluster_col <- FALSE
               }
 
               ##select only codes that are present in code_set
               # The count matrix is obtained from the loxcode_experiment object using the specified
               # count_matrix and code_set. Barcodes that do not meet the filtering criteria
               # (e.g., minimum reads, maximum repeats, minimum repeats) are removed from the matrix.
-              m = x@count_matrixes[[count_matrix]]
-              m = m[row.names(m) %in% x@code_sets[[code_set]]$code, ]
-              m[m < min_reads] = 0
-              m = m[rowSums(m) > 0, ]
-              m = m[rowSums(m > 0) < max_repeats, ]
-              m = m[rowSums(m > 0) >= min_repeats, ]
-              m = m[, colSums(m) > 0]
+              m <- x@count_matrixes[[count_matrix]]
+              m <- m[row.names(m) %in% x@code_sets[[code_set]]$code, ]
+              m[m < min_reads] <- 0
+              m <- m[rowSums(m) > 0, ]
+              m <- m[rowSums(m > 0) < max_repeats, ]
+              m <- m[rowSums(m > 0) >= min_repeats, ]
+              m <- m[, colSums(m) > 0]
               #m=sweep(m,2,colSums(m),`/`)
               #print(m)
 
@@ -1301,39 +991,39 @@ setMethod("heatmap_plot", "loxcode_experiment",
               if (cluster_row == FALSE &
                   cluster_col == FALSE & agglomeration == "binary")
               {
-                  binary = array()
+                  binary <- array()
                   for (i in seq_len(nrow(m)))
-                      binary[i] = paste0(as.numeric((m > 0)[i, ]), collapse = "")
-                  m = m[order(binary, rowSums(m)), ]
+                      binary[i] <- paste0(as.numeric((m > 0)[i, ]), collapse = "")
+                  m <- m[order(binary, rowSums(m)), ]
               }
 
 
-              m$pos = seq_len(nrow(m))
-              m$code = row.names(m)
-              mm = reshape::melt(m, id.vars = c("pos", "code"))
-              m = subset(m, select = -c(pos, code))
+              m$pos <- seq_len(nrow(m))
+              m$code <- row.names(m)
+              mm <- reshape::melt(m, id.vars = c("pos", "code"))
+              m <- subset(m, select = -c(pos, code))
 
 
-              mm[mm$value == 0, ]$value = NA
+              mm[mm$value == 0, ]$value <- NA
               if (split_by1 != "none") {
-                  new = mm$variable
-                  selectfrom = x@meta[x@meta$sample_name %in% new, ]
+                  new <- mm$variable
+                  selectfrom <- x@meta[x@meta$sample_name %in% new, ]
 
                   mm[, split_by1] <- NA
                   for (i in unique(new)) {
-                      m1 = x@meta[x@meta$sample_name == i, ][, split_by1]
-                      mm[mm$variable == i, ][, split_by1] = m1
+                      m1 <- x@meta[x@meta$sample_name == i, ][, split_by1]
+                      mm[mm$variable == i, ][, split_by1] <- m1
                       #print(mouse)
                   }
               }
               if (split_by2 != "none") {
-                  new = mm$variable
-                  selectfrom = x@meta[x@meta$sample_name %in% new, ]
+                  new <- mm$variable
+                  selectfrom <- x@meta[x@meta$sample_name %in% new, ]
 
                   mm[, split_by2] <- NA
                   for (i in unique(new)) {
-                      m1 = x@meta[x@meta$sample_name == i, ][, split_by2]
-                      mm[mm$variable == i, ][, split_by2] = m1
+                      m1 <- x@meta[x@meta$sample_name == i, ][, split_by2]
+                      mm[mm$variable == i, ][, split_by2] <- m1
                       #print(mouse)
                   }
               }
@@ -1346,10 +1036,10 @@ setMethod("heatmap_plot", "loxcode_experiment",
                   )
               #ggplot(mm)+
               #print(mm)
-              g = c()
+              g <- c()
               if (split_by2 != "none" &&
                   split_by1 != "none" && split_by2 != split_by1) {
-                  g = ggplot(mm, aes(x = split_by1, y = split_by2)) +
+                  g <- ggplot(mm, aes(x = split_by1, y = split_by2)) +
                       geom_tile(aes(
                           pos,
                           as.numeric(variable),
@@ -1388,7 +1078,7 @@ setMethod("heatmap_plot", "loxcode_experiment",
                   #                           sec.axis = dup_axis(labels=colSums(m>0),name="# codes"))+
                   #        theme(legend.position="top")
                   #    }
-                  g = ggplot(mm) +
+                  g <- ggplot(mm) +
                       geom_tile(aes(
                           pos,
                           as.numeric(variable),
@@ -1415,7 +1105,7 @@ setMethod("heatmap_plot", "loxcode_experiment",
                       facet_wrap(vars(mm[, split_by1]), scales = "free", ncol =
                                      2, )
               } else if (split_by2 != "none") {
-                  g = ggplot(mm) +
+                  g <- ggplot(mm) +
                       geom_tile(aes(
                           pos,
                           as.numeric(variable),
@@ -1442,7 +1132,7 @@ setMethod("heatmap_plot", "loxcode_experiment",
                       facet_wrap(vars(mm[, split_by2]), scales = "free", ncol =
                                      2, )
               } else {
-                  g = ggplot(mm) +
+                  g <- ggplot(mm) +
                       geom_tile(aes(
                           pos,
                           as.numeric(variable),
@@ -1504,7 +1194,7 @@ setMethod("heatmap_plot", "loxcode_experiment",
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assume loxcode_experiment, count_matrix, and code_set are defined
@@ -1538,21 +1228,21 @@ setMethod("bubble_plot", "loxcode_experiment", function(loxcode_experiment,
                                                         min_repeats = 1,
                                                         split_by1,
                                                         split_by2) {
-    x = loxcode_experiment
+    x <- loxcode_experiment
 
-    variable = NULL
-    index = NULL
-    code = NULL
-    value = NULL
+    variable <- NULL
+    index <- NULL
+    code <- NULL
+    value <- NULL
     #clustering
-    cluster_row = switch(
+    cluster_row <- switch(
         clustering,
         "none" = FALSE,
         "row" = TRUE,
         "col" = FALSE,
         "both" = TRUE
     )
-    cluster_col = switch(
+    cluster_col <- switch(
         clustering,
         "none" = FALSE,
         "row" = FALSE,
@@ -1561,15 +1251,15 @@ setMethod("bubble_plot", "loxcode_experiment", function(loxcode_experiment,
     )
 
     ##select only codes that are present in code_set
-    m = x@count_matrixes[[count_matrix]]
-    m = m[row.names(m) %in% x@code_sets[[code_set]]$code, ]
-    m[m < min_reads] = 0
+    m <- x@count_matrixes[[count_matrix]]
+    m <- m[row.names(m) %in% x@code_sets[[code_set]]$code, ]
+    m[m < min_reads] <- 0
 
-    m = m[rowSums(m) > 0, ]
-    m = m[rowSums(m > 0) < max_repeats, ]
-    m = m[rowSums(m > 0) >= min_repeats, ]
-    m = m[, colSums(m) > 0]
-    m = sweep(m, 2, colSums(m), `/`)
+    m <- m[rowSums(m) > 0, ]
+    m <- m[rowSums(m > 0) < max_repeats, ]
+    m <- m[rowSums(m > 0) >= min_repeats, ]
+    m <- m[, colSums(m) > 0]
+    m <- sweep(m, 2, colSums(m), `/`)
 
     if (cluster_row == TRUE) {
         row.order <-
@@ -1585,36 +1275,36 @@ setMethod("bubble_plot", "loxcode_experiment", function(loxcode_experiment,
     if (cluster_row == FALSE &
         cluster_col == FALSE & agglomeration == "binary")
     {
-        binary = array()
+        binary <- array()
         for (i in seq_len(nrow(m)))
-            binary[i] = paste0(as.numeric((m > 0)[i, ]), collapse = "")
-        m = m[order(binary, rowSums(m)), ]
+            binary[i] <- paste0(as.numeric((m > 0)[i, ]), collapse = "")
+        m <- m[order(binary, rowSums(m)), ]
         print(table(binary))
     }
 
-    m$index = seq_len(nrow(m))
-    m$code = row.names(m)
-    mm = reshape::melt(m, id.var = c("index", "code"))
+    m$index <- seq_len(nrow(m))
+    m$code <- row.names(m)
+    mm <- reshape::melt(m, id.var = c("index", "code"))
 
     if (split_by1 != "none") {
-        new = mm$variable
-        selectfrom = x@meta[x@meta$sample_name %in% new, ]
+        new <- mm$variable
+        selectfrom <- x@meta[x@meta$sample_name %in% new, ]
 
         mm[, split_by1] <- NA
         for (i in unique(new)) {
-            m1 = x@meta[x@meta$sample_name == i, ][, split_by1]
-            mm[mm$variable == i, ][, split_by1] = m1
+            m1 <- x@meta[x@meta$sample_name == i, ][, split_by1]
+            mm[mm$variable == i, ][, split_by1] <- m1
             #print(mouse)
         }
     }
     if (split_by2 != "none") {
-        new = mm$variable
-        selectfrom = x@meta[x@meta$sample_name %in% new, ]
+        new <- mm$variable
+        selectfrom <- x@meta[x@meta$sample_name %in% new, ]
 
         mm[, split_by2] <- NA
         for (i in unique(new)) {
-            m1 = x@meta[x@meta$sample_name == i, ][, split_by2]
-            mm[mm$variable == i, ][, split_by2] = m1
+            m1 <- x@meta[x@meta$sample_name == i, ][, split_by2]
+            mm[mm$variable == i, ][, split_by2] <- m1
             #print(mouse)
         }
     }
@@ -1764,11 +1454,12 @@ setMethod("bubble_plot", "loxcode_experiment", function(loxcode_experiment,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming x, count_matrix, code_set, plot, fill, and labels are defined
-#' readstats_plot(x, count_matrix, code_set, plot = "size", fill = TRUE, labels = "Sample Name")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' readstats_plot_old(lox)
 setGeneric("readstats_plot_old", function(x,
                                           count_matrix = "all_samples",
                                           code_set = "all_codes",
@@ -1785,38 +1476,38 @@ setMethod("readstats_plot_old", "loxcode_experiment", function(x,
                                                                plot = "size",
                                                                fill = TRUE,
                                                                labels = "sample") {
-    size = NULL
-    count = NULL
-    dist_orig = NULL
-    reads = NULL
-    ratio = NULL
-    pos = "stack"
+    size <- NULL
+    count <- NULL
+    dist_orig <- NULL
+    reads <- NULL
+    ratio <- NULL
+    pos <- "stack"
     if (fill == TRUE)
-        pos = "fill"
-    P = ggplot()
+        pos <- "fill"
+    P <- ggplot()
 
     if (plot == "size") {
         #iterating over samples and sizes and count # reads per condition
-        d1 = data.frame()
+        d1 <- data.frame()
 
         for (i in x@samples) {
             if (i@name %in% names(x@count_matrixes[[count_matrix]])) {
-                dd = i@decode@data
+                dd <- i@decode@data
 
                 for (j in c(seq_len(13))) {
-                    ddd = data.frame(
+                    ddd <- data.frame(
                         sample = name(i),
                         size = j,
                         count = sum(subset(dd, size == j)$count)
                     )
-                    d1 = plyr::rbind.fill(d1, ddd)
+                    d1 <- plyr::rbind.fill(d1, ddd)
 
                     print(ddd)
                 }
             }
         }
-        d1 = subset(d1, count > 0)
-        P = (
+        d1 <- subset(d1, count > 0)
+        P <- (
             ggplot(d1) + geom_bar(
                 aes(
                     fill = factor(size),
@@ -1833,25 +1524,25 @@ setMethod("readstats_plot_old", "loxcode_experiment", function(x,
 
     if (plot == "complexity") {
         #iterating over samples and complexity and count # reads per condition
-        d2 = data.frame()
+        d2 <- data.frame()
 
         for (i in x@samples) {
             if (i@name %in% names(x@count_matrixes[[count_matrix]])) {
-                dd = i@decode@data
+                dd <- i@decode@data
 
                 for (j in c(0:15)) {
-                    ddd = data.frame(
+                    ddd <- data.frame(
                         sample = name(i),
                         dist_orig = j,
                         count = sum(subset(dd, dist_orig == j)$count)
                     )
-                    d2 = plyr::rbind.fill(d2, ddd)
+                    d2 <- plyr::rbind.fill(d2, ddd)
 
                 }
             }
         }
-        d2 = subset(d2, count > 0)
-        P = (
+        d2 <- subset(d2, count > 0)
+        P <- (
             ggplot(d2) + geom_bar(
                 aes(
                     fill = factor(dist_orig),
@@ -1869,15 +1560,15 @@ setMethod("readstats_plot_old", "loxcode_experiment", function(x,
     ## plotting reads for both complexity and size
     if (plot == "both") {
         #iterating over sizes and complexities
-        d3 = data.frame()
+        d3 <- data.frame()
 
         for (i in x@samples) {
             #if (i@name %in% names(x@count_matrixes[[count_matrix]])) {
-            dd = i@decode@data
+            dd <- i@decode@data
 
             for (j in c(0:15))
                 for(k in c(seq_len(13))) {
-                    ddd = data.frame(
+                    ddd <- data.frame(
                         sample = name(i),
                         dist_orig = j,
                         size = k,
@@ -1885,14 +1576,14 @@ setMethod("readstats_plot_old", "loxcode_experiment", function(x,
                             dd, dist_orig == j & size == k
                         )$count)
                     )
-                    d3 = plyr::rbind.fill(d3, ddd)
+                    d3 <- plyr::rbind.fill(d3, ddd)
 
                 }
             #}
         }
 
-        d3 = subset(d3, reads > 0)
-        P = (
+        d3 <- subset(d3, reads > 0)
+        P <- (
             ggplot(d3) + facet_wrap( ~ sample, ncol = 2) + geom_point(aes(
                 factor(size),
                 factor(dist_orig),
@@ -1921,15 +1612,15 @@ setMethod("readstats_plot_old", "loxcode_experiment", function(x,
     ## plotting ratio barcodes/reads
     if (plot == "ratio") {
         #iterating over sizes and complexities
-        d4 = data.frame()
+        d4 <- data.frame()
 
         for (i in x@samples) {
             if (i@name %in% names(x@count_matrixes[[count_matrix]])) {
-                dd = i@decode@data
+                dd <- i@decode@data
 
                 for (j in c(0:15))
                     for(k in c(seq_len(13))) {
-                        ddd = data.frame(
+                        ddd <- data.frame(
                             sample = name(i),
                             dist_orig = j,
                             size = k,
@@ -1940,14 +1631,14 @@ setMethod("readstats_plot_old", "loxcode_experiment", function(x,
                                 dd, dist_orig == j & size == k
                             )$count)
                         )
-                        d4 = plyr::rbind.fill(d4, ddd)
+                        d4 <- plyr::rbind.fill(d4, ddd)
 
                     }
             }
         }
         #print("-------------------------------here-------------------------------")
-        d4 = subset(d4, ratio > 0)
-        P = (
+        d4 <- subset(d4, ratio > 0)
+        P <- (
             ggplot(d4) + facet_wrap( ~ sample, ncol = 2, scales = "free") + geom_point(aes(
                 factor(size),
                 factor(dist_orig),
@@ -1990,11 +1681,12 @@ setMethod("readstats_plot_old", "loxcode_experiment", function(x,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming loxcode_experiment, count_matrix, code_set, plot, fill, and labels are defined
-#' readstats_plot(loxcode_experiment, count_matrix, code_set, labels = "Sample Name", plot = "size", fill = TRUE)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' readstats_plot2(lox)
 setGeneric("readstats_plot2", function(loxcode_experiment,
                                        count_matrix = "all_samples",
                                        code_set = "all_codes",
@@ -2011,57 +1703,57 @@ setMethod("readstats_plot2", "loxcode_experiment", function(loxcode_experiment,
                                                             plot = "size",
                                                             fill = TRUE,
                                                             labels = "sample") {
-    count = NULL
-    dist_orig = NULL
-    ratio = NULL
-    x = loxcode_experiment
+    count <- NULL
+    dist_orig <- NULL
+    ratio <- NULL
+    x <- loxcode_experiment
     # graph config
-    pos = "stack"
+    pos <- "stack"
     if (fill == TRUE) {
-        pos = "fill"
+        pos <- "fill"
     }
 
     # initialize
-    p = ggplot()
-    counts = x@count_matrixes[[count_matrix]]
-    codes = x@code_sets[[code_set]]
-    samples = names(counts)
+    p <- ggplot()
+    counts <- x@count_matrixes[[count_matrix]]
+    codes <- x@code_sets[[code_set]]
+    samples <- names(counts)
 
     ### SIZE PLOT
     if (plot == "size") {
-        sizeBySample = data.frame()
+        sizeBySample <- data.frame()
         # create size count table
         for (i in seq_along(samples)) {
             for (j in c(seq_len(13))) {
-                row = data.frame(
+                row <- data.frame(
                     sample = samples[[i]],
                     alias = get_alias(x, count_matrix,
                                       samples[[i]]),
                     size = j,
                     count = 0
                 )
-                sizeBySample = plyr::rbind.fill(sizeBySample, row)
+                sizeBySample <- plyr::rbind.fill(sizeBySample, row)
             }
         }
 
         # fill size count table
         for (i in seq_len(nrow(counts))) {
-            row = counts[i,]
-            code = rownames(row)
+            row <- counts[i,]
+            code <- rownames(row)
             if (code %in% codes$code) {
-                size = length(gregexpr(" ", code)[[1]]) + 1 # one more than number of spaces
+                size <- length(gregexpr(" ", code)[[1]]) + 1 # one more than number of spaces
                 for (j in names(row)) {
-                    curr = row[[j]]
-                    index = which(sizeBySample$sample == j &
+                    curr <- row[[j]]
+                    index <- which(sizeBySample$sample == j &
                                       sizeBySample$size == size)
-                    prev = sizeBySample$count[[index]]
-                    sizeBySample$count[[index]] = curr + prev
+                    prev <- sizeBySample$count[[index]]
+                    sizeBySample$count[[index]] <- curr + prev
                 }
             }
         }
 
-        sizeBySample = subset(sizeBySample, count > 0)
-        p = ggplot(sizeBySample) +
+        sizeBySample <- subset(sizeBySample, count > 0)
+        p <- ggplot(sizeBySample) +
             geom_bar(
                 aes(
                     fill = factor(size),
@@ -2079,10 +1771,10 @@ setMethod("readstats_plot2", "loxcode_experiment", function(loxcode_experiment,
     ### COMPLEXITY PLOT
     if (plot == "complexity") {
         # create complexity count table
-        complexityBySample = data.frame()
+        complexityBySample <- data.frame()
         for (i in seq_along(samples)) {
             for (j in c(0:15)) {
-                row = data.frame(
+                row <- data.frame(
                     sample = samples[[i]],
                     alias = get_alias(x,
                                       count_matrix,
@@ -2090,32 +1782,32 @@ setMethod("readstats_plot2", "loxcode_experiment", function(loxcode_experiment,
                     dist_orig = j,
                     count = 0
                 )
-                complexityBySample = plyr::rbind.fill(complexityBySample, row)
+                complexityBySample <- plyr::rbind.fill(complexityBySample, row)
             }
         }
 
         # fill complexity count table
         for (i in seq_len(nrow(counts))) {
-            row = counts[i,]
-            code = rownames(row)
+            row <- counts[i,]
+            code <- rownames(row)
             if (code %in% codes$code) {
-                dist = codes$dist_orig[[match(code, codes$code)]]
+                dist <- codes$dist_orig[[match(code, codes$code)]]
                 if (is.na(dist)) {
-                    dist = 0
+                    dist <- 0
                 }
                 for (j in names(row)) {
-                    curr = row[[j]]
-                    index = which(
+                    curr <- row[[j]]
+                    index <- which(
                         complexityBySample$sample == j & complexityBySample$dist_orig == dist
                     )
-                    prev = complexityBySample$count[[index]]
-                    complexityBySample$count[[index]] = curr + prev
+                    prev <- complexityBySample$count[[index]]
+                    complexityBySample$count[[index]] <- curr + prev
                 }
             }
         }
 
-        complexityBySample = subset(complexityBySample, count > 0)
-        p = ggplot(complexityBySample) +
+        complexityBySample <- subset(complexityBySample, count > 0)
+        p <- ggplot(complexityBySample) +
             geom_bar(
                 aes(
                     fill = factor(dist_orig),
@@ -2132,46 +1824,46 @@ setMethod("readstats_plot2", "loxcode_experiment", function(loxcode_experiment,
     ### SIZE COMPLEXITY PLOT
     if (plot == "both") {
         # create counts table
-        bothBySample = data.frame()
+        bothBySample <- data.frame()
         for (i in seq_along(samples)) {
             for (j in 0:15)
                 for (k in seq_len(13)) {
-                    row = data.frame(
+                    row <- data.frame(
                         sample = samples[[i]],
                         alias = get_alias(x, count_matrix, samples[[i]]),
                         dist_orig = j,
                         size = k,
                         count = 0
                     )
-                    bothBySample = plyr::rbind.fill(bothBySample, row)
+                    bothBySample <- plyr::rbind.fill(bothBySample, row)
                 }
         }
 
         # fill counts table
         for (i in seq_len(nrow(counts))) {
-            row = counts[i,]
-            code = rownames(row)
+            row <- counts[i,]
+            code <- rownames(row)
             if (code %in% codes$code) {
-                size = length(gregexpr(" ", code)[[1]]) + 1 # one more than number of spaces
-                dist = codes$dist_orig[[match(code, codes$code)]]
+                size <- length(gregexpr(" ", code)[[1]]) + 1 # one more than number of spaces
+                dist <- codes$dist_orig[[match(code, codes$code)]]
                 if (is.na(dist)) {
-                    dist = 0
+                    dist <- 0
                 }
                 for (j in names(row)) {
-                    curr = row[[j]]
-                    index = which(
+                    curr <- row[[j]]
+                    index <- which(
                         bothBySample$sample == j &
                             bothBySample$dist_orig == dist & bothBySample$size == size
                     )
-                    prev = bothBySample$count[[index]]
-                    bothBySample$count[[index]] = curr + prev
+                    prev <- bothBySample$count[[index]]
+                    bothBySample$count[[index]] <- curr + prev
                 }
             }
         }
 
-        bothBySample = subset(bothBySample, count > 0)
+        bothBySample <- subset(bothBySample, count > 0)
 
-        p = (
+        p <- (
             ggplot(bothBySample) + facet_wrap( ~ switch(
                 labels, "alias" = alias, "sample" = sample
             )) + geom_point(aes(
@@ -2190,11 +1882,11 @@ setMethod("readstats_plot2", "loxcode_experiment", function(loxcode_experiment,
     ### RATIO PLOT
     if (plot == "ratio") {
         # create ratio table
-        ratioBySample = data.frame()
+        ratioBySample <- data.frame()
         for (i in seq_along(samples)) {
             for (j in 0:15)
                 for (k in seq_len(13)) {
-                    row = data.frame(
+                    row <- data.frame(
                         sample = samples[[i]],
                         alias = get_alias(x, count_matrix, samples[[i]]),
                         dist_orig = j,
@@ -2203,40 +1895,40 @@ setMethod("readstats_plot2", "loxcode_experiment", function(loxcode_experiment,
                         ncodes = 0,
                         count = 0
                     )
-                    ratioBySample = plyr::rbind.fill(ratioBySample, row)
+                    ratioBySample <- plyr::rbind.fill(ratioBySample, row)
                 }
         }
         # fill ratio table
         for (i in seq_len(nrow(counts))) {
-            row = counts[i,]
-            code = rownames(row)
+            row <- counts[i,]
+            code <- rownames(row)
             if (code %in% codes$code) {
-                size = length(gregexpr(" ", code)[[1]]) + 1 # one more than number of spaces
-                dist = codes$dist_orig[[match(code, codes$code)]]
+                size <- length(gregexpr(" ", code)[[1]]) + 1 # one more than number of spaces
+                dist <- codes$dist_orig[[match(code, codes$code)]]
                 if (is.na(dist)) {
-                    dist = 0
+                    dist <- 0
                 }
                 for (j in names(row)) {
-                    curr = row[[j]]
-                    index = which(
+                    curr <- row[[j]]
+                    index <- which(
                         ratioBySample$sample == j &
                             ratioBySample$dist_orig == dist & ratioBySample$size == size
                     )
-                    prev = ratioBySample$count[[index]]
-                    ratioBySample$count[[index]] = curr + prev
-                    ratioBySample$ncodes[[index]] = ratioBySample$ncodes[[index]] + 1
-                    ratioBySample$ratio[[index]] = ratioBySample$ncodes[[index]] / ratioBySample$count[[index]]
+                    prev <- ratioBySample$count[[index]]
+                    ratioBySample$count[[index]] <- curr + prev
+                    ratioBySample$ncodes[[index]] <- ratioBySample$ncodes[[index]] + 1
+                    ratioBySample$ratio[[index]] <- ratioBySample$ncodes[[index]] / ratioBySample$count[[index]]
                 }
             }
         }
 
         ratioBySample$count <- NULL
         ratioBySample$ncodes <- NULL
-        ratioBySample = subset(ratioBySample, ratio > 0)
-        ratioBySample = subset(ratioBySample, ratio != Inf)
+        ratioBySample <- subset(ratioBySample, ratio > 0)
+        ratioBySample <- subset(ratioBySample, ratio != Inf)
         ratioBySample
         print("******************here**************************")
-        p = (
+        p <- (
             ggplot(ratioBySample) + facet_wrap( ~ switch(
                 labels, "alias" = alias, "sample" = sample
             ), ncol = 3) + geom_point(aes(
@@ -2309,11 +2001,12 @@ setMethod("readstats_plot2", "loxcode_experiment", function(loxcode_experiment,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming loxcode_experiment, loxcode_sample, and code_set are defined
-#' saturation_plot(loxcode_experiment, loxcode_sample, code_set)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' saturation_plot(lox,"N708_N508")
 setGeneric("saturation_plot", function(loxcode_experiment,
                                        loxcode_sample,
                                        code_set = "all_codes") {
@@ -2324,18 +2017,18 @@ setGeneric("saturation_plot", function(loxcode_experiment,
 setMethod("saturation_plot", "loxcode_experiment", function(loxcode_experiment,
                                                             loxcode_sample,
                                                             code_set = "all_codes") {
-    code = NULL
-    firstread = NULL
-    index = NULL
-    dist_orig = NULL
-    x = loxcode_experiment
-    i = x@samples[[loxcode_sample]]
-    cs = i@decode@data
+    code <- NULL
+    firstread <- NULL
+    index <- NULL
+    dist_orig <- NULL
+    x <- loxcode_experiment
+    i <- x@samples[[loxcode_sample]]
+    cs <- i@decode@data
 
-    cs = subset(cs, code %in% x@code_sets[[code_set]]$code)
-    cs = cs[order(cs$firstread), ]
-    cs$index = c(seq_len(nrow(cs)))
-    new = data.frame(
+    cs <- subset(cs, code %in% x@code_sets[[code_set]]$code)
+    cs <- cs[order(cs$firstread), ]
+    cs$index <- c(seq_len(nrow(cs)))
+    new <- data.frame(
         firstread = cs$firstread,
         index = cs$index,
         dist_orig = cs$dist_orig
@@ -2359,11 +2052,12 @@ setMethod("saturation_plot", "loxcode_experiment", function(loxcode_experiment,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming loxcode_experiment, loxcode_samples, and codesets are defined
-#' saturation_multi(loxcode_experiment, loxcode_samples, codesets, colorby = "dist_orig")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' saturation_multi(lox,"N708_N508","all_codes")
 
 setGeneric("saturation_multi", function(loxcode_experiment,
                                         loxcode_samples,
@@ -2377,29 +2071,29 @@ setMethod("saturation_multi", "loxcode_experiment", function(loxcode_experiment,
                                                              loxcode_samples,
                                                              codesets,
                                                              colorby = "dist_orig") {
-    firstread = NULL
-    index = NULL
-    dist_orig = NULL
-    x = loxcode_experiment
-    data = data.frame()
+    firstread <- NULL
+    index <- NULL
+    dist_orig <- NULL
+    x <- loxcode_experiment
+    data <- data.frame()
 
     # create the data.frame
     for (i in seq_along(loxcode_samples)) {
-        s = loxcode_samples[[i]]
-        c = codesets[[i]]
-        sample = x@samples[[s]]
-        counts = sample@decode@data
-        counts$dist_orig[is.na(counts$dist_orig)] = 0
-        counts = subset(counts, counts$code %in% x@code_sets[[codesets[[i]]]]$code)
-        counts = counts[order(counts$firstread),]
-        counts$index = c(seq_len(nrow(counts)))
-        one_sample_data = data.frame(
+        s <- loxcode_samples[[i]]
+        c <- codesets[[i]]
+        sample <- x@samples[[s]]
+        counts <- sample@decode@data
+        counts$dist_orig[is.na(counts$dist_orig)] <- 0
+        counts <- subset(counts, counts$code %in% x@code_sets[[codesets[[i]]]]$code)
+        counts <- counts[order(counts$firstread),]
+        counts$index <- c(seq_len(nrow(counts)))
+        one_sample_data <- data.frame(
             firstread = counts$firstread,
             index = counts$index,
             dist_orig = counts$dist_orig,
             sample = s
         )
-        colour = switch(colorby,
+        colour <- switch(colorby,
                         "dist_orig" = one_sample_data$dist_orig,
                         "sample" = one_sample_data$sample)
 
@@ -2443,27 +2137,28 @@ setMethod("saturation_multi", "loxcode_experiment", function(loxcode_experiment,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming x and c are defined
-#' sample_table(x, c)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' sample_table(lox,"all_samples")
 setGeneric("sample_table", function(x, c) {
     standardGeneric("sample_table")
 })
 
 #' @rdname sample_table
 setMethod("sample_table", "loxcode_experiment", function(x, c) {
-    d = data.frame()
+    d <- data.frame()
     for (i in seq_along(x@samples)) {
-        curr_sample = x@samples[[i]]
+        curr_sample <- x@samples[[i]]
         if (name(curr_sample) %in% names(x@count_matrixes[[c]])) {
-            temp = data.frame(
+            temp <- data.frame(
                 "Sample_Name" = name(curr_sample),
                 curr_sample@meta,
                 stringsAsFactors = FALSE
             )
-            d = plyr::rbind.fill(d, temp)
+            d <- plyr::rbind.fill(d, temp)
         }
     }
     return(d)
@@ -2478,9 +2173,9 @@ strCap <- function(y) {
 }
 
 capitalize <- function(w) {
-    cap = c()
+    cap <- c()
     for (word in w) {
-        cap = append(cap, strCap(word))
+        cap <- append(cap, strCap(word))
     }
     return (cap)
 }
@@ -2496,37 +2191,38 @@ capitalize <- function(w) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming x and c are defined
-#' summary_table(x, c)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' summary_table1(lox,"all_samples")
 setGeneric("summary_table1", function(x, c = "all_samples") {
     standardGeneric("summary_table1")
 })
 
 #' @rdname summary_table1
 setMethod("summary_table1", "loxcode_experiment", function(x, c = "all_samples") {
-    d = data.frame()
+    d <- data.frame()
 
     if (!length(x@count_matrixes[[c]])) {
         return()
     }
 
     # check if samples have been collapsed
-    collapsed = TRUE
+    collapsed <- TRUE
     if (length(intersect(names(x@samples), names(x@count_matrixes[[c]]))) != 0) {
-        collapsed = FALSE
+        collapsed <- FALSE
     }
 
     # extract data from loxcode experiment
     if (collapsed == FALSE) {
         for (i in seq_along(x@samples)) {
-            curr_sample = x@samples[[i]]
-            metadata = curr_sample@meta
+            curr_sample <- x@samples[[i]]
+            metadata <- curr_sample@meta
             names(metadata) <- capitalize(names(metadata))
             if (name(curr_sample) %in% names(x@count_matrixes[[c]])) {
-                temp = data.frame(
+                temp <- data.frame(
                     "Sample_Name" = name(curr_sample),
                     "Alias" = x@alias[[c]]$alias[[match(name(curr_sample), x@alias[[c]]$sample_name)]],
                     metadata,
@@ -2544,21 +2240,21 @@ setMethod("summary_table1", "loxcode_experiment", function(x, c = "all_samples")
                     ),
                     stringsAsFactors = FALSE
                 )
-                d = plyr::rbind.fill(d, temp)
+                d <- plyr::rbind.fill(d, temp)
             }
         }
     }
     else {
-        counts = x@count_matrixes[[c]]
-        all_codes = x@code_sets[["all_codes"]]
-        invalid_codes = x@code_sets[["invalid_codes"]]
-        meta = get_collapsed_meta(x, c)
+        counts <- x@count_matrixes[[c]]
+        all_codes <- x@code_sets[["all_codes"]]
+        invalid_codes <- x@code_sets[["invalid_codes"]]
+        meta <- get_collapsed_meta(x, c)
         for (i in seq_len(ncol(counts))) {
-            curr = names(counts)[i]
-            barcodes = row.names(counts[which (counts[[curr]] > 0),])
-            metadata = meta[curr,]
+            curr <- names(counts)[i]
+            barcodes <- row.names(counts[which (counts[[curr]] > 0),])
+            metadata <- meta[curr,]
             names(metadata) <- capitalize(names(meta))
-            temp = data.frame(
+            temp <- data.frame(
                 "Sample_Name" = curr,
                 "Alias" = x@alias[[c]]$alias[[match(curr, x@alias[[c]]$sample_name)]],
                 metadata,
@@ -2569,9 +2265,9 @@ setMethod("summary_table1", "loxcode_experiment", function(x, c = "all_samples")
                                            TRUE),
                 stringsAsFactors = FALSE
             )
-            d = plyr::rbind.fill(d, temp)
+            d <- plyr::rbind.fill(d, temp)
         }
-        names(d)[names(d) == "metadata"] = names(meta)
+        names(d)[names(d) == "metadata"] <- names(meta)
     }
 
 
@@ -2586,40 +2282,41 @@ setMethod("summary_table1", "loxcode_experiment", function(x, c = "all_samples")
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming lox and s are defined
-#' summary_table2(lox, s)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' summary_table2(lox, "all_samples")
 setGeneric("summary_table2", function(lox, s = "all_samples") {
     standardGeneric("summary_table2")
 })
 
 #' @rdname summary_table2
 setMethod("summary_table2", "loxcode_experiment", function(lox, s = "all_samples") {
-    counts = lox@count_matrixes[[s]]
-    aliases = lox@alias[[s]]
-    all_codes = lox@code_sets[["all_codes"]]
-    invalid_codes = lox@code_sets[["invalid_codes"]]
-    meta = get_collapsed_meta(lox, s)
-    d = data.frame()
+    counts <- lox@count_matrixes[[s]]
+    aliases <- lox@alias[[s]]
+    all_codes <- lox@code_sets[["all_codes"]]
+    invalid_codes <- lox@code_sets[["invalid_codes"]]
+    meta <- get_collapsed_meta(lox, s)
+    d <- data.frame()
     for (i in seq_len(ncol(counts))) {
-        curr = names(counts)[i]
-        barcodes = row.names(counts[which (counts[[curr]] > 0),])
-        metadata = meta[curr,]
+        curr <- names(counts)[i]
+        barcodes <- row.names(counts[which (counts[[curr]] > 0),])
+        metadata <- meta[curr,]
 
         if (curr %in% names(lox@samples)) {
-            stats = lox@samples[[curr]]@decode_stats
-            nreads = stats$tot_reads
-            cfiltered = stats$consensus_filtered
-            pfiltered = round(100 * cfiltered / nreads, 2)
+            stats <- lox@samples[[curr]]@decode_stats
+            nreads <- stats$tot_reads
+            cfiltered <- stats$consensus_filtered
+            pfiltered <- round(100 * cfiltered / nreads, 2)
         } else {
-            nreads = NA
-            cfiltered = round(sum(counts[, i]), 0)
-            pfiltered = NA
+            nreads <- NA
+            cfiltered <- round(sum(counts[, i]), 0)
+            pfiltered <- NA
         }
 
-        temp = data.frame(
+        temp <- data.frame(
             "Sample_Name" = curr,
             "Alias" = aliases$alias[match(curr, aliases$sample_name)],
             metadata,
@@ -2632,9 +2329,9 @@ setMethod("summary_table2", "loxcode_experiment", function(lox, s = "all_samples
             "Percent_Filtered" = pfiltered,
             stringsAsFactors = FALSE
         )
-        d = plyr::rbind.fill(d, temp)
+        d <- plyr::rbind.fill(d, temp)
     }
-    d$Max_Complexity = replace(d$Max_Complexity, is.infinite(d$Max_Complexity), 0)
+    d$Max_Complexity <- replace(d$Max_Complexity, is.infinite(d$Max_Complexity), 0)
     return(d)
 })
 
@@ -2649,7 +2346,7 @@ setMethod("summary_table2", "loxcode_experiment", function(lox, s = "all_samples
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assume x and n are defined
@@ -2676,13 +2373,13 @@ setMethod("codeset_table", "loxcode_experiment", function(x, n) {
         x@code_sets$all_codes$is_valid <-
             as.integer(x@code_sets$all_codes$is_valid)
 
-        x@code_sets$all_codes$is_valid = factor(x@code_sets$all_codes$is_valid,
+        x@code_sets$all_codes$is_valid <- factor(x@code_sets$all_codes$is_valid,
                                                 labels = c(unique(x@code_sets$all_codes$is_valid)))
 
 
     }
 
-    table = x@code_sets[[n]]
+    table <- x@code_sets[[n]]
     # if (!is.null(d@code_sets$all_codes$Size)){
     #   as.integer(d@code_sets$all_codes$Size)
     # }
@@ -2700,11 +2397,12 @@ setMethod("codeset_table", "loxcode_experiment", function(x, n) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assume exp is a list of loxcode experiment objects
-#' experiments_table(exp)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' exp_table(c(lox))
 #'
 setGeneric("exp_table", function(exp) {
     standardGeneric("exp_table")
@@ -2712,16 +2410,16 @@ setGeneric("exp_table", function(exp) {
 
 #' @rdname exp_table
 setMethod("exp_table", "list", function(exp) {
-    d = data.frame()
+    d <- data.frame()
 
     if (length(exp) > 0) {
         for (i in seq_along(exp)) {
-            directories = ""
-            curr = exp[[i]]
+            directories <- ""
+            curr <- exp[[i]]
             for (dir in curr@dir) {
-                directories = paste(directories, dir)
+                directories <- paste(directories, dir)
             }
-            temp = data.frame(
+            temp <- data.frame(
                 "Experiment_Name" = curr@name,
                 "Directory" = directories,
                 "Samples" = length(curr@samples),
@@ -2729,7 +2427,7 @@ setMethod("exp_table", "list", function(exp) {
                 "Sample_Sets" = length(curr@count_matrixes),
                 stringsAsFactors = FALSE
             )
-            d = plyr::rbind.fill(d, temp)
+            d <- plyr::rbind.fill(d, temp)
         }
     }
     return(d)
@@ -2747,7 +2445,7 @@ setMethod("exp_table", "list", function(exp) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assume x, s, and c are defined
@@ -2761,11 +2459,11 @@ setGeneric("code_freq_table", function(x, s = "all_samples", c = "all_codes") {
 #' @rdname code_freq_table
 setMethod("code_freq_table", "loxcode_experiment", function(x, s = "all_samples", c =
                                                                 "all_codes") {
-    size = NULL
-    dist_orig = NULL
-    codeset = x@code_sets[[c]]
-    counts = x@count_matrixes[[s]]
-    Y = data.frame()
+    size <- NULL
+    dist_orig <- NULL
+    codeset <- x@code_sets[[c]]
+    counts <- x@count_matrixes[[s]]
+    Y <- data.frame()
 
     if (!length(counts)) {
         return()
@@ -2773,28 +2471,28 @@ setMethod("code_freq_table", "loxcode_experiment", function(x, s = "all_samples"
     #if (has_warning(max(codeset$dist_orig, na.rm=TRUE))) {print("crash prevented"); return() }
 
     # create a column in code sets recording frequency of barcodes
-    index = match(row.names(counts), codeset$code)
-    index = subset(index,!is.na(index))
-    codeset$rep[index] = rowSums(counts > 0)
+    index <- match(row.names(counts), codeset$code)
+    index <- subset(index,!is.na(index))
+    codeset$rep[index] <- rowSums(counts > 0)
 
     # create a data.frame with repetition frequencies for each size and complexity
     for (i in c(seq_len(max(codeset$size, na.rm = TRUE))))
         for (j in c(seq_len(max(codeset$dist_orig, na.rm = TRUE)))) {
-            y = data.frame(size = i, dist_orig = j)
-            z = as.data.frame(table(subset(codeset, size == i &
+            y <- data.frame(size = i, dist_orig = j)
+            z <- as.data.frame(table(subset(codeset, size == i &
                                                dist_orig == j)$rep), stringsAsFactors = FALSE)
             if (nrow(z) == 0)
                 next
 
-            n = z$Var1
+            n <- z$Var1
 
-            z = as.data.frame(z[, -1]) ##to-do: find a way to order count entries
-            y = cbind(y, sum(z), t(z))
-            names(y) = c("size", "dist_orig", "radius", n)
-            Y = plyr::rbind.fill(Y, y)
+            z <- as.data.frame(z[, -1]) ##to-do: find a way to order count entries
+            y <- cbind(y, sum(z), t(z))
+            names(y) <- c("size", "dist_orig", "radius", n)
+            Y <- plyr::rbind.fill(Y, y)
 
         }
-    Y[is.na(Y)] = 0
+    Y[is.na(Y)] <- 0
 
     return(Y)
 })
@@ -2813,11 +2511,12 @@ setMethod("code_freq_table", "loxcode_experiment", function(x, s = "all_samples"
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assume x, s, c, t, and m are defined
-#' filtered_codes_table(x, s, c, t = 0.1, m = 5)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' filtered_codes_table(lox, s = "all_samples", c = "all_codes", t = 3, m = 5)
 setGeneric("filtered_codes_table", function(x,
                                             s = "all_samples",
                                             c = "all_codes",
@@ -2833,7 +2532,7 @@ setMethod("filtered_codes_table", "loxcode_experiment", function(x,
                                                                  t = 0.05,
                                                                  m = 2) {
     # data-frame of repetition frequencies
-    Y = code_freq_table(x, s, c)
+    Y <- code_freq_table(x, s, c)
 
     if (!length(x@code_sets[[c]]) |
         !length(x@count_matrixes[[s]])) {
@@ -2841,13 +2540,13 @@ setMethod("filtered_codes_table", "loxcode_experiment", function(x,
         return()
     }
 
-    YY = data.frame()
-    total = max(as.numeric(names(Y[, !names(Y) %in% c("size", "dist_orig", "radius")])))
+    YY <- data.frame()
+    total <- max(as.numeric(names(Y[, !names(Y) %in% c("size", "dist_orig", "radius")])))
     for (i in seq_len(nrow(Y))) {
-        row = Y[i, ]
-        proportion = sum(row[as.character(seq(m, total))] / sum(row[as.character(seq(1, total))]))
+        row <- Y[i, ]
+        proportion <- sum(row[as.character(seq(m, total))] / sum(row[as.character(seq(1, total))]))
         if (proportion * 100 <= t) {
-            YY = plyr::rbind.fill(YY, row)
+            YY <- plyr::rbind.fill(YY, row)
         }
     }
     return(YY)
@@ -2869,7 +2568,7 @@ setMethod("filtered_codes_table", "loxcode_experiment", function(x,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #' library(scatterpie)
 #'
 #' # Example usage
@@ -2883,13 +2582,13 @@ setGeneric("code_frequency_pie", function(x, s = "all_samples", c = "all_codes")
 #' @rdname code_frequency_pie
 setMethod("code_frequency_pie", "loxcode_experiment", function(x, s = "all_samples", c =
                                                                    "all_codes") {
-    size = NULL
-    dist_orig = NULL
-    radius = NULL
-    Y = code_freq_table(x, s, c)
-    size = Y$size
-    dist_orig = Y$dist_orig
-    radius = Y$radius
+    size <- NULL
+    dist_orig <- NULL
+    radius <- NULL
+    Y <- code_freq_table(x, s, c)
+    size <- Y$size
+    dist_orig <- Y$dist_orig
+    radius <- Y$radius
     # scatterpie plot
     g <- ggplot(Y) +
         scatterpie::geom_scatterpie(
@@ -2926,11 +2625,12 @@ setMethod("code_frequency_pie", "loxcode_experiment", function(x, s = "all_sampl
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assume x, s, c, t, and m are defined
-#' filtered_codes_pie(x, s, c, t = 0.1, m = 5)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' filtered_codes_pie(lox, s = "all_samples", c = "all_codes", t = 3, m = 5)
 setGeneric("filtered_codes_pie", function(x,
                                           s = "all_samples",
                                           c = "all_codes",
@@ -2945,12 +2645,12 @@ setMethod("filtered_codes_pie", "loxcode_experiment", function(x,
                                                                c = "all_codes",
                                                                t = 0.05,
                                                                m = 2) {
-    Y = code_freq_table(x, s, c)
-    YY = filtered_codes_table(x, s, c, t, m)
+    Y <- code_freq_table(x, s, c)
+    YY <- filtered_codes_table(x, s, c, t, m)
 
-    size = YY$size
-    dist_orig = YY$dist_orig
-    radius = YY$radius
+    size <- YY$size
+    dist_orig <- YY$dist_orig
+    radius <- YY$radius
     g <- ggplot(YY) +
         scatterpie::geom_scatterpie(
             aes(
@@ -2979,25 +2679,22 @@ setMethod("filtered_codes_pie", "loxcode_experiment", function(x,
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(LoxCodeR2024)
-#' data <- read.csv("your_data.csv")
-#'
-#' # Create a loxcode experiment object
-#' lox_experiment <- create_lox_experiment(data)
+#' library(loxcoder)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 #'
 #' # Get sample alias
-#' alias <- get_alias(lox_experiment, "Sample_Set", "Sample_Name")
+#' alias <- get_alias(lox,"N709_N501","all_sample")
 setGeneric("get_alias", function(lox, set, name) {
     standardGeneric("get_alias")
 })
 
 #' @rdname get_alias
 setMethod("get_alias", "loxcode_experiment", function(lox, set, name) {
-    aliases = lox@alias[[set]]
-    index = match(name, aliases$sample_name)
-    alias = NA
+    aliases <- lox@alias[[set]]
+    index <- match(name, aliases$sample_name)
+    alias <- NA
     if (!is.na(index)) {
-        alias = aliases$alias[[index]]
+        alias <- aliases$alias[[index]]
     }
     return (alias)
 })
@@ -3012,84 +2709,85 @@ setMethod("get_alias", "loxcode_experiment", function(lox, set, name) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming lox, set, and name are defined
-#' get_samplename(lox, set = "Sample_Set_Name", name = "Alias_Name")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' get_samplename(lox, set = "all_samples", name = "Sample 1")
 setGeneric("get_samplename", function(lox, set, name) {
     standardGeneric("get_samplename")
 })
 
 #' @rdname get_samplename
 setMethod("get_samplename", "loxcode_experiment", function(lox, set, name) {
-    aliases = lox@alias[[set]]
-    index = match(name, aliases$alias)
-    samplename = NA
+    aliases <- lox@alias[[set]]
+    index <- match(name, aliases$alias)
+    samplename <- NA
     if (!is.na(index)) {
-        samplename = aliases$sample_name[[index]]
+        samplename <- aliases$sample_name[[index]]
     }
     return (samplename)
 })
 
-#' Density distributions
-#'
-#' Plot the density of the distribution of dist_orig or sizes in simulated samples
-#'
-#' @param ref reference sample_distribution
-#' @param npois poisson mean
-#' @param dist_type sample distribution from "sample" or "poisson"
-#' @param samples list of simulated samples
-#' @param plot_type density plot of "size" or "dist_orig"
-#' @return density plot of the distribution of dist_orig or sizes
-#' @rdname density_plot
-#' @importFrom ggplot2 geom_density
-#' @importFrom ggplot2 ggtitle
-#' @export
-#' @examples
-#' # Load required packages
-#' library(LoxCodeR2024)
-#'
-#' # Example usage
-#' # Assume ref, npois, dist_type, samples, and plot_type are defined
-#' density_distributions(ref, npois, dist_type, samples, plot_type = "size")
-setGeneric("density_plot", function(ref,
-                                    npois,
-                                    dist_type = "sample",
-                                    samples = list(),
-                                    plot_type = "dist_orig") {
-    standardGeneric("density_plot")
-})
-
-#' @rdname density_plot
-setMethod("density_plot", "loxcode_sample", function(ref,
-                                                     npois,
-                                                     dist_type = "sample",
-                                                     samples = list(),
-                                                     plot_type = "dist_orig") {
-    size = NULL
-    dist_orig = NULL
-    data = getData(ref, plot_type)
-    for (sample in samples) {
-        data = plyr::rbind.fill(data, getData(sample[[1]], plot_type))
-    }
-
-    if (dist_type == "sample") {
-        g = ggplot(data, aes(
-            x = switch(plot_type, "size" = size, "dist_orig" = dist_orig),
-            fill = source,
-            colour = source
-        )) +
-            xlab(plot_type) +
-            geom_density(alpha = 0.3) +
-            ggtitle(paste0(plot_type, " density plot"))
-    }
-    else if (dist_type == "poisson") {
-        g = ggplot()
-    }
-
-    return (g)
-})
+# #' Density distributions
+# #'
+# #' Plot the density of the distribution of dist_orig or sizes in simulated samples
+# #'
+# #' @param ref reference sample_distribution
+# #' @param npois poisson mean
+# #' @param dist_type sample distribution from "sample" or "poisson"
+# #' @param samples list of simulated samples
+# #' @param plot_type density plot of "size" or "dist_orig"
+# #' @return density plot of the distribution of dist_orig or sizes
+# #' @rdname density_plot
+# #' @importFrom ggplot2 geom_density
+# #' @importFrom ggplot2 ggtitle
+# #' @export
+# #' @examples
+# #' # Load required packages
+# #' library(loxcoder)
+# #' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+# #' # Example usage
+# #' # Assume ref, npois, dist_type, samples, and plot_type are defined
+# #' density_distributions(ref, npois, dist_type, samples, plot_type = "size")
+# setGeneric("density_plot", function(ref,
+#                                     npois,
+#                                     dist_type = "sample",
+#                                     samples = list(),
+#                                     plot_type = "dist_orig") {
+#     standardGeneric("density_plot")
+# })
+#
+# #' @rdname density_plot
+# setMethod("density_plot", "loxcode_sample", function(ref,
+#                                                      npois,
+#                                                      dist_type = "sample",
+#                                                      samples = list(),
+#                                                      plot_type = "dist_orig") {
+#     size = NULL
+#     dist_orig = NULL
+#     data = getData(ref, plot_type)
+#     for (sample in samples) {
+#         data = plyr::rbind.fill(data, getData(sample[[1]], plot_type))
+#     }
+#
+#     if (dist_type == "sample") {
+#         g = ggplot(data, aes(
+#             x = switch(plot_type, "size" = size, "dist_orig" = dist_orig),
+#             fill = source,
+#             colour = source
+#         )) +
+#             xlab(plot_type) +
+#             geom_density(alpha = 0.3) +
+#             ggtitle(paste0(plot_type, " density plot"))
+#     }
+#     else if (dist_type == "poisson") {
+#         g = ggplot()
+#     }
+#
+#     return (g)
+# })
 
 #' Get sample data
 #'
@@ -3101,30 +2799,31 @@ setMethod("density_plot", "loxcode_sample", function(ref,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming sample is defined
-#' get_sample_data(sample, plot_type = "size")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' getData(lox@samples$N709_N501)
 getData <- function(sample, plot_type = "size") {
-    size = NULL
-    dist_orig = NULL
-    data = sample@decode@data
+    size <- NULL
+    dist_orig <- NULL
+    data <- sample@decode@data
     if (plot_type == "size") {
-        d = data.frame("size" = unique(data$size), "count" = NA)
-        d$count = sapply(d$size, function(x)
-            sum(subset(data, size == x)$count))
-        v = data.frame("size" = as.vector(rep(d$size, d$count)))
+        d <- data.frame("size" = unique(data$size), "count" = NA)
+        d$count <- vapply(d$size, function(x)
+            sum(subset(data, size == x)$count), FUN.VALUE = numeric(1))
+        v <- data.frame("size" = as.vector(rep(d$size, d$count)))
     }
     if (plot_type == "dist_orig") {
-        d = data.frame("dist_orig" = unique(data$dist_orig),
-                       "count" = NA)
-        d$count = sapply(d$dist_orig, function(x)
-            sum(subset(data, dist_orig == x)$count))
-        v = data.frame("dist_orig" = as.vector(rep(d$dist_orig, d$count)))
+        d <- data.frame("dist_orig" = unique(data$dist_orig),
+                        "count" = NA)
+        d$count <- vapply(d$dist_orig, function(x)
+            sum(subset(data, dist_orig == x)$count), FUN.VALUE = numeric(1))
+        v <- data.frame("dist_orig" = as.vector(rep(d$dist_orig, d$count)))
     }
-    v$source = sample@name
-    return (v)
+    v$source <- sample@name
+    return(v)
 }
 
 ## plot number of read
@@ -3142,11 +2841,12 @@ getData <- function(sample, plot_type = "size") {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming lox, code_set, and count_matrix are defined
-#' read_plot(lox, code_set, count_matrix, labels = "Sample Name")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' read_plot(lox)
 
 setGeneric("read_plot",
            function(lox,
@@ -3164,17 +2864,17 @@ setMethod("read_plot",
                    code_set = "all_codes",
                    labels = "sample") {
               # initialize variables
-              counts = lox@count_matrixes[[count_matrix]]
-              codes = lox@code_sets[[code_set]]
+              counts <- lox@count_matrixes[[count_matrix]]
+              codes <- lox@code_sets[[code_set]]
 
               #Crerate table
-              samp_name = names(counts)
+              samp_name <- names(counts)
 
-              sampleAlias = comprehenr::to_vec(for (x in samp_name)
+              sampleAlias <- comprehenr::to_vec(for (x in samp_name)
                   get_alias(lox, count_matrix, x))
 
-              num_read = colSums(counts)
-              read_table = data.frame(num_read)
+              num_read <- colSums(counts)
+              read_table <- data.frame(num_read)
 
               # generate plot
               p <- ggplot(data = read_table,
@@ -3206,7 +2906,7 @@ setMethod("read_plot",
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assume lox, code_set, and count_matrix are defined
@@ -3229,17 +2929,17 @@ setMethod("barcode_table",
                    code_set = "all_codes",
                    labels = "sample") {
               # initialize variables
-              counts = lox@count_matrixes[[count_matrix]]
+              counts <- lox@count_matrixes[[count_matrix]]
 
               #Crerate table
-              samp_name = names(counts)
+              samp_name <- names(counts)
 
-              alias = comprehenr::to_vec(for (x in samp_name)
+              alias <- comprehenr::to_vec(for (x in samp_name)
                   get_alias(lox, count_matrix, x))
 
-              num_read = colSums(counts)
-              num_barcode = colSums(counts > 0)
-              barcode_table = data.frame(alias, num_read, num_barcode)
+              num_read <- colSums(counts)
+              num_barcode <- colSums(counts > 0)
+              barcode_table <- data.frame(alias, num_read, num_barcode)
 
 
               return (barcode_table)
@@ -3356,11 +3056,12 @@ setMethod("barcode_table",
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming lox, count_matrix, code_set, plot, and fill are defined
-#' readstats_plot(lox, count_matrix, code_set, plot = "size", fill = TRUE, labels = "Sample Name")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' readstats_plot(lox)
 
 setGeneric("readstats_plot",
            function(lox,
@@ -3382,15 +3083,15 @@ setMethod("readstats_plot",
                    fill = TRUE,
                    labels = "sample") {
               # initialize variables
-              counts = lox@count_matrixes[[count_matrix]]
-              codes = lox@code_sets[[code_set]]
-              pos = ifelse(fill, "fill", "stack")
+              counts <- lox@count_matrixes[[count_matrix]]
+              codes <- lox@code_sets[[code_set]]
+              pos <- ifelse(fill, "fill", "stack")
 
               # generate plot
               if (plot == "ratio") {
-                  p = get_ratio_plot(lox, counts, codes, count_matrix, labels)
+                  p <- get_ratio_plot(lox, counts, codes, count_matrix, labels)
               } else {
-                  p = stats_bar_plot(lox, counts, codes, count_matrix, plot, pos, labels)
+                  p <- stats_bar_plot(lox, counts, codes, count_matrix, plot, pos, labels)
               }
               return (p)
           })
@@ -3416,22 +3117,22 @@ stats_bar_plot <-
              pos,
              labels) {
         # initiliaze variables
-        data = switch(
+        data <- switch(
             plot,
             "size" = "size",
             "complexity" = "dist_orig",
             "both" = c("size", "dist_orig")
         )
-        samples = names(counts)
+        samples <- names(counts)
 
         # create counts table
-        countsBySample = getCountsTable(lox, samples, codes, count_matrix, counts, data)
+        countsBySample <- getCountsTable(lox, samples, codes, count_matrix, counts, data)
 
         # create plot
         if (plot %in% c("size", "complexity")) {
-            p = getCountsPlot(countsBySample, labels, pos, data)
+            p <- getCountsPlot(countsBySample, labels, pos, data)
         } else {
-            p = getBothPlot(countsBySample, labels)
+            p <- getBothPlot(countsBySample, labels)
         }
 
         return(p)
@@ -3455,18 +3156,18 @@ getCountsTable <-
              count_matrix,
              counts,
              data) {
-        countsBySample = data.frame()
+        countsBySample <- data.frame()
         for (i in seq_along(samples)) {
-            sampleName = samples[i]
-            sampleAlias = get_alias(lox, count_matrix, sampleName)
-            indices = codes$code %in% row.names(counts)[counts[[sampleName]] >
+            sampleName <- samples[i]
+            sampleAlias <- get_alias(lox, count_matrix, sampleName)
+            indices <- codes$code %in% row.names(counts)[counts[[sampleName]] >
                                                             0]
-            countsTable = data.frame(table(codes[data][indices, ]))
+            countsTable <- data.frame(table(codes[data][indices, ]))
             if (nrow(countsTable) != 0) {
-                row = data.frame("sample" = sampleName,
+                row <- data.frame("sample" = sampleName,
                                  "alias" = sampleAlias,
                                  countsTable)
-                countsBySample = plyr::rbind.fill(countsBySample, row)
+                countsBySample <- plyr::rbind.fill(countsBySample, row)
             }
         }
         return (countsBySample)
@@ -3501,38 +3202,38 @@ setMethod("get_ratio_plot",
                    count_matrix,
                    labels) {
               # initialize
-              samples = names(counts)
-              data = c("size", "dist_orig")
+              samples <- names(counts)
+              data <- c("size", "dist_orig")
 
               # get table of ratios by size and complexity
-              ratioBySample = data.frame()
+              ratioBySample <- data.frame()
               for (i in seq_along(samples)) {
-                  sampleName = samples[i]
-                  sampleAlias = get_alias(lox, count_matrix, sampleName)
-                  codes = lox@samples[[sampleName]]@decode@data
-                  indices = codes$code %in% row.names(counts)[counts[[sampleName]] >
+                  sampleName <- samples[i]
+                  sampleAlias <- get_alias(lox, count_matrix, sampleName)
+                  codes <- lox@samples[[sampleName]]@decode@data
+                  indices <- codes$code %in% row.names(counts)[counts[[sampleName]] >
                                                                   0]
-                  subsetCodes = codes[indices, ]
-                  countsBySample = data.frame(table(subsetCodes[data]))
+                  subsetCodes <- codes[indices, ]
+                  countsBySample <- data.frame(table(subsetCodes[data]))
                   if (nrow(countsBySample) != 0) {
-                      totalsBySample = aggregate(
+                      totalsBySample <- aggregate(
                           subsetCodes$count,
                           by = list(Category = subsetCodes$size, subsetCodes$dist_orig),
                           FUN = sum
                       )
-                      names(totalsBySample) = c("size", "dist_orig", "total")
-                      ratioTable = merge(countsBySample, totalsBySample, by =
+                      names(totalsBySample) <- c("size", "dist_orig", "total")
+                      ratioTable <- merge(countsBySample, totalsBySample, by =
                                              data)
-                      ratioTable$Freq = ratioTable$Freq / ratioTable$total
-                      row = data.frame("sample" = sampleName,
+                      ratioTable$Freq <- ratioTable$Freq / ratioTable$total
+                      row <- data.frame("sample" = sampleName,
                                        "alias" = sampleAlias,
                                        ratioTable)
-                      ratioBySample = plyr::rbind.fill(ratioBySample, row)
+                      ratioBySample <- plyr::rbind.fill(ratioBySample, row)
                   }
               }
 
               # generate plot
-              p = getBothPlot(ratioBySample, labels)
+              p <- getBothPlot(ratioBySample, labels)
               return (p)
           })
 
@@ -3551,9 +3252,9 @@ setMethod("get_ratio_plot",
 #' @importFrom ggplot2 element_text
 
 getCountsPlot <- function(countsTable, labels, pos, data) {
-    Var1 = NULL
-    Freq = NULL
-    p = ggplot(countsTable) +
+    Var1 <- NULL
+    Freq <- NULL
+    p <- ggplot(countsTable) +
         geom_bar(aes(
             fill = factor(Var1),
             y = Freq,
@@ -3574,11 +3275,11 @@ getCountsPlot <- function(countsTable, labels, pos, data) {
 #' @return ggplot object of plot
 
 getBothPlot <- function(countsTable, labels) {
-    size = NULL
-    dist_orig = NULL
-    Freq = NULL
+    size <- NULL
+    dist_orig <- NULL
+    Freq <- NULL
 
-    p = ggplot(countsTable) +
+    p <- ggplot(countsTable) +
         facet_wrap(~ switch(labels, "alias" = alias, "sample" = sample)) +
         geom_point(aes(
             factor(size),

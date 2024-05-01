@@ -42,16 +42,14 @@ class distmaps{
 //        Rcpp::stop("Already initialised");
 //      }
       if(paths.size() != 5){
-         cerr << __FUNCTION__ << ": paths.size() was not 5! missing some distance maps..." << endl;
+         // cerr << __FUNCTION__ << ": paths.size() was not 5! missing some distance maps..." << endl;
          Rcpp::stop("Missing files");
       }
-      printf("hello");
       for(int size_idx = 0; size_idx < paths.size(); size_idx++){
         distmaps::origin_files[size_idx] = new ifstream(paths[size_idx].c_str());
-        if(!distmaps::origin_files[size_idx]->is_open()){
-          cerr << __FUNCTION__ << ": WARNING: failed to open file for size_idx = " << size_idx << ", path = " << paths[size_idx] << endl;
-        }
-        printf("hello");
+        // if(!distmaps::origin_files[size_idx]->is_open()){
+        //   cerr << __FUNCTION__ << ": WARNING: failed to open file for size_idx = " << size_idx << ", path = " << paths[size_idx] << endl;
+        // }
       }
       initialised = true;
     }
@@ -62,14 +60,14 @@ class distmaps{
 //        Rcpp::stop("Already initialised");
 //      }
       if(paths.size() != 2){
-        cerr << __FUNCTION__ << ": paths.size() was not 2! missing some distance maps..." << endl;
+        // cerr << __FUNCTION__ << ": paths.size() was not 2! missing some distance maps..." << endl;
         Rcpp::stop("Missing files");
       }
       for(int size_idx = 0; size_idx <= 1; size_idx++){
         distmaps::pair_files[size_idx] = new ifstream(paths[size_idx].c_str());
-        if(!distmaps::pair_files[size_idx]->is_open()){
-          cerr << __FUNCTION__ << ": WARNING: failed to open file for size_idx = " << size_idx << ", path = " << paths[size_idx] << endl;
-        }
+        // if(!distmaps::pair_files[size_idx]->is_open()){
+        //   cerr << __FUNCTION__ << ": WARNING: failed to open file for size_idx = " << size_idx << ", path = " << paths[size_idx] << endl;
+        // }
       }
       initialised_pair = true;
     }
@@ -77,7 +75,7 @@ class distmaps{
     static void load_prob_files(std::vector<std::vector<std::string> >  paths){
       // paths[i][j] specifies the table for size_idx i and rec_idx j
       if(paths.size() != 5){
-        cerr << __FUNCTION__ << ": paths.size() inappropriate! missing some probability tables..." << endl;
+        // cerr << __FUNCTION__ << ": paths.size() inappropriate! missing some probability tables..." << endl;
         Rcpp::stop("Missing files");
       }
       for(int size_idx = 0; size_idx < 5; size_idx++){
@@ -91,10 +89,10 @@ class distmaps{
             distmaps::prob_files[size_idx][n_rec] = new ifstream(paths[size_idx][n_rec].c_str());
             if(!distmaps::prob_files[size_idx][n_rec]->is_open()){
               initialised_prob[size_idx][n_rec] = false;
-              cout << "table: size_idx = " << size_idx << " n_rec = " << n_rec << " skipped" << endl;
+              // cout << "table: size_idx = " << size_idx << " n_rec = " << n_rec << " skipped" << endl;
             }else{
               initialised_prob[size_idx][n_rec] = true;
-              cout << "table: size_idx = " << size_idx << " n_rec = " << n_rec << " loaded" << endl;
+              // cout << "table: size_idx = " << size_idx << " n_rec = " << n_rec << " loaded" << endl;
             }
           }
         }
@@ -129,7 +127,7 @@ class distmaps{
     ~distmaps(){
       if(initialised){
         for(int i = 0; i < 5; i++) delete origin_files[i];
-        cerr << __FUNCTION__ << ": closed distance table files" << endl;
+        // cerr << __FUNCTION__ << ": closed distance table files" << endl;
         initialised = false;
       }
     }
@@ -163,7 +161,7 @@ void load_prob_files_wrapper(std::vector<std::vector<std::string> > paths){ dist
 void wrapper_fill_tables(){
   // wrapper
   fill_tables();
-  cerr << __FUNCTION__ << ": tables filled" << endl;
+  // cerr << __FUNCTION__ << ": tables filled" << endl;
 }
 
 int get_size_idx(int size){
@@ -226,8 +224,9 @@ std::vector<long long> pack_impl(std::vector<std::string> c, std::vector<bool> v
 //' # Assuming 'cassette' is a list of numeric vectors representing the cassette,
 //' # 'validity_vector' is a vector of boolean values indicating the validity of each cassette.
 //' # Pack the cassettes into cassette IDs
-//' cassettes_with_ID <- pack(cassette, validity_vector)
-//' cassettes_with_ID
+//' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+//' # cassettes_with_ID <- pack(cassette, validity_vector)
+//' # cassettes_with_ID
 // [[Rcpp::export]]
 std::vector<long long> pack(SEXP c, std::vector<bool> v){
   switch(TYPEOF(c)){
@@ -251,8 +250,10 @@ std::vector<long long> pack(SEXP c, std::vector<bool> v){
 //' # Example usage:
 //' # Assuming 'cassette' is a valid input cassette and 'loxcode_size' is the size of a single loxcode.
 //' # Calculate the distance from the origin
-//' dist_from_origin <- retrieve_dist_origin_single(cassette, loxcode_size)
-//' dist_from_origin
+//' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+//' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+//' #dist_from_origin <- retrieve_dist_origin_single(cassette, loxcode_size)
+//' #dist_from_origin
 // [[Rcpp::export]]
 int retrieve_dist_origin_single(long long c, int size){
   if(!distmaps::initialised){
@@ -271,8 +272,9 @@ int retrieve_dist_origin_single(long long c, int size){
 //' # Example usage:
 //' # Assuming 'cassette' is a valid input cassette and 'loxcode_sizes' is a vector containing sizes of all loxcodes.
 //' # Calculate the distance from the origin
-//' dist_from_origin <- retrieve_dist_origin(cassette, loxcode_sizes)
-//' dist_from_origin
+//' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+//' #dist_from_origin <- retrieve_dist_origin(cassette, loxcode_sizes)
+//' #dist_from_origin
 // [[Rcpp::export]]
 std::vector<int> retrieve_dist_origin(std::vector<long long> c, std::vector<int> sizes){
   std::vector<int> out(c.size());
@@ -305,8 +307,9 @@ std::vector<int> retrieve_dist_origin(std::vector<long long> c, std::vector<int>
 //' # Assuming 'cassette' is a valid input cassette, 'loxcode_sizes' is a vector containing sizes of all loxcodes,
 //' # and 'position' is the position in the cassette.
 //' # Calculate the probability of the cassette at the given position
-//' cassette_prob <- retrieve_prob(cassette, loxcode_sizes, position)
-//' cassette_prob
+//' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+//' #cassette_prob <- retrieve_prob(cassette, loxcode_sizes, position)
+//' #cassette_prob
 // [[Rcpp::export]]
 std::vector<float> retrieve_prob(std::vector<long long> c, std::vector<int> sizes, std::vector<int> nrec){
   std::vector<float> out(c.size());
@@ -391,7 +394,7 @@ std::vector<int> transform_13_9_pair(std::pair<std::vector<int>, std::vector<int
 
   std::map<int, int> elt_map; // keys are elements of c.first, values are the corresponding elements of the transformed cassette
   if(c.first.size() != 13 || c.second.size() != 9){
-    cerr << __FUNCTION__ << ": argument error" << endl;
+    // cerr << __FUNCTION__ << ": argument error" << endl;
     Rcpp::stop("Argument error");
   }
   for(int i = 0; i < c.first.size(); i++){
@@ -415,8 +418,9 @@ std::vector<int> transform_13_9_pair(std::pair<std::vector<int>, std::vector<int
 //' # Example usage:
 //' # Assuming 'cassette1' and 'cassette2' are valid input cassettes.
 //' # Calculate the distance between the two cassettes
-//' dist_between_cassettes <- retrieve_dist_pair(cassette1, cassette2)
-//' dist_between_cassettes
+//' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+//' #dist_between_cassettes <- retrieve_dist_pair(cassette1, cassette2)
+//' #dist_between_cassettes
 // [[Rcpp::export]]
 Rcpp::NumericMatrix retrieve_dist_pair(std::vector<std::vector<int> > c1, std::vector<std::vector<int> > c2){
   /*if(size != 13 && size != 9){
@@ -447,7 +451,7 @@ Rcpp::NumericMatrix retrieve_dist_pair(std::vector<std::vector<int> > c1, std::v
           out(i, j) = dist;
         }else{
           // unrecognized size
-          cerr << __FUNCTION__ << ": pairwise distance supported only for cassettes of size 13, 9" << endl;
+          // cerr << __FUNCTION__ << ": pairwise distance supported only for cassettes of size 13, 9" << endl;
           Rcpp::stop("Not supported");
         }
       }else{
@@ -458,7 +462,7 @@ Rcpp::NumericMatrix retrieve_dist_pair(std::vector<std::vector<int> > c1, std::v
         else if(c1[i].size() == 13 && c2[j].size() == 9) x = transform_13_9_pair(std::make_pair(c1[i], c2[j]));
         else{
           // unrecognized size
-          cerr << __FUNCTION__ << ": pairwise distance supported only for cassettes of size 13, 9" << endl;
+          // cerr << __FUNCTION__ << ": pairwise distance supported only for cassettes of size 13, 9" << endl;
           Rcpp::stop("Not supported");
         }
 

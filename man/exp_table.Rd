@@ -20,10 +20,11 @@ Presents a list of loxcode experiments in table form
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assume exp is a list of loxcode experiment objects
-experiments_table(exp)
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+exp_table(c(lox))
 
 }

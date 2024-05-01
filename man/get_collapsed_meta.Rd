@@ -22,15 +22,11 @@ Get metadata of a merged experiment
 }
 \examples{
 # Load necessary libraries and data
-library(LoxCodeR2024)
-data <- read.csv("your_data.csv")
+library(loxcoder)
 
 # Create a loxcode experiment object
-lox_experiment <- create_lox_experiment(data)
-
-# Merge samples
-merged_samples <- merge_samples(lox_experiment, sample_set = "Sample_Set")
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 
 # Get collapsed metadata
-meta <- get_collapsed_meta(lox_experiment, merged_samples)
+meta <- get_collapsed_meta(lox,"all_sample")
 }

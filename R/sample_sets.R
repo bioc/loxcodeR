@@ -10,55 +10,55 @@
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object and 'sample_set' is the sample set to summarize
 #' # Generate a summary table for the specified sample set in the experiment
-#' summary_table <- summary_table(experiment, sample_set)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' summary_table <- summary_table(lox)
 #' summary_table
 setGeneric("summary_table", function(lox, sample_set = "all_samples") {
     standardGeneric("summary_table")
 })
 
 #' @rdname summary_table
-setMethod("summary_table", "loxcode_experiment", function(lox, sample_set =
-                                                              "all_samples") {
-    sample_name = NULL
+setMethod("summary_table", "loxcode_experiment", function(lox, sample_set = "all_samples") {
+    sample_name <- NULL
     # initialize variables
-    samples = lox@samples
-    counts = lox@count_matrixes[[sample_set]]
-    aliases = lox@alias[[sample_set]]
-    all_codes = lox@code_sets[["all_codes"]]
-    invalid_codes = lox@code_sets[["invalid_codes"]]
-    meta = lox@meta
+    samples <- lox@samples
+    counts <- lox@count_matrixes[[sample_set]]
+    aliases <- lox@alias[[sample_set]]
+    all_codes <- lox@code_sets[["all_codes"]]
+    invalid_codes <- lox@code_sets[["invalid_codes"]]
+    meta <- lox@meta
 
     # subset data
-    samples = samples[names(samples) %in% names(counts)]
-    metadata = subset(meta, sample_name %in% names(counts))
+    samples <- samples[names(samples) %in% names(counts)]
+    metadata <- subset(meta, sample_name %in% names(counts))
 
     # add data to data table
-    table = data.frame(matrix(ncol = 2, nrow = length(samples)))
-    names(table) = c("sample_name", "Alias")
-    table$sample_name = names(counts)
-    table$Alias = aliases$alias
-    table = merge(
+    table <- data.frame(matrix(ncol = 2, nrow = length(samples)))
+    names(table) <- c("sample_name", "Alias")
+    table$sample_name <- names(counts)
+    table$Alias <- aliases$alias
+    table <- merge(
         table,
         metadata,
         all = TRUE,
         by = c("sample_name"),
         sort = FALSE
     )
-    table$`Barcode Count` = sapply(samples, function(x)
-        nrow(x@decode@data))
-    table$`Invalid Count` = sapply(samples, function(x)
-        nrow(subset(x@decode@data, is_valid == FALSE)))
-    table$`Number of Reads` = sapply(samples, function(x)
-        x@decode_stats$tot_reads)
-    table$`Max Complexity` = sapply(samples, function(x)
-        max(x@decode@data$dist_orig, na.rm = TRUE))
-    table$`Consensus Filtered` = sapply(samples, function(x)
-        x@decode_stats$consensus_filtered)
-    table$`Percent Filtered` = sapply(samples, function(x)
+    table$`Barcode Count` <- vapply(samples, function(x)
+        nrow(x@decode@data), FUN.VALUE = numeric(1))
+    table$`Invalid Count` <- vapply(samples, function(x)
+        nrow(subset(x@decode@data, is_valid == FALSE)), FUN.VALUE = numeric(1))
+    table$`Number of Reads` <- vapply(samples, function(x)
+        x@decode_stats$tot_reads, FUN.VALUE = numeric(1))
+    table$`Max Complexity` <- vapply(samples, function(x)
+        max(x@decode@data$dist_orig, na.rm = TRUE), FUN.VALUE = numeric(1))
+    table$`Consensus Filtered` <- vapply(samples, function(x)
+        x@decode_stats$consensus_filtered, FUN.VALUE = numeric(1))
+    table$`Percent Filtered` <- vapply(samples, function(x)
         round(
             100 * x@decode_stats$consensus_filtered / x@decode_stats$tot_reads,
             2
-        ))
+        ), FUN.VALUE = numeric(1))
     return (table)
 })
 
@@ -74,15 +74,16 @@ fillSetAliases <- function(lox, count_matrix) {
         return ()
     }
 
-    aliases = data.frame(
+    aliases <- data.frame(
         sample_name = names(lox@count_matrixes[[count_matrix]]),
         alias = "",
         stringsAsFactors = FALSE
     )
-    aliases$alias = c(sapply(seq_len(nrow(aliases)), function(x)
-        paste("Sample", x)))
+    aliases$alias <- vapply(seq_len(nrow(aliases)), function(x) {
+        paste("Sample", x)
+    }, FUN.VALUE = character(1))
 
-    lox@alias[[count_matrix]] = aliases
+    lox@alias[[count_matrix]] <- aliases
     return (lox)
 }
 
@@ -98,7 +99,8 @@ fillSetAliases <- function(lox, count_matrix) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object and 'old_set_name' is the old sample set name to be renamed
 #' # Rename the sample set named 'old_set_name' to 'new_set_name'
-#' new_experiment <- rename_sample_set(x = experiment, s = "old_set_name", n = "new_set_name")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' new_experiment <- rename_sampleset(lox,"all_samples","new")
 #' new_experiment
 setGeneric("rename_sampleset", function(x, s, n) {
     standardGeneric("rename_sampleset")
@@ -110,14 +112,23 @@ setMethod("rename_sampleset", "loxcode_experiment", function(x, s, n) {
         return(x)
     }
 
-    temp = x@count_matrixes[[s]]
+    temp <- x@count_matrixes[[s]]
     x@count_matrixes[[s]] <- NULL
-    x@count_matrixes[[n]] = temp
-    temp = x@alias[[s]]
+    x@count_matrixes[[n]] <- temp
+    temp <- x@alias[[s]]
     x@alias[[s]] <- NULL
-    x@alias[[n]] = temp
+    x@alias[[n]] <- temp
     return(x)
 })
+
+concat_unique <- function(x) {
+    unique_values <- unique(x)
+    if (length(unique_values) == 1) {
+        return(as.character(unique_values))
+    } else {
+        return(paste(as.character(unique_values), collapse = ","))
+    }
+}
 
 #' Get metadata of a merged experiment
 #'
@@ -128,17 +139,13 @@ setMethod("rename_sampleset", "loxcode_experiment", function(x, s, n) {
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(LoxCodeR2024)
-#' data <- read.csv("your_data.csv")
+#' library(loxcoder)
 #'
 #' # Create a loxcode experiment object
-#' lox_experiment <- create_lox_experiment(data)
-#'
-#' # Merge samples
-#' merged_samples <- merge_samples(lox_experiment, sample_set = "Sample_Set")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 #'
 #' # Get collapsed metadata
-#' meta <- get_collapsed_meta(lox_experiment, merged_samples)
+#' meta <- get_collapsed_meta(lox,"all_sample")
 
 setGeneric("get_collapsed_meta", function(x, s) {
     standardGeneric("get_collapsed_meta")
@@ -146,49 +153,49 @@ setGeneric("get_collapsed_meta", function(x, s) {
 
 #' @rdname get_collapsed_meta
 setMethod("get_collapsed_meta", "loxcode_experiment", function(x, s) {
-    sample_name = NULL
-    counts = x@count_matrixes[[s]]
-    sample_names = names(counts)
+    sample_name <- NULL
+    counts <- x@count_matrixes[[s]]
+    sample_names <- names(counts)
 
     # Divide samples into collapsed vs non-collapsed
-    non_col_names = intersect(names(x@samples), names(counts))
-    col_names = setdiff(sample_names, non_col_names)
+    non_col_names <- intersect(names(x@samples), names(counts))
+    col_names <- setdiff(sample_names, non_col_names)
 
     # metadata of collapsed samples
-    meta = sapply(x@meta, unique)
-    df1 = data.frame(matrix(ncol = length(meta), nrow = length(col_names)))
-    names(df1) = names(meta)
-    df1$sample_name = col_names
+    meta <- vapply(x@meta, concat_unique, FUN.VALUE = character(1))
+    df1 <- data.frame(matrix(ncol = length(meta), nrow = length(col_names)))
+    names(df1) <- names(meta)
+    df1$sample_name <- col_names
     if (length(col_names)) {
         for (i in seq_along(col_names)) {
-            components = unlist(strsplit(col_names[i], split = "__"))
+            components <- unlist(strsplit(col_names[i], split = "__"))
             if (length(components) == 1 &
                 grepl("NA", components[[1]])) {
                 # no metadata to insert
                 break
             }
             else {
-                used_cols = c()
+                used_cols <- c()
                 for (metadata in components) {
-                    possible_cols = names(meta)[sapply(meta, function(x)
-                        metadata %in% x)]
-                    possible_cols = setdiff(possible_cols,
+                    possible_cols <- names(meta)[vapply(meta, function(x)
+                        metadata %in% x, FUN.VALUE = logical(1))]
+                    possible_cols <- setdiff(possible_cols,
                                             intersect(possible_cols, used_cols))
-                    df1[i, possible_cols[[1]]] = metadata
-                    used_cols = c(used_cols, possible_cols[1])
+                    df1[i, possible_cols[[1]]] <- metadata
+                    used_cols <- c(used_cols, possible_cols[1])
                 }
             }
         }
     }
 
     # metadata of non_collapsed samples
-    df2 = subset(x@meta, sample_name %in% non_col_names)
+    df2 <- subset(x@meta, sample_name %in% non_col_names)
 
 
-    df = rbind.fill(df2, df1)
-    df = df[!is.na(df$sample_name),]
-    row.names(df) = df$sample_name
-    df$sample_name = NULL
+    df <- rbind.fill(df2, df1)
+    df <- df[!is.na(df$sample_name),]
+    row.names(df) <- df$sample_name
+    df$sample_name <- NULL
 
     return(df)
 })
@@ -207,7 +214,7 @@ setMethod("get_collapsed_meta", "loxcode_experiment", function(x, s) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming lox, count_matrix, code_set, index, name, union, and average are defined and have the required structure
@@ -232,40 +239,40 @@ setMethod("collapse_selection", "loxcode_experiment", function(lox,
                                                                name = NULL,
                                                                union = TRUE,
                                                                average = FALSE) {
-    counts = lox@count_matrixes[[count_matrix]]
-    samples_list = names(counts)[index]
+    counts <- lox@count_matrixes[[count_matrix]]
+    samples_list <- names(counts)[index]
 
     # make new loxcode_sample
-    new_sample = merge_sample_list(lox, samples_list, union, average)
-    name = switch(is.null(name), paste0(samples_list, collapse = "_"), name)
-    new_sample@name = name
-    lox@samples[[name]] = new_sample
+    new_sample <- merge_sample_list(lox, samples_list, union, average)
+    name <- switch(is.null(name), paste0(samples_list, collapse = "_"), name)
+    new_sample@name <- name
+    lox@samples[[name]] <- new_sample
 
     # add to metadata
-    metadata = cbind(data.frame(sample_name = name), new_sample@meta)
-    lox@meta = rbind.fill(lox@meta, metadata)
+    metadata <- cbind(data.frame(sample_name = name), new_sample@meta)
+    lox@meta <- rbind.fill(lox@meta, metadata)
 
     # add to current count_matrix
     if (length(index) == 1) {
-        counts[[name]] = counts[[samples_list]]
+        counts[[name]] <- counts[[samples_list]]
     } else if (union & !average) {
-        counts[[name]] = rowSums(counts[, samples_list])
+        counts[[name]] <- rowSums(counts[, samples_list])
     } else if (union & average) {
-        counts[[name]] = rowSums(counts[, samples_list]) / length(samples_list)
+        counts[[name]] <- rowSums(counts[, samples_list]) / length(samples_list)
     } else if (!union & !average) {
-        counts[[name]] = (rowSums(counts[, samples_list]) * matrixStats::rowProds(as.matrix(counts)[, samples_list] >
+        counts[[name]] <- (rowSums(counts[, samples_list]) * matrixStats::rowProds(as.matrix(counts)[, samples_list] >
                                                                                       0))
     } else if (!union & average) {
-        counts[[name]] = rowSums(counts[, samples_list]) * matrixStats::rowProds(as.matrix(counts)[, samples_list] >
+        counts[[name]] <- rowSums(counts[, samples_list]) * matrixStats::rowProds(as.matrix(counts)[, samples_list] >
                                                                                      0) / length(samples_list)
     }
-    lox@count_matrixes[[count_matrix]] = counts
+    lox@count_matrixes[[count_matrix]] <- counts
 
     # add to aliases
-    aliases = lox@alias[[count_matrix]]
-    row = data.frame("sample_name" = name,
+    aliases <- lox@alias[[count_matrix]]
+    row <- data.frame("sample_name" = name,
                      "alias" = paste("Sample", nrow(aliases) + 1))
-    lox@alias[[count_matrix]] = rbind(aliases, row)
+    lox@alias[[count_matrix]] <- rbind(aliases, row)
 
     return (lox)
 })
@@ -283,7 +290,7 @@ setMethod("collapse_selection", "loxcode_experiment", function(lox,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(LoxCodeR2024)
+#' library(loxcoder)
 #'
 #' # Example usage
 #' # Assuming lox, count_matrix, collapse, name, union, and average are defined and have the required structure
@@ -308,19 +315,19 @@ setMethod("collapse", "loxcode_experiment", function(lox,
                                                      name,
                                                      union = TRUE,
                                                      average = FALSE) {
-    counts = lox@count_matrixes[[count_matrix]]
-    meta = subset(lox@meta, sample_name %in% names(counts))
-    params = match(collapse, names(meta))
+    counts <- lox@count_matrixes[[count_matrix]]
+    meta <- subset(lox@meta, sample_name %in% names(counts))
+    params <- match(collapse, names(meta))
 
     # group samples based on which share metadata
-    track = list()
+    track <- list()
     for (i in seq_len(nrow(meta))) {
-        sample = meta$sample_name[i]
-        metadata = paste0(meta[i, params], collapse = "_")
+        sample <- meta$sample_name[i]
+        metadata <- paste0(meta[i, params], collapse = "_")
         if (metadata %in% names(track))
-            track[[metadata]] = c(track[[metadata]], sample)
+            track[[metadata]] <- c(track[[metadata]], sample)
         else
-            track[[metadata]] = c(sample)
+            track[[metadata]] <- c(sample)
     }
     # remove metadata with NA
     track[grepl("NA", names(track))] <- NULL
@@ -330,44 +337,44 @@ setMethod("collapse", "loxcode_experiment", function(lox,
     }
 
     # merge samples that share the same meta data
-    new_samples = lapply(track, function(samples)
+    new_samples <- lapply(track, function(samples)
         merge_sample_list(lox, samples, union, average))
     for (i in seq_along(new_samples)) {
-        sample_name = names(track)[i]
-        new_samples[[i]]@name = sample_name
-        metadata = cbind(data.frame(sample_name = sample_name),
+        sample_name <- names(track)[i]
+        new_samples[[i]]@name <- sample_name
+        metadata <- cbind(data.frame(sample_name = sample_name),
                          new_samples[[i]]@meta)
-        lox@meta = rbind.fill(lox@meta, metadata)
+        lox@meta <- rbind.fill(lox@meta, metadata)
     }
-    lox@samples = c(lox@samples, new_samples)
+    lox@samples <- c(lox@samples, new_samples)
 
     # modify count_matrixes
-    codes = lox@code_sets[["all_codes"]]$code
-    new_count_matrix = data.frame(matrix(nrow = length(codes), ncol = length(new_samples)))
-    row.names(new_count_matrix) = codes
-    names(new_count_matrix) = names(track)
+    codes <- lox@code_sets[["all_codes"]]$code
+    new_count_matrix <- data.frame(matrix(nrow = length(codes), ncol = length(new_samples)))
+    row.names(new_count_matrix) <- codes
+    names(new_count_matrix) <- names(track)
     for (i in seq_along(track)) {
         if (length(track[[i]]) == 1)
-            new_count_matrix[[i]] = counts[[track[[i]][1]]]
+            new_count_matrix[[i]] <- counts[[track[[i]][1]]]
         else if (union &
                  !average)
-            new_count_matrix[[i]] = rowSums(counts[, track[[i]]])
+            new_count_matrix[[i]] <- rowSums(counts[, track[[i]]])
         else if (union &
                  average)
-            new_count_matrix[[i]] = rowSums(counts[, track[[i]]]) / length(track[[i]])
+            new_count_matrix[[i]] <- rowSums(counts[, track[[i]]]) / length(track[[i]])
         else if (!union &
                  !average)
-            new_count_matrix[[i]] = (rowSums(counts[, track[[i]]]) * matrixStats::rowProds(as.matrix(counts)[, track[[i]]] >
+            new_count_matrix[[i]] <- (rowSums(counts[, track[[i]]]) * matrixStats::rowProds(as.matrix(counts)[, track[[i]]] >
                                                                                                0))
         else if (!union &
                  average)
-            new_count_matrix[[i]] = rowSums(counts[, track[[i]]]) * matrixStats::rowProds(as.matrix(counts)[, track[[i]]] >
+            new_count_matrix[[i]] <- rowSums(counts[, track[[i]]]) * matrixStats::rowProds(as.matrix(counts)[, track[[i]]] >
                                                                                               0) / length(track[[i]])
     }
-    lox@count_matrixes[[name]] = new_count_matrix
+    lox@count_matrixes[[name]] <- new_count_matrix
 
     # fill aliases
-    lox = fillSetAliases(lox, name)
+    lox <- fillSetAliases(lox, name)
 
     return(lox)
 })
@@ -386,8 +393,9 @@ setMethod("collapse", "loxcode_experiment", function(lox,
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object and 'sample_list' is a list of sample names to be merged
 #' # Merge the samples in 'sample_list' into a single loxcode_sample object, summing their counts
-#' merged_sample <- merge_sample_list(lox = experiment, samples = sample_list, union = TRUE, average = FALSE)
-#' merged_sample
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' # merged_sample <- merge_sample_list(lox = experiment, samples = sample_list, union = TRUE, average = FALSE)
+#' # merged_sample
 setGeneric("merge_sample_list", function(lox,
                                          samples,
                                          union = TRUE,
@@ -401,30 +409,30 @@ setMethod("merge_sample_list", "loxcode_experiment", function(lox,
                                                               union = TRUE,
                                                               average = FALSE) {
     # initialize and declare variables
-    new = new("loxcode_sample")
-    FIXED_PARAMS = c("code", "size", "is_valid", "id", "dist_orig")
-    samples_list = lox@samples[samples]
+    new <- new("loxcode_sample")
+    FIXED_PARAMS <- c("code", "size", "is_valid", "id", "dist_orig")
+    samples_list <- lox@samples[samples]
 
     # fill decode@data slot
     if (length(samples_list) == 1) {
-        merged_data = samples_list[[1]]@decode@data
-        counts = merged_data$count
-        firstreads = merged_data$firstread
+        merged_data <- samples_list[[1]]@decode@data
+        counts <- merged_data$count
+        firstreads <- merged_data$firstread
     }
     else {
-        data_list = c()
-        data_list = lapply(samples_list, function(x)
+        data_list <- c()
+        data_list <- lapply(samples_list, function(x)
             c(data_list, x@decode@data))
-        merged_data = Reduce(function(x, y)
+        merged_data <- Reduce(function(x, y)
             merge(x, y, all = union, by = FIXED_PARAMS),
             data_list)
-        counts = rowSums(merged_data[, grepl("count", names(merged_data))], na.rm = TRUE)
+        counts <- rowSums(merged_data[, grepl("count", names(merged_data))], na.rm = TRUE)
         if (average) {
-            counts = counts / length(samples)
+            counts <- counts / length(samples)
         }
-        firstreads = rowSums(merged_data[, grepl("firstread", names(merged_data))], na.rm = TRUE) / length(samples)
+        firstreads <- rowSums(merged_data[, grepl("firstread", names(merged_data))], na.rm = TRUE) / length(samples)
     }
-    new@decode@data = data.frame(
+    new@decode@data <- data.frame(
         count = counts,
         firstread = firstreads,
         code = merged_data$code,
@@ -434,33 +442,33 @@ setMethod("merge_sample_list", "loxcode_experiment", function(lox,
         dist_orig = merged_data$dist_orig
     )
 
-    new@decode@saturation = integer(0)
-    new@decode@read_ids = list()
+    new@decode@saturation <- integer(0)
+    new@decode@read_ids <- list()
 
     # fill in the metadata slot
-    meta_list = c()
-    meta_list = lapply(samples_list, function(x)
+    meta_list <- c()
+    meta_list <- lapply(samples_list, function(x)
         c(meta_list, x@meta))
-    meta = Reduce(function(x, y)
+    meta <- Reduce(function(x, y)
         merge(x, y, all = TRUE), meta_list)
     meta[] <-
         data.frame(lapply(meta, as.character), stringsAsFactors = FALSE)
     if (length(samples_list) == 1)
-        new@meta = data.frame(meta)
+        new@meta <- data.frame(meta)
     else
-        new@meta = meta[lapply(meta, function(x)
+        new@meta <- meta[lapply(meta, function(x)
             length(unique(x))) == 1][1,]
 
     # files slot
-    new@files = list()
-    new@files = lapply(samples_list, function(x)
+    new@files <- list()
+    new@files <- lapply(samples_list, function(x)
         list(new@files, x@files))
 
     # decode stats slot
     for (stat in names(samples_list[[1]]@decode_stats)) {
-        values = lapply(samples_list, function(x)
+        values <- lapply(samples_list, function(x)
             x@decode_stats[[stat]])
-        new@decode_stats[[stat]] = sum(unlist(values))
+        new@decode_stats[[stat]] <- sum(unlist(values))
     }
 
     return (new)
@@ -478,8 +486,9 @@ setMethod("merge_sample_list", "loxcode_experiment", function(lox,
 #' @examples
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 #' # Create a new count_matrix named 'new_count_matrix' by selecting indices 1, 3, and 5 from an existing count_matrix 'old_count_matrix'
-#' new_experiment <- make_count_matrix(experiment, count_matrix = "old_count_matrix", indices = c(1, 3, 5), name = "new_count_matrix")
+#' new_experiment <- make_count_matrix(lox,"all_samples",c(1,3,5))
 #' new_experiment
 
 setGeneric("make_count_matrix", function(lox,
@@ -500,9 +509,9 @@ setMethod("make_count_matrix", "loxcode_experiment", function(lox,
     }
 
 
-    indices = sort(indices)
-    new_matrix = lox@count_matrixes[[count_matrix]][indices]
-    lox@count_matrixes[[name]] = new_matrix
-    lox = fillSetAliases(lox, name)
+    indices <- sort(indices)
+    new_matrix <- lox@count_matrixes[[count_matrix]][indices]
+    lox@count_matrixes[[name]] <- new_matrix
+    lox <- fillSetAliases(lox, name)
     return(lox)
 })

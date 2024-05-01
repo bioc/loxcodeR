@@ -19,54 +19,54 @@ using namespace Rcpp;
 using namespace std;
 
 
-void printAlignment(const char* query, const char* target,
-                    const unsigned char* alignment, const int alignmentLength,
-                    const int position, const EdlibAlignMode modeCode, int editDistance) {
-
-  int tIdx = -1;
-  int qIdx = -1;
-  if (modeCode == EDLIB_MODE_HW) {
-    tIdx = position;
-    for (int i = 0; i < alignmentLength; i++) {
-      if (alignment[i] != EDLIB_EDOP_INSERT)
-        tIdx--;
-    }
-  }
-  for (int start = 0; start < alignmentLength; start += 75) {
-    // target
-    printf("T: ");
-    int startTIdx = -1;
-    for (int j = start; j < start + 75 && j < alignmentLength; j++) {
-      if (alignment[j] == EDLIB_EDOP_INSERT)
-        printf("-");
-      else
-        printf("%c", target[++tIdx]);
-      if (j == start)
-        startTIdx = tIdx;
-    }
-    printf(" (%d - %d)\n", max(startTIdx, 0), tIdx);
-
-    // match / mismatch
-    printf("   ");
-    for (int j = start; j < start + 75 && j < alignmentLength; j++) {
-      printf(alignment[j] == EDLIB_EDOP_MATCH ? "|" : " ");
-    }
-    printf("\n");
-
-    // query
-    printf("Q: ");
-    int startQIdx = qIdx;
-    for (int j = start; j < start + 75 && j < alignmentLength; j++) {
-      if (alignment[j] == EDLIB_EDOP_DELETE)
-        printf("-");
-      else
-        printf("%c", query[++qIdx]);
-      if (j == start)
-        startQIdx = qIdx;
-    }
-    printf(" (%d - %d)\n\n", max(startQIdx, 0), qIdx);
-  }
-}
+// void printAlignment(const char* query, const char* target,
+//                     const unsigned char* alignment, const int alignmentLength,
+//                     const int position, const EdlibAlignMode modeCode, int editDistance) {
+//
+//   int tIdx = -1;
+//   int qIdx = -1;
+//   if (modeCode == EDLIB_MODE_HW) {
+//     tIdx = position;
+//     for (int i = 0; i < alignmentLength; i++) {
+//       if (alignment[i] != EDLIB_EDOP_INSERT)
+//         tIdx--;
+//     }
+//   }
+//   for (int start = 0; start < alignmentLength; start += 75) {
+//     // target
+//     printf("T: ");
+//     int startTIdx = -1;
+//     for (int j = start; j < start + 75 && j < alignmentLength; j++) {
+//       if (alignment[j] == EDLIB_EDOP_INSERT)
+//         printf("-");
+//       else
+//         printf("%c", target[++tIdx]);
+//       if (j == start)
+//         startTIdx = tIdx;
+//     }
+//     printf(" (%d - %d)\n", max(startTIdx, 0), tIdx);
+//
+//     // match / mismatch
+//     printf("   ");
+//     for (int j = start; j < start + 75 && j < alignmentLength; j++) {
+//       printf(alignment[j] == EDLIB_EDOP_MATCH ? "|" : " ");
+//     }
+//     printf("\n");
+//
+//     // query
+//     printf("Q: ");
+//     int startQIdx = qIdx;
+//     for (int j = start; j < start + 75 && j < alignmentLength; j++) {
+//       if (alignment[j] == EDLIB_EDOP_DELETE)
+//         printf("-");
+//       else
+//         printf("%c", query[++qIdx]);
+//       if (j == start)
+//         startQIdx = qIdx;
+//     }
+//     printf(" (%d - %d)\n\n", max(startQIdx, 0), qIdx);
+//   }
+// }
 
 
 
@@ -178,7 +178,9 @@ vector<int> map_lox(string R1, int start_loc)
         if(h<=min_h){if(h==min_h) rep++; min_h=h; inf_el=i.second;}
       };
 
-      if(min_h<=2 && rep==1) {elements.push_back(inf_el); cout<<"hamming "<<min_h<<endl;}
+      if(min_h<=2 && rep==1) {elements.push_back(inf_el);
+          // cout<<"hamming "<<min_h<<endl;
+          }
       else elements.push_back(0);
     }
 
@@ -249,13 +251,17 @@ vector<int> decR(string R, string head_seq, int head_length, string tail_seq, in
 
   edlibFreeAlignResult(result1);
 
-  if(end_loc == 0){reads_missing_start++; cout<<"no start"<<endl; }
+  if(end_loc == 0){reads_missing_start++;
+      // cout<<"no start"<<endl;
+      }
 
   else
   {
     ok_reads++;
     int max_r=R.size();
-    if(findNeedle(end, TAIL)!=-1) {max_r=R.size()-tail_length + findNeedlePos(end, TAIL)+10; cout<<"found_end "<<max_r<<endl;}
+    if(findNeedle(end, TAIL)!=-1) {max_r=R.size()-tail_length + findNeedlePos(end, TAIL)+10;
+        // cout<<"found_end "<<max_r<<endl;
+        }
     elements= map_lox(R.substr(0,max_r), end_loc);
   }
   /////////////////////////////////////////////
@@ -272,6 +278,9 @@ vector<int> decR(string R, string head_seq, int head_length, string tail_seq, in
 //' @param sat Satiration amount
 //' @param full whether to supply full output (including read IDs, etc)
 //' @return S4 loxcode_sample object with decoded results
+//' @examples
+//' # Example usage:
+//' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 //' @export
 // [[Rcpp::export]]
    Rcpp::S4 decode(std::vector<std::string> r, std::string name, Rcpp::DataFrame meta,
@@ -326,29 +335,32 @@ vector<int> decR(string R, string head_seq, int head_length, string tail_seq, in
 
        /////////////////////////////////////////////////
 
-       if(R1.size()<75 || R2.size()<70) {cout<<"read too small"<<endl; continue;}
-       cout<<endl<<"read # "<<tot_reads<<endl;
+       if(R1.size()<75 || R2.size()<70) {
+           // cout<<"read too small"<<endl;
+           continue;
+           }
+       //cout<<endl<<"read # "<<tot_reads<<endl;
 
-       cout<<"R1 ";
+       //cout<<"R1 ";
        string start_R1="TCTAGAGGATCCCCGGGTACCGAGCTCGAATTTGCACATAACTTCGTATAATGTATGCTATACGAAGTTAT";
        string end_R1="ATAACTTCGTATAGCATACATTATACGAAGTTATACACGAATTCATCCAGGC";
        vector<int> r1= decR(R1, start_R1, 75, end_R1, 60, i, all_mapped, ok_reads);
-       for(auto k: r1) cout<<k<<" "; cout<<endl;
+       // for(auto k: r1) cout<<k<<" "; cout<<endl;
 
        string start_R2="GCCTGGATGAATTCGTGTATAACTTCGTATAATGTATGCTATACGAAGTTAT";
        string end_R2="GTGCAAATTCGAGCT";
 
-       cout<<"R2 ";
+       // cout<<"R2 ";
        vector<int> r2 = decR(R2, start_R2, 60, end_R2, 70, i, all_mapped, ok_reads);
        std::reverse(r2.begin(),r2.end()); for(int j=0; j<r2.size(); j++) r2[j]*=-1;
-       for(auto k: r2) cout<<k<<" "; cout<<endl;
+       // for(auto k: r2) cout<<k<<" "; cout<<endl;
 
-       if(r1.size()!=r2.size())
-       {
-         cout<<"unequal"<<endl;
-         for(auto k: r1) cout<<k<<" "; cout<<endl;
-         for(auto k: r2) cout<<k<<" "; cout<<endl;
-       }
+       // if(r1.size()!=r2.size())
+       // {
+       //   cout<<"unequal"<<endl;
+       //   for(auto k: r1) cout<<k<<" "; cout<<endl;
+       //   for(auto k: r2) cout<<k<<" "; cout<<endl;
+       // }
 
        vector<int> r3= Consensus(r1,r2);
 
@@ -360,7 +372,7 @@ vector<int> decR(string R, string head_seq, int head_length, string tail_seq, in
 
        }
 
-       cout<<"rating "<<usable_reads/(tot_reads)<<endl;
+       // cout<<"rating "<<usable_reads/(tot_reads)<<endl;
 
      }
 
@@ -381,7 +393,7 @@ vector<int> decR(string R, string head_seq, int head_length, string tail_seq, in
 
        }
 
-       cout<<"code "<<output_code_readout.back()<<endl;
+       // cout<<"code "<<output_code_readout.back()<<endl;
 
        output_code_counts.push_back(c.second.size());
        output_code_firstread.push_back(c.second.front());

@@ -28,9 +28,9 @@ Simulate a loxcode_sample
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assuming lox is defined and has the required structure
-simulate_sample(lox, c = 3, n = 10, ref = reference_sample, name = "Sample1")
+# simulate_sample(lox, c = 3, n = 10, ref = reference_sample, name = "Sample1")
 }

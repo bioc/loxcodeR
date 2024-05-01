@@ -22,6 +22,7 @@ summed. Sample descriptors and other members are concatenated in order.
 # Example usage:
 # Assuming 'sample1' and 'sample2' are loxcode_sample objects
 # Merge the two samples into a new loxcode_sample object
-merged_sample <- merge_sample(sample1, sample2)
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+merged_sample <- merge_sample(lox@samples$N709_N501,lox@samples$N709_N502)
 merged_sample
 }

@@ -22,6 +22,7 @@ Impute missing elements
 # Assuming 'cassette_list' is a list of loxcode numbers present in each cassette,
 # and 'loxcode_sizes' is a vector containing the sizes of the loxcode.
 # Impute the missing elements in each cassette to form a 13-element cassette
-cassette <- impute_13(cassette_list, loxcode_sizes)
-cassette
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#cassette <- impute_13(cassette_list, loxcode_sizes)
+#cassette
 }

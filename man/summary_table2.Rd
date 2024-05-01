@@ -22,9 +22,10 @@ Summary table (v2)
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assuming lox and s are defined
-summary_table2(lox, s)
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+summary_table2(lox, "all_samples")
 }

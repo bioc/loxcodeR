@@ -21,6 +21,7 @@ Merge a vector of experiments
 # Example usage:
 # Assuming 'experiment1', 'experiment2', and 'experiment3' are loxcode_experiment objects
 # Merge the three experiments into a new experiment named 'merged_experiment'
-merged_experiment <- merge_experiments2(experiments = c(experiment1, experiment2, experiment3), name = "merged_experiment")
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+merged_experiment <- merge_experiments2(c(lox,lox),"test")
 merged_experiment
 }

@@ -7,7 +7,7 @@ library(shiny)
 library(shinyDirectoryInput)
 library(plotly)
 library(DT)
-library(LoxCodeR2024)
+library(loxcoder)
 library(shinydashboard)
 library(rlist)
 library(shinyFiles)
@@ -222,31 +222,6 @@ simulationTab <- tabItem(
       collapsible = TRUE,
       collapsed = TRUE,
       dataTableOutput("simulated_samples")
-    ),
-    box(
-      width = 8,
-      title = "Simulation Distribution",
-      status = "danger",
-      collapsible = TRUE,
-      collapsed = TRUE,
-      tabsetPanel(
-        tabPanel(
-          "Dist_orig",
-          plotlyOutput("dist_orig_sim")
-        ),
-        tabPanel(
-          "Size",
-          plotlyOutput("size_sim")
-        ),
-        tabPanel(
-          "Dist_orig density",
-          plotlyOutput("dist_orig_density")
-        ),
-        tabPanel(
-          "Size density",
-          plotlyOutput("size_density")
-        )
-      )
     )
   )
 )

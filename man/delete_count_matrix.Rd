@@ -22,8 +22,9 @@ Creates a new count_matrix with dataframe of samples
 }
 \examples{
 # Load a sample loxcode_experiment object
-data("loxcode_experiment_sample")
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+
 
 # Delete the existing count_matrix named "count_matrix_1"
-lox_updated <- delete_count_matrix(loxcode_experiment_sample, "count_matrix_1")
+lox_updated <- delete_count_matrix(lox, "all_sample")
 }

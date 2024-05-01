@@ -23,7 +23,7 @@ Function to perform union of barcodes based on size or complexity
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assume rep1, rep2, type, and range are defined

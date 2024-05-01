@@ -43,6 +43,6 @@ Must contain the following columns:
 name <- "MyExperiment"
 s <- "path/to/excel_file.xlsx"
 dir <- "path/to/fastq_directory"
-experiment <- create_experiment(name, s, dir)
-experiment
+#experiment <- create_experiment(name, s, dir)
+#experiment
 }

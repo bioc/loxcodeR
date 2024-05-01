@@ -36,9 +36,10 @@ plots the number of reads
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assuming lox, code_set, and count_matrix are defined
-read_plot(lox, code_set, count_matrix, labels = "Sample Name")
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+read_plot(lox)
 }

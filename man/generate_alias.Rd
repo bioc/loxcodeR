@@ -24,12 +24,11 @@ generate sample aliases
 }
 \examples{
 # Load necessary libraries and data
-library(LoxCodeR2024)
-data <- read.csv("your_data.csv")
+library(loxcoder)
 
 # Create a loxcode experiment object
-lox_experiment <- create_lox_experiment(data)
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 
 # Generate sample aliases
-lox_experiment <- generate_alias(lox_experiment, "Sample_A", "Sample_B", "Sample_C")
+lox_experiment <- generate_alias(lox, s = "all_samples", "mouse")
 }

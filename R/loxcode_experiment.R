@@ -48,25 +48,25 @@ loxcode_experiment <- setClass(
 #'
 #' # Check if the current environment is within a Shiny app
 #' shiny_running()
-shiny_running = function () {
+shiny_running <- function () {
     # Look for `runApp` call somewhere in the call stack.
-    frames = sys.frames()
-    calls = lapply(sys.calls(), `[[`, 1)
-    call_name = function (call)
+    frames <- sys.frames()
+    calls <- lapply(sys.calls(), `[[`, 1)
+    call_name <- function (call)
         if (is.function(call))
             '<closure>'
     else
         deparse(call)
-    call_names = vapply(calls, call_name, character(1))
+    call_names <- vapply(calls, call_name, character(1))
 
-    target_call = grep('^runApp$', call_names)
+    target_call <- grep('^runApp$', call_names)
 
     if (length(target_call) == 0)
         return(FALSE)
 
     # Found a function called `runApp`, verify that it’s Shiny’s.
-    target_frame = frames[[target_call]]
-    namespace_frame = parent.env(target_frame)
+    target_frame <- frames[[target_call]]
+    namespace_frame <- parent.env(target_frame)
     isNamespace(namespace_frame) &&
         environmentName(namespace_frame) == 'shiny'
 }
@@ -88,7 +88,8 @@ shiny_running = function () {
 #' @examples
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
-#' experiment <- load_data_from_FASTQ(experiment)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' experiment <- load_samples(lox)
 #' experiment
 setGeneric("load_samples", function(x, ...) {
     standardGeneric("load_samples")
@@ -105,14 +106,15 @@ setMethod("load_samples", "loxcode_experiment", function(x, full = FALSE, sat = 
         print(x@samp_table$sample)
         samp_table_sliced <-
             x@samp_table[match(z, x@samp_table$sample), ]
-        files = list.files(x@dir)
-        files = sort(files[grepl(".fastq$", files)])
-        indices = grepl(x@samples[[z]], files)
-        matches = sort(files[indices])
+        files <- list.files(x@dir)
+        if(length(files[grepl(".fastq$", files)])>0){
+        files <- sort(files[grepl(".fastq$", files)])
+        indices <- grepl(x@samples[[z]], files)
+        matches <- sort(files[indices])
         print(c(paste0(x@dir, matches[1]), paste0(x@dir, matches[2])))
         print("A")
         out <-
-            LoxCodeR2024::decode(
+            loxcoder::decode(
                 c(paste0(x@dir, matches[1]), paste0(x@dir, matches[2])),
                 name = z,
                 meta = samp_table_sliced[,!names(samp_table_sliced) %in% c("sample", "prefix", "min_r1_len", "min_r2_len")],
@@ -122,14 +124,19 @@ setMethod("load_samples", "loxcode_experiment", function(x, full = FALSE, sat = 
                 sat = sat
             )
         print("B")
-        out <- LoxCodeR2024::impute(out)
+        print("out")
+        out <- loxcoder::impute(out)
         print("C")
-        out <- LoxCodeR2024::validate(out)
+        out <- loxcoder::validate(out)
         print("D")
-        out <- LoxCodeR2024::makeid(out)
+        print("out")
+        out <- loxcoder::makeid(out)
         print("E")
-        out <- LoxCodeR2024::get_origin_dist(out)
+        out <- loxcoder::get_origin_dist(out)
         return(out)
+        } else {
+            print("No Fastq")
+        }
     })
     print("F")
     names(x@samples) <- x@samp_table$sample
@@ -149,7 +156,8 @@ setMethod("load_samples", "loxcode_experiment", function(x, full = FALSE, sat = 
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
 #' # Retrieve the names of all samples in the experiment
-#' sample_names <- fetch_sample_names(experiment)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' sample_names <- sampnames(lox)
 #' sample_names
 setGeneric("sampnames", function(x) {
     standardGeneric("sampnames")
@@ -185,8 +193,9 @@ setMethod("sampnames", "loxcode_experiment", function(x) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
 #' # Retrieve the name of the experiment
-#' experiment_name <- name(experiment)
-#' experiment_name
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' #experiment_name <- name(lox)
+#' #experiment_name
 setGeneric("name", function(x) {
     standardGeneric("name")
 })
@@ -220,7 +229,8 @@ setMethod("name", "loxcode_experiment", function(x) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object and 'sample_name' is the name of the sample to retrieve
 #' # Retrieve the loxcode_sample object corresponding to the sample named 'sample_name'
-#' sample_object <- get_loxcode_sample_by_sample_name(x = experiment, s = "sample_name")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' sample_object <- sample(x = lox, s = "N709_N501")
 #' sample_object
 setGeneric("sample", function(x, s) {
     standardGeneric("sample")
@@ -233,7 +243,7 @@ setMethod("sample", "loxcode_experiment", function(x, s) {
 
 #' Get unvalidated readout data for a given sample
 #'
-#' Equivalent to performing LoxCodeR2024::data() on the sample s
+#' Equivalent to performing loxcoder::data() on the sample s
 #' @param x loxcode_experiment object
 #' @param s sample name
 #' @return data.frame containing unvalidated readout data for sample s
@@ -241,14 +251,11 @@ setMethod("sample", "loxcode_experiment", function(x, s) {
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(LoxCodeR2024)
-#' data <- read.csv("your_data.csv")
-#'
-#' # Create a loxcode experiment object
-#' lox_experiment <- create_lox_experiment(data)
+#' library(loxcoder)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 #'
 #' # Get unvalidated readout data for a sample
-#' sample_data <- get_data(lox_experiment, "Sample_Name")
+#' sample_data <- get_data(lox, "N709_N501")
 setGeneric("get_data", function(x, s) {
     standardGeneric("get_data")
 })
@@ -260,7 +267,7 @@ setMethod("get_data", "loxcode_experiment", function(x, s) {
 
 #' Get validated readout data for a given sample
 #'
-#' Equivalent to performing LoxCodeR2024::valid() on the sample s
+#' Equivalent to performing loxcoder::valid() on the sample s
 #' @param x loxcode_experiment object
 #' @param s sample name
 #' @return loxcode object with valid data
@@ -268,19 +275,17 @@ setMethod("get_data", "loxcode_experiment", function(x, s) {
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(LoxCodeR2024)
-#' data <- read.csv("your_data.csv")
+#' library(loxcoder)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 #'
-#' # Assuming you have a loxcode_experiment object called lox
-#' sample_name <- "your_sample_name"  # Specify the name of the sample
-#' valid_data <- get_valid(lox, sample_name)
+#' valid_data <- get_valid(lox, "N709_N501")
 setGeneric("get_valid", function(x, s) {
     standardGeneric("get_valid")
 })
 
 #' @rdname get_valid
 setMethod("get_valid", "loxcode_experiment", function(x, s) {
-    return(LoxCodeR2024::valid(x@samples[[s]]))
+    return(loxcoder::valid(x@samples[[s]]))
 })
 
 #' Get sample table
@@ -293,7 +298,8 @@ setMethod("get_valid", "loxcode_experiment", function(x, s) {
 #' # Example usage:
 #' # Assuming 'lox_data' is a loxcode object
 #' # Retrieve the sample table from the loxcode object
-#' sample_table <- get_sample_table(lox_data)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' sample_table <- samptable(lox)
 #' sample_table
 setGeneric("samptable", function(x) {
     standardGeneric("samptable")
@@ -315,8 +321,9 @@ setMethod("samptable", "loxcode_experiment", function(x) {
 #' # Example usage:
 #' # Assuming 'lox_data' is a loxcode object and 'new_sample_table' is the new sample table to set
 #' # Set the sample table of the loxcode object to 'new_sample_table'
-#' lox_data$samptable <- new_sample_table
-#' lox_data
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' #lox_data$samptable <- new_sample_table
+#' #lox_data
 setGeneric("samptable<-", function(x, value) {
     standardGeneric("samptable<-")
 })
@@ -357,8 +364,8 @@ setMethod("samptable<-", "loxcode_experiment", function(x, value) {
 #' name <- "MyExperiment"
 #' s <- "path/to/excel_file.xlsx"
 #' dir <- "path/to/fastq_directory"
-#' experiment <- create_experiment(name, s, dir)
-#' experiment
+#' #experiment <- create_experiment(name, s, dir)
+#' #experiment
 load_from_xlsx <-
     function(name,
              s,
@@ -370,24 +377,24 @@ load_from_xlsx <-
         x@samp_table <-
             data.frame(read_excel("fastq_available.xlsx"))
 
-        samp_table = x@samp_table
+        samp_table <- x@samp_table
 
-        x@samples = lapply(x@samp_table$prefix, function(z)
+        x@samples <- lapply(x@samp_table$prefix, function(z)
             z)
         names(x@samples) <- x@samp_table$sample
         if (load) {
             print(1)
             x <-
-                LoxCodeR2024::load_samples(x, full = full, sat = sat)
+                loxcoder::load_samples(x, full = full, sat = sat)
 
             print(2)
-            x <- LoxCodeR2024::setup_count_matrix_codesets(x)
+            x <- loxcoder::setup_count_matrix_codesets(x)
 
             print(3)
-            x <- LoxCodeR2024::setup_metadata(x)
+            x <- loxcoder::setup_metadata(x)
 
             print(4)
-            x <- LoxCodeR2024::fill_alias(x)
+            x <- loxcoder::fill_alias(x)
 
             print(5)
         }
@@ -422,7 +429,8 @@ load_from_xlsx_multi <-
 #' # Example usage:
 #' # Assuming 'sample1' and 'sample2' are loxcode_sample objects
 #' # Merge the two samples into a new loxcode_sample object
-#' merged_sample <- merge_sample(sample1, sample2)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' merged_sample <- merge_sample(lox@samples$N709_N501,lox@samples$N709_N502)
 #' merged_sample
 merge_sample <- function(s1, s2) {
     m <-
@@ -471,8 +479,9 @@ merge_sample <- function(s1, s2) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object and 'label_column' is the name of the column to merge by
 #' # Merge samples based on the values in the 'label_column'
-#' merged_experiment <- merge_samples_by_label(experiment, by = "label_column")
-#' merged_experiment
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' # merged_experiment <- merge_by(lox, by = "sample")
+#' # merged_experiment
 setGeneric('merge_by', function(x, by) {
     standardGeneric('merge_by')
 })
@@ -514,7 +523,8 @@ setMethod('merge_by', 'loxcode_experiment', function(x, by) {
 #' # Example usage:
 #' # Assuming 'lox_data' is a loxcode object and 'count_matrix_1', 'count_matrix_2', etc. are individual count matrices
 #' # Generate count matrices from individual samples and add standard code sets
-#' updated_lox <- setup_count_matrix_codesets(lox_data, count_matrix_1, count_matrix_2, ...)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' updated_lox <- setup_count_matrix_codesets(lox)
 #' updated_lox
 setGeneric("setup_count_matrix_codesets", function(x, ...) {
     standardGeneric("setup_count_matrix_codesets")
@@ -522,35 +532,35 @@ setGeneric("setup_count_matrix_codesets", function(x, ...) {
 
 #' @rdname setup_count_matrix_codesets
 setMethod("setup_count_matrix_codesets", "loxcode_experiment", function(x) {
-    m = data.frame(code = "")
+    m <- data.frame(code = "")
     for (i in x@samp_table$sample) {
-        m = merge(m,
-                  LoxCodeR2024::sample(x, i)@decode@data,
+        m <- merge(m,
+                  loxcoder::sample(x, i)@decode@data,
                   by = "code",
                   all = TRUE)
     }
 
-    codes = m$code[-1]
+    codes <- m$code[-1]
 
 
     #View(m)
 
-    m = m[-1,-1]
+    m <- m[-1,-1]
 
 
 
-    mm = m[, grepl("count", names(m))]
+    mm <- m[, grepl("count", names(m))]
 
-    mm[is.na(mm)] = 0
+    mm[is.na(mm)] <- 0
 
-    names(mm) = x@samp_table$sample
+    names(mm) <- x@samp_table$sample
 
 
-    ms = as.data.frame(m[, grepl("size", names(m))])
+    ms <- as.data.frame(m[, grepl("size", names(m))])
 
-    mv = as.data.frame(m[, grepl("valid", names(m))])
+    mv <- as.data.frame(m[, grepl("valid", names(m))])
 
-    mo = as.data.frame(m[, grepl("orig", names(m))])
+    mo <- as.data.frame(m[, grepl("orig", names(m))])
 
 
     merged_ms <- apply(ms, 1, function(x) {
@@ -584,7 +594,7 @@ setMethod("setup_count_matrix_codesets", "loxcode_experiment", function(x) {
     #all.codes=data.frame(code=row.names(mm), size=rowMeans(ms,na.rm=TRUE), is_valid=rowMeans(mv,na.rm=TRUE), dist_orig=rowMeans(mo,na.rm=TRUE),stringsAsFactors = FALSE)
     #all.codes= rbind(code=row.names(mm), size=rowMeans(ms,na.rm=TRUE), is_valid=rowMeans(mv,na.rm=TRUE), dist_orig=rowMeans(mo,na.rm=TRUE),stringsAsFactors = FALSE)
     # all.codes=data.frame(code=names(mm), size=ms, is_valid=mv, dist_orig=mo)
-    all.codes = data.frame(
+    all.codes <- data.frame(
         code = codes,
         size = merged_ms,
         is_valid = merged_mv,
@@ -592,19 +602,19 @@ setMethod("setup_count_matrix_codesets", "loxcode_experiment", function(x) {
         stringsAsFactors = FALSE
     )
     #View(all.codes)
-    valid.codes = subset(all.codes, is_valid == 1)
-    #valid.codes$flp_dist<- LoxCodeR2024::min_flip_dist(valid.codes$code, valid.codes$size, valid.codes$is_valid)$d_min
-    invalid.codes = subset(all.codes, is_valid == 0)
+    valid.codes <- subset(all.codes, is_valid == 1)
+    #valid.codes$flp_dist<- loxcoder::min_flip_dist(valid.codes$code, valid.codes$size, valid.codes$is_valid)$d_min
+    invalid.codes <- subset(all.codes, is_valid == 0)
 
 
-    x@count_matrixes[["all_samples"]] = mm
-    x@code_sets[["all_codes"]] = plyr::rbind.fill(valid.codes, invalid.codes)
+    x@count_matrixes[["all_samples"]] <- mm
+    x@code_sets[["all_codes"]] <- plyr::rbind.fill(valid.codes, invalid.codes)
 
-    x@code_sets[["valid_codes"]] = valid.codes
+    x@code_sets[["valid_codes"]] <- valid.codes
 
-    x@code_sets[["invalid_codes"]] = invalid.codes
+    x@code_sets[["invalid_codes"]] <- invalid.codes
 
-    rownames(x@count_matrixes$all_samples) = as.list(x@code_sets$all_codes[["code"]])
+    rownames(x@count_matrixes$all_samples) <- as.list(x@code_sets$all_codes[["code"]])
 
     print(str(x))
 
@@ -621,7 +631,8 @@ setMethod("setup_count_matrix_codesets", "loxcode_experiment", function(x) {
 #' # Example usage:
 #' # Assuming 'lox_data' is a loxcode object
 #' # Generate metadata for the loxcode experiment
-#' experiment_metadata <- setup_metadata(lox_data)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' experiment_metadata <- setup_metadata(lox)
 #' experiment_metadata
 setGeneric("setup_metadata", function(x) {
     standardGeneric("setup_metadata")
@@ -630,10 +641,10 @@ setGeneric("setup_metadata", function(x) {
 #' @rdname setup_metadata
 setMethod("setup_metadata", "loxcode_experiment", function(x) {
     for (i in seq_along(x@samples)) {
-        row = data.frame(sample_name = name(x@samples[[i]]),
+        row <- data.frame(sample_name = name(x@samples[[i]]),
                          stringsAsFactors = FALSE)
         row <- merge(row, x@samples[[i]]@meta)
-        x@meta = plyr::rbind.fill(x@meta, row)
+        x@meta <- plyr::rbind.fill(x@meta, row)
     }
     return(x)
 })
@@ -647,14 +658,12 @@ setMethod("setup_metadata", "loxcode_experiment", function(x) {
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(LoxCodeR2024)
-#' data <- read.csv("your_data.csv")
+#' library(loxcoder)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 #'
-#' # Create a loxcode experiment object
-#' lox_experiment <- create_lox_experiment(data)
 #'
 #' # Generate alias for the samples
-#' lox_experiment <- fill_alias(lox_experiment, "Sample_A", "Sample_B", "Sample_C")
+#' lox_experiment <- fill_alias(lox)
 
 setGeneric("fill_alias", function(x, ...) {
     sstandardGeneric("fill_alias")
@@ -662,16 +671,16 @@ setGeneric("fill_alias", function(x, ...) {
 
 #' @rdname fill_alias
 setMethod("fill_alias", "loxcode_experiment", function(x) {
-    alias = data.frame()
+    alias <- data.frame()
     for (i in seq_along(x@samples)) {
-        row = data.frame(
+        row <- data.frame(
             sample_name = name(x@samples[[i]]),
             alias = paste("Sample", i),
             stringsAsFactors = FALSE
         )
-        alias = plyr::rbind.fill(alias, row)
+        alias <- plyr::rbind.fill(alias, row)
     }
-    x@alias[["all_samples"]] = alias
+    x@alias[["all_samples"]] <- alias
 
     return(x)
 })
@@ -691,8 +700,9 @@ setMethod("fill_alias", "loxcode_experiment", function(x) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
 #' # Create a new codeset named 'new_codeset' by selecting indices 1, 3, and 5 from an existing codeset 'old_codeset'
-#' new_experiment <- make_codeset_index(experiment, c = "old_codeset", I = c(1, 3, 5), n = "new_codeset")
-#' new_experiment
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' # new_experiment <- make_codeset_index(experiment, c = "old_codeset", I = c(1, 3, 5), n = "new_codeset")
+#' # new_experiment
 setGeneric("make_codeset_index", function(x, c, I, n) {
     standardGeneric("make_codeset_index")
 })
@@ -700,12 +710,12 @@ setGeneric("make_codeset_index", function(x, c, I, n) {
 #' @rdname make_codeset_index
 setMethod("make_codeset_index", "loxcode_experiment", function(x, c, I, n) {
     new_experiment <- x
-    newset = data.frame()
+    newset <- data.frame()
     for (i in I) {
-        row = x@code_sets[[c]][i,]
-        newset = plyr::rbind.fill(newset, row)
+        row <- x@code_sets[[c]][i,]
+        newset <- plyr::rbind.fill(newset, row)
     }
-    new_experiment@code_sets[[n]] = newset
+    new_experiment@code_sets[[n]] <- newset
     return(new_experiment)
 })
 
@@ -750,10 +760,11 @@ setMethod("delete_codeset", "loxcode_experiment", function(x, n) {
 #' @export
 #' @examples
 #' # Load a sample loxcode_experiment object
-#' data("loxcode_experiment_sample")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#'
 #'
 #' # Delete the existing count_matrix named "count_matrix_1"
-#' lox_updated <- delete_count_matrix(loxcode_experiment_sample, "count_matrix_1")
+#' lox_updated <- delete_count_matrix(lox, "all_sample")
 
 setGeneric("delete_count_matrix", function(x, c) {
     standardGeneric("delete_count_matrix")
@@ -783,8 +794,9 @@ setMethod("delete_count_matrix", "loxcode_experiment", function(x, c) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object and 'old_name' is the old sample name to be renamed
 #' # Rename the sample named 'old_name' to 'new_name' in the count matrix 'count_matrix_name'
-#' new_experiment <- rename_sample(x = experiment, c = "count_matrix_name", n = "new_name", o = "old_name")
-#' new_experiment
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' #new_experiment <- rename_sample(x = experiment, c = "count_matrix_name", n = "new_name", o = "old_name")
+#' #new_experiment
 setGeneric("rename_sample", function(x, c, n, o) {
     standardGeneric("rename_sample")
 })
@@ -797,7 +809,7 @@ setMethod("rename_sample", "loxcode_experiment", function(x, c, n, o) {
     x@count_matrixes[[c]] <- temp
 
     # name
-    x@samples[[o]]@name = n
+    x@samples[[o]]@name <- n
 
     # samples
     temp <- x@samples[[o]]
@@ -830,7 +842,8 @@ setMethod("rename_sample", "loxcode_experiment", function(x, c, n, o) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
 #' # Change the alias of the sample named 'old_sample' to 'new_sample'
-#' new_experiment <- change_sample_alias(x = experiment, c = "current_count_matrix", s = "old_sample", n = "new_sample")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' new_experiment <- new_alias(lox,"all_samples","N709_N501","test")
 #' new_experiment
 
 setGeneric("new_alias", function(x, c, s, n) {
@@ -839,10 +852,10 @@ setGeneric("new_alias", function(x, c, s, n) {
 
 #' @rdname new_alias
 setMethod("new_alias", "loxcode_experiment", function(x, c, s, n) {
-    alias = x@alias[[c]]
-    index = match(s, alias$sample_name)
-    alias[index, 2] = n
-    x@alias[[c]] = alias
+    alias <- x@alias[[c]]
+    index <- match(s, alias$sample_name)
+    alias[index, 2] <- n
+    x@alias[[c]] <- alias
     return(x)
 })
 
@@ -859,7 +872,7 @@ setMethod("new_alias", "loxcode_experiment", function(x, c, s, n) {
 # #' @export
 # #' @examples
 # #' # Load required packages
-# #' library(LoxCodeR2024)
+# #' library(loxcoder)
 # #'
 # #' # Example usage
 # #' # Assuming x and count_matrix are defined and have the required structure
@@ -968,17 +981,11 @@ setMethod("new_alias", "loxcode_experiment", function(x, c, s, n) {
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(LoxCodeR2024)
-#' data <- read.csv("your_data.csv")
-#'
-#' # Create a loxcode experiment object
-#' lox_experiment <- create_lox_experiment(data)
-#'
-#' # Merge samples
-#' merged_samples <- merge_samples(lox_experiment, sample_set = "Sample_Set")
+#' library(loxcoder)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 #'
 #' # Get collapsed metadata (old version)
-#' meta <- get_collapsed_meta2(lox_experiment, merged_samples)
+#' meta <- get_collapsed_meta2(lox, "all_sample")
 
 setGeneric("get_collapsed_meta2", function(x, s) {
     standardGeneric("get_collapsed_meta2")
@@ -986,32 +993,32 @@ setGeneric("get_collapsed_meta2", function(x, s) {
 
 #' @rdname get_collapsed_meta2
 setMethod("get_collapsed_meta2", "loxcode_experiment", function(x, s) {
-    sample_name = NULL
-    counts = x@count_matrixes[[s]]
-    sample_names = names(counts)
+    sample_name <- NULL
+    counts <- x@count_matrixes[[s]]
+    sample_names <- names(counts)
 
     # Divide samples into collapsed vs non-collapsed
-    non_col_names = intersect(names(x@samples), names(counts))
-    col_names = setdiff(sample_names, non_col_names)
+    non_col_names <- intersect(names(x@samples), names(counts))
+    col_names <- setdiff(sample_names, non_col_names)
 
     # metadata of collapsed samples
-    df1 = data.frame(stringsAsFactors = FALSE)
+    df1 <- data.frame(stringsAsFactors = FALSE)
     if (length(col_names) > 0) {
-        col_meta = strsplit(col_names, split = "__")
+        col_meta <- strsplit(col_names, split = "__")
         for (i in seq_along(col_meta)) {
-            row = data.frame("sample_name" = col_names[[i]],
+            row <- data.frame("sample_name" = col_names[[i]],
                              t(col_meta[[i]]),
                              stringsAsFactors = FALSE)
-            df1 = plyr::rbind.fill(df1, row)
+            df1 <- plyr::rbind.fill(df1, row)
         }
 
-        used = c()
+        used <- c()
         for (i in 2:ncol(df1)) {
             for (j in seq_len(ncol(x@meta))) {
                 if (!names(x@meta)[[j]] %in% used &
                     all(df1[[i]] %in% x@meta[[j]])) {
                     names(df1)[[i]] <- names(x@meta)[[j]]
-                    used = c(used, names(x@meta)[[j]])
+                    used <- c(used, names(x@meta)[[j]])
                     break
                 }
             }
@@ -1019,11 +1026,11 @@ setMethod("get_collapsed_meta2", "loxcode_experiment", function(x, s) {
     }
 
     # metadata of non_collapsed samples
-    df2 = subset(x@meta, sample_name %in% non_col_names)
+    df2 <- subset(x@meta, sample_name %in% non_col_names)
 
-    df = plyr::rbind.fill(df2, df1)
-    row.names(df) = df$sample_name
-    df$sample_name = NULL
+    df <- plyr::rbind.fill(df2, df1)
+    row.names(df) <- df$sample_name
+    df$sample_name <- NULL
 
     return(df)
 })
@@ -1043,7 +1050,8 @@ setMethod("get_collapsed_meta2", "loxcode_experiment", function(x, s) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
 #' # Create a new filtered code set named 'filtered_codeset' based on parameters
-#' new_experiment <- make_filtered_codeset(experiment, s = "independent_sample_set", c = "code_set", t = 0.1, m = 3, n = "filtered_codeset")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' new_experiment <- make_filtered_codeset(lox,"all_samples","all_codes",0.1,3,"test")
 #' new_experiment
 setGeneric("make_filtered_codeset", function(x, s, c, t, m, n) {
     standardGeneric("make_filtered_codeset")
@@ -1051,9 +1059,9 @@ setGeneric("make_filtered_codeset", function(x, s, c, t, m, n) {
 
 #' @rdname make_filtered_codeset
 setMethod("make_filtered_codeset", "loxcode_experiment", function(x, s, c, t, m, n) {
-    codeset = x@code_sets[[c]]
-    YY = filtered_codes_table(x, s, c, t, m)
-    x@code_sets[[n]] = subset(
+    codeset <- x@code_sets[[c]]
+    YY <- filtered_codes_table(x, s, c, t, m)
+    x@code_sets[[n]] <- subset(
         codeset,
         paste(codeset$size, codeset$dist_orig) %in% paste(YY$size, YY$dist_orig)
     )
@@ -1072,7 +1080,8 @@ setMethod("make_filtered_codeset", "loxcode_experiment", function(x, s, c, t, m,
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
 #' # Rename the code set 'old_code_set' to 'new_code_set'
-#' new_experiment <- rename_code_set(x = experiment, c = "old_code_set", n = "new_code_set")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' new_experiment <- rename_codeset(lox,"all_codes","test")
 #' new_experiment
 setGeneric("rename_codeset", function(x, c, n) {
     standardGeneric("rename_codeset")
@@ -1084,9 +1093,9 @@ setMethod("rename_codeset", "loxcode_experiment", function(x, c, n) {
         return(x)
     }
 
-    temp = x@code_sets[[c]]
+    temp <- x@code_sets[[c]]
     x@code_sets[[c]] <- NULL
-    x@code_sets[[n]] = temp
+    x@code_sets[[n]] <- temp
     return(x)
 })
 
@@ -1100,14 +1109,13 @@ setMethod("rename_codeset", "loxcode_experiment", function(x, c, n) {
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(LoxCodeR2024)
-#' data <- read.csv("your_data.csv")
+#' library(loxcoder)
 #'
 #' # Create a loxcode experiment object
-#' lox_experiment <- create_lox_experiment(data)
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
 #'
 #' # Generate sample aliases
-#' lox_experiment <- generate_alias(lox_experiment, "Sample_A", "Sample_B", "Sample_C")
+#' lox_experiment <- generate_alias(lox, s = "all_samples", "mouse")
 
 
 setGeneric("generate_alias", function(lox, s = "all_samples", meta) {
@@ -1116,36 +1124,36 @@ setGeneric("generate_alias", function(lox, s = "all_samples", meta) {
 
 #' @rdname generate_alias
 setMethod("generate_alias", "loxcode_experiment", function(lox, s = "all_samples", meta) {
-    x = lox
-    aliases = x@alias[[s]]
-    metadata = get_collapsed_meta(lox, s)
-    metadata$sample_name = row.names(metadata)
-    row.names(metadata) = seq(1, nrow(metadata))
+    x <- lox
+    aliases <- x@alias[[s]]
+    metadata <- get_collapsed_meta(lox, s)
+    metadata$sample_name <- row.names(metadata)
+    row.names(metadata) <- seq(1, nrow(metadata))
 
     for (i in seq_len(nrow(aliases))) {
-        sample = aliases$sample_name[[i]]
-        index = match(sample, metadata$sample_name)
-        row = metadata[index,]
-        alias = paste(row[meta], collapse = "_")
-        aliases$alias[[i]] = alias
+        sample <- aliases$sample_name[[i]]
+        index <- match(sample, metadata$sample_name)
+        row <- metadata[index,]
+        alias <- paste(row[meta], collapse = "_")
+        aliases$alias[[i]] <- alias
     }
 
-    counts = list()
-    length(counts) = length(unique(aliases$alias))
-    names(counts) = unique(aliases$alias)
+    counts <- list()
+    length(counts) <- length(unique(aliases$alias))
+    names(counts) <- unique(aliases$alias)
 
     for (i in seq_len(nrow(aliases))) {
-        alias = aliases$alias[[i]]
+        alias <- aliases$alias[[i]]
         if (is.numeric(counts[[alias]])) {
-            counts[[alias]] = counts[[alias]] + 1
+            counts[[alias]] <- counts[[alias]] + 1
         } else {
-            counts[[alias]] = 1
+            counts[[alias]] <- 1
         }
-        alias = paste(alias, as.character(counts[[alias]]), sep = "_")
-        aliases$alias[[i]] = alias
+        alias <- paste(alias, as.character(counts[[alias]]), sep = "_")
+        aliases$alias[[i]] <- alias
     }
 
-    x@alias[[s]] = aliases
+    x@alias[[s]] <- aliases
 
     return(x)
 })
@@ -1162,7 +1170,8 @@ setMethod("generate_alias", "loxcode_experiment", function(lox, s = "all_samples
 #' # Example usage:
 #' # Assuming 'experiment1' and 'experiment2' are loxcode_experiment objects
 #' # Merge the two experiments into a new experiment named 'merged_experiment'
-#' merged_experiment <- merge_experiments(lox1 = experiment1, lox2 = experiment2, name = "merged_experiment")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' merged_experiment <- merge_experiments(lox,lox,"test")
 #' merged_experiment
 
 setGeneric("merge_experiments", function(lox1, lox2, name = NULL) {
@@ -1172,153 +1181,153 @@ setGeneric("merge_experiments", function(lox1, lox2, name = NULL) {
 #' @rdname merge_experiments
 setMethod("merge_experiments", "loxcode_experiment", function(lox1, lox2, name =
                                                                   NULL) {
-    plyr = NULL
-    new = new("loxcode_experiment")
-    duplicates = c()
-    rename1 = c()
-    rename2 = c()
+    plyr <- NULL
+    new <- new("loxcode_experiment")
+    duplicates <- c()
+    rename1 <- c()
+    rename2 <- c()
 
     # name slot
     if (is.null(name)) {
         if (lox1@name == lox2@name) {
-            lox1@name = paste0(lox1@name, "_1")
-            lox2@name = paste0(lox2@name, "_2")
+            lox1@name <- paste0(lox1@name, "_1")
+            lox2@name <- paste0(lox2@name, "_2")
         }
-        new@name = paste(lox1@name, lox2@name, collapse = "+")
+        new@name <- paste(lox1@name, lox2@name, collapse = "+")
     } else {
-        new@name = name
+        new@name <- name
     }
 
     # directory slot
-    new@dir = c(lox1@dir, lox2@dir)
+    new@dir <- c(lox1@dir, lox2@dir)
 
     # samples slot
     for (i in seq_along(lox1@samples)) {
-        lox1@samples[[i]]@meta$experiment = lox1@name
+        lox1@samples[[i]]@meta$experiment <- lox1@name
     }
     for (i in seq_along(lox2@samples)) {
-        lox2@samples[[i]]@meta$experiment = lox2@name
+        lox2@samples[[i]]@meta$experiment <- lox2@name
 
         # find duplicates
         if (lox2@samples[[i]]@name %in% names(lox1@samples)) {
-            duplicates = c(duplicates, lox2@samples[[i]]@name)
-            rename1 = c(rename1, paste0(lox2@samples[[i]]@name, "_1"))
-            rename2 = c(rename2, paste0(lox2@samples[[i]]@name, "_2"))
+            duplicates <- c(duplicates, lox2@samples[[i]]@name)
+            rename1 <- c(rename1, paste0(lox2@samples[[i]]@name, "_1"))
+            rename2 <- c(rename2, paste0(lox2@samples[[i]]@name, "_2"))
         }
     }
 
     names(rename1) <- duplicates
     names(rename2) <- duplicates
-    names(lox1@samples) = plyr::revalue(names(lox1@samples), rename1, warn_missing = FALSE)
-    names(lox2@samples) = plyr::revalue(names(lox2@samples), rename2, warn_missing = FALSE)
-    new@samples = c(lox1@samples, lox2@samples)
+    names(lox1@samples) <- plyr::revalue(names(lox1@samples), rename1, warn_missing = FALSE)
+    names(lox2@samples) <- plyr::revalue(names(lox2@samples), rename2, warn_missing = FALSE)
+    new@samples <- c(lox1@samples, lox2@samples)
 
     for (i in seq_along(new@samples)) {
-        new@samples[[i]]@name = names(new@samples)[i]
+        new@samples[[i]]@name <- names(new@samples)[i]
     }
 
     # samp_table slot
-    lox1@samp_table$experiment = lox1@name
-    lox2@samp_table$experiment = lox2@name
-    lox1@samp_table$sample = plyr::revalue(lox1@samp_table$sample, rename1, warn_missing = FALSE)
-    lox2@samp_table$sample = plyr::revalue(lox2@samp_table$sample, rename2, warn_missing = FALSE)
-    new@samp_table = plyr::rbind.fill(lox1@samp_table, lox2@samp_table)
+    lox1@samp_table$experiment <- lox1@name
+    lox2@samp_table$experiment <- lox2@name
+    lox1@samp_table$sample <- plyr::revalue(lox1@samp_table$sample, rename1, warn_missing = FALSE)
+    lox2@samp_table$sample <- plyr::revalue(lox2@samp_table$sample, rename2, warn_missing = FALSE)
+    new@samp_table <- plyr::rbind.fill(lox1@samp_table, lox2@samp_table)
 
     # count_matrixes slot
     for (i in seq_along(lox1@count_matrixes)) {
-        names(lox1@count_matrixes[[i]]) = plyr::revalue(names(lox1@count_matrixes[[i]]), rename1, warn_missing = FALSE)
+        names(lox1@count_matrixes[[i]]) <- plyr::revalue(names(lox1@count_matrixes[[i]]), rename1, warn_missing = FALSE)
     }
     for (i in seq_along(lox2@count_matrixes)) {
-        names(lox2@count_matrixes[[i]]) = plyr::revalue(names(lox2@count_matrixes[[i]]), rename2, warn_missing = FALSE)
+        names(lox2@count_matrixes[[i]]) <- plyr::revalue(names(lox2@count_matrixes[[i]]), rename2, warn_missing = FALSE)
     }
 
-    all1 = lox1@count_matrixes[["all_samples"]]
-    all2 = lox2@count_matrixes[["all_samples"]]
+    all1 <- lox1@count_matrixes[["all_samples"]]
+    all2 <- lox2@count_matrixes[["all_samples"]]
 
-    all_samples = merge(all1, all2, by = 0, all = TRUE)
+    all_samples <- merge(all1, all2, by = 0, all = TRUE)
     all_samples[is.na(all_samples)] <- 0
-    row.names(all_samples) = all_samples$Row.names
-    all_samples$Row.names = NULL
+    row.names(all_samples) <- all_samples$Row.names
+    all_samples$Row.names <- NULL
 
-    counts1 = lox1@count_matrixes
-    counts2 = lox2@count_matrixes
+    counts1 <- lox1@count_matrixes
+    counts2 <- lox2@count_matrixes
     counts1[["all_samples"]] <- NULL
     counts2[["all_samples"]] <- NULL
-    counts1[[paste0("all_samples_", lox1@name)]] = all1
-    counts2[[paste0("all_samples_", lox2@name)]] = all2
+    counts1[[paste0("all_samples_", lox1@name)]] <- all1
+    counts2[[paste0("all_samples_", lox2@name)]] <- all2
 
-    new@count_matrixes[["all_samples"]] = all_samples
+    new@count_matrixes[["all_samples"]] <- all_samples
     for (c in names(counts1)) {
-        new@count_matrixes[[c]] = counts1[[c]]
+        new@count_matrixes[[c]] <- counts1[[c]]
     }
     for (c in names(counts2)) {
-        new@count_matrixes[[c]] = counts2[[c]]
+        new@count_matrixes[[c]] <- counts2[[c]]
     }
 
     # code_sets slot
-    codes1 = lox1@code_sets
-    codes2 = lox2@code_sets
-    new@code_sets[["all_codes"]] = unique(rbind.fill(codes1[["all_codes"]], codes2[["all_codes"]]))
-    new@code_sets[[paste0("all_codes_", lox1@name)]] = codes1[["all_codes"]]
-    new@code_sets[[paste0("all_codes_", lox2@name)]] = codes2[["all_codes"]]
+    codes1 <- lox1@code_sets
+    codes2 <- lox2@code_sets
+    new@code_sets[["all_codes"]] <- unique(rbind.fill(codes1[["all_codes"]], codes2[["all_codes"]]))
+    new@code_sets[[paste0("all_codes_", lox1@name)]] <- codes1[["all_codes"]]
+    new@code_sets[[paste0("all_codes_", lox2@name)]] <- codes2[["all_codes"]]
 
-    new@code_sets[["valid_codes"]] = unique(rbind.fill(codes1[["valid_codes"]], codes2[["valid_codes"]]))
-    new@code_sets[[paste0("valid_codes_", lox1@name)]] = codes1[["valid_codes"]]
-    new@code_sets[[paste0("valid_codes_", lox2@name)]] = codes2[["valid_codes"]]
+    new@code_sets[["valid_codes"]] <- unique(rbind.fill(codes1[["valid_codes"]], codes2[["valid_codes"]]))
+    new@code_sets[[paste0("valid_codes_", lox1@name)]] <- codes1[["valid_codes"]]
+    new@code_sets[[paste0("valid_codes_", lox2@name)]] <- codes2[["valid_codes"]]
 
-    new@code_sets[["invalid_codes"]] = unique(rbind.fill(codes1[["invalid_codes"]], codes2[["invalid_codes"]]))
-    new@code_sets[[paste0("invalid_codes_", lox1@name)]] = codes1[["invalid_codes"]]
-    new@code_sets[[paste0("invalid_codes_", lox2@name)]] = codes2[["invalid_codes"]]
+    new@code_sets[["invalid_codes"]] <- unique(rbind.fill(codes1[["invalid_codes"]], codes2[["invalid_codes"]]))
+    new@code_sets[[paste0("invalid_codes_", lox1@name)]] <- codes1[["invalid_codes"]]
+    new@code_sets[[paste0("invalid_codes_", lox2@name)]] <- codes2[["invalid_codes"]]
 
-    others1 = codes1[!names(codes1) %in% c("all_codes", "valid_codes", "invalid_codes")]
-    others2 = codes2[!names(codes2) %in% c("all_codes", "valid_codes", "invalid_codes")]
+    others1 <- codes1[!names(codes1) %in% c("all_codes", "valid_codes", "invalid_codes")]
+    others2 <- codes2[!names(codes2) %in% c("all_codes", "valid_codes", "invalid_codes")]
 
     for (c in names(others1)) {
-        new@code_sets[[c]] = others1[[c]]
+        new@code_sets[[c]] <- others1[[c]]
     }
     for (c in names(others2)) {
-        new@code_sets[[c]] = others2[[c]]
+        new@code_sets[[c]] <- others2[[c]]
     }
 
     # meta slot
-    lox1@meta$sample_name = plyr::revalue(lox1@meta$sample_name, rename1, warn_missing = FALSE)
-    lox2@meta$sample_name = plyr::revalue(lox2@meta$sample_name, rename2, warn_missing = FALSE)
-    lox1@meta$experiment = lox1@name
-    lox2@meta$experiment = lox2@name
-    new@meta = plyr::rbind.fill(lox1@meta, lox2@meta)
+    lox1@meta$sample_name <- plyr::revalue(lox1@meta$sample_name, rename1, warn_missing = FALSE)
+    lox2@meta$sample_name <- plyr::revalue(lox2@meta$sample_name, rename2, warn_missing = FALSE)
+    lox1@meta$experiment <- lox1@name
+    lox2@meta$experiment <- lox2@name
+    new@meta <- plyr::rbind.fill(lox1@meta, lox2@meta)
 
     # alias slot
     for (i in seq_along(lox1@alias)) {
-        lox1@alias[[i]]$sample_name = plyr::revalue(lox1@alias[[i]]$sample_name, rename1, warn_missing = FALSE)
+        lox1@alias[[i]]$sample_name <- plyr::revalue(lox1@alias[[i]]$sample_name, rename1, warn_missing = FALSE)
     }
     for (i in seq_along(lox2@alias)) {
-        lox2@alias[[i]]$sample_name = plyr::revalue(lox2@alias[[i]]$sample_name, rename2, warn_missing = FALSE)
+        lox2@alias[[i]]$sample_name <- plyr::revalue(lox2@alias[[i]]$sample_name, rename2, warn_missing = FALSE)
     }
 
-    all_aliases = data.frame(sample_name = names(all_samples)[!names(all_samples) == "Row.names"],
+    all_aliases <- data.frame(sample_name = names(all_samples)[!names(all_samples) == "Row.names"],
                              stringsAsFactors = FALSE)
-    all_aliases$alias = paste0("Sample ", seq(1, nrow(all_aliases)))
+    all_aliases$alias <- paste0("Sample ", seq(1, nrow(all_aliases)))
 
-    new@alias[["all_samples"]] = all_aliases
+    new@alias[["all_samples"]] <- all_aliases
 
-    aliases1 = lox1@alias
-    aliases2 = lox2@alias
+    aliases1 <- lox1@alias
+    aliases2 <- lox2@alias
 
-    all1 = aliases1[["all_samples"]]
-    all2 = aliases2[["all_samples"]]
+    all1 <- aliases1[["all_samples"]]
+    all2 <- aliases2[["all_samples"]]
 
     aliases1[["all_samples"]] <- NULL
     aliases2[["all_samples"]] <- NULL
 
 
-    aliases1[[paste0("all_samples_", lox1@name)]] = all1
-    aliases2[[paste0("all_samples_", lox2@name)]] = all2
+    aliases1[[paste0("all_samples_", lox1@name)]] <- all1
+    aliases2[[paste0("all_samples_", lox2@name)]] <- all2
 
     for (c in names(aliases1)) {
-        new@alias[[c]] = aliases1[[c]]
+        new@alias[[c]] <- aliases1[[c]]
     }
     for (c in names(aliases2)) {
-        new@alias[[c]] = aliases2[[c]]
+        new@alias[[c]] <- aliases2[[c]]
     }
 
     return(new)
@@ -1336,14 +1345,15 @@ setMethod("merge_experiments", "loxcode_experiment", function(lox1, lox2, name =
 #' # Example usage:
 #' # Assuming 'experiment1', 'experiment2', and 'experiment3' are loxcode_experiment objects
 #' # Merge the three experiments into a new experiment named 'merged_experiment'
-#' merged_experiment <- merge_experiments2(experiments = c(experiment1, experiment2, experiment3), name = "merged_experiment")
+#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' merged_experiment <- merge_experiments2(c(lox,lox),"test")
 #' merged_experiment
 
 merge_experiments2 <- function(experiments, name) {
-    new = new("loxcode_experiment")
-    new@name = name
+    new <- new("loxcode_experiment")
+    new@name <- name
     for (exp in experiments) {
-        new@dir = c(new@dir, exp@dir)
+        new@dir <- c(new@dir, exp@dir)
     }
 
     return (new)
@@ -1363,7 +1373,7 @@ merge_experiments2 <- function(experiments, name) {
 # #' @export
 # #' @examples
 # #' # Load required packages
-# #' library(LoxCodeR2024)
+# #' library(loxcoder)
 # #'
 # #' # Example usage
 # #' # Assuming lox, s, c, i, n, union, and average are defined and have the required structure

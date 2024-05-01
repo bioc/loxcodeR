@@ -30,7 +30,7 @@ Collapses the count matrix into samples with the sample metadata (v2)
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assuming lox, count_matrix, collapse, name, union, and average are defined and have the required structure

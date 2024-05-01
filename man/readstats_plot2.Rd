@@ -44,9 +44,10 @@ Generate size, complexity, both, ratio plot for the samples
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assuming loxcode_experiment, count_matrix, code_set, plot, fill, and labels are defined
-readstats_plot(loxcode_experiment, count_matrix, code_set, labels = "Sample Name", plot = "size", fill = TRUE)
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+readstats_plot2(lox)
 }

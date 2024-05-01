@@ -17,7 +17,8 @@ Load probability tables (Markov chain)
 }
 \examples{
 # Example usage:
-path <- "path/to/markov_chain_tables_directory"
-probability_table <- load_probability_tables(path)
-probability_table
+#path <- "path/to/markov_chain_tables_directory"
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#probability_table <- load_probability_tables(path)
+#probability_table
 }

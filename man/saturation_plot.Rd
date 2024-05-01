@@ -24,9 +24,10 @@ Plotting the saturation of samples
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assuming loxcode_experiment, loxcode_sample, and code_set are defined
-saturation_plot(loxcode_experiment, loxcode_sample, code_set)
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+saturation_plot(lox,"N708_N508")
 }

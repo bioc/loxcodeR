@@ -24,6 +24,7 @@ Summary table (v3)
 # Example usage:
 # Assuming 'experiment' is a loxcode_experiment object and 'sample_set' is the sample set to summarize
 # Generate a summary table for the specified sample set in the experiment
-summary_table <- summary_table(experiment, sample_set)
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+summary_table <- summary_table(lox)
 summary_table
 }

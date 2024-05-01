@@ -26,6 +26,7 @@ loxcode_experiment object contains loxcode_samples named by the corresponding la
 # Example usage:
 # Assuming 'experiment' is a loxcode_experiment object and 'label_column' is the name of the column to merge by
 # Merge samples based on the values in the 'label_column'
-merged_experiment <- merge_samples_by_label(experiment, by = "label_column")
-merged_experiment
+lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+# merged_experiment <- merge_by(lox, by = "sample")
+# merged_experiment
 }

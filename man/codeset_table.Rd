@@ -22,7 +22,7 @@ Tabulates the codes in a codeset
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assume x and n are defined

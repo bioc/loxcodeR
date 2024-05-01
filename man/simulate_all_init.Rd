@@ -20,9 +20,9 @@ Generate all recombination events
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 
 # Example usage
 # Assuming lox is defined and has the required structure
-simulate_all_init(lox)
+#simulate_all_init(lox)
 }

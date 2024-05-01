@@ -24,7 +24,7 @@ Display the frequency proportions of codes of every permutation of size and comp
 }
 \examples{
 # Load required packages
-library(LoxCodeR2024)
+library(loxcoder)
 library(scatterpie)
 
 # Example usage
