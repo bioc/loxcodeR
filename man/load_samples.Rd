@@ -29,7 +29,7 @@ and distance-from-origin is retrieved.
 \examples{
 # Example usage:
 # Assuming 'experiment' is a loxcode_experiment object
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS('~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds')
 experiment <- load_samples(lox)
 experiment
 }

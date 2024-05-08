@@ -23,7 +23,7 @@ Generate alias for the loxcode experiment samples
 \examples{
 # Load necessary libraries and data
 library(loxcoder)
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS('~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds')
 
 
 # Generate alias for the samples

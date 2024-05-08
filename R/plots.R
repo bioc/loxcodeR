@@ -1563,7 +1563,7 @@ setMethod("readstats_plot_old", "loxcode_experiment", function(x,
         d3 <- data.frame()
 
         for (i in x@samples) {
-            #if (i@name %in% names(x@count_matrixes[[count_matrix]])) {
+            if (i@name %in% names(x@count_matrixes[[count_matrix]])) {
             dd <- i@decode@data
 
             for (j in c(0:15))
@@ -1579,12 +1579,12 @@ setMethod("readstats_plot_old", "loxcode_experiment", function(x,
                     d3 <- plyr::rbind.fill(d3, ddd)
 
                 }
-            #}
+            }
         }
 
         d3 <- subset(d3, reads > 0)
         P <- (
-            ggplot(d3) + facet_wrap( ~ sample, ncol = 2) + geom_point(aes(
+            ggplot(d3) + facet_wrap( ~ sample, ncol = 2,scales="free") + geom_point(aes(
                 factor(size),
                 factor(dist_orig),
                 size = reads,
@@ -1598,7 +1598,7 @@ setMethod("readstats_plot_old", "loxcode_experiment", function(x,
                         # Top margin
                         r = 5,
                         # Right margin
-                        b = 0,
+                        b = 5,
                         # Bottom margin
                         l = 5
                     ),

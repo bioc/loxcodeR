@@ -23,8 +23,8 @@ Get metadata of a merged experiment (old version)
 \examples{
 # Load necessary libraries and data
 library(loxcoder)
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS('~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds')
 
 # Get collapsed metadata (old version)
-meta <- get_collapsed_meta2(lox, "all_sample")
+meta <- get_collapsed_meta2(lox, 'all_sample')
 }

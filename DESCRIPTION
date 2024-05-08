@@ -8,7 +8,7 @@ Authors@R: c(person("Stephen", "Zhang", email = "zhang.s@wehi.edu.au", role = c(
 Description: A system to explore and visualise Loxcodes. This is a Web application to visualise and analyse different aspects of a Loxcode. The app can be used to manipulate and extract meaningful insights from experiment data. The app has Pdf and Web page based report creation to present data analysed in the application.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 LinkingTo: 
     Rcpp
 Imports:

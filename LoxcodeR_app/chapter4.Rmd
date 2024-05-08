@@ -1,5 +1,1 @@
 
-### test
-```{r }
-datatable(params$inputs[[10]][[1]]@samp_table[match(names(params$inputs[[10]][[1]]@count_matrixes[[names(params$inputs[[10]][[1]]@count_matrixes)[length(names(params$inputs[[10]][[1]]@count_matrixes))]]]),params$inputs[[10]][[1]]@samp_table[[1]]),], options = list(pageLength = 5, scrollY = '2000px'))
-```

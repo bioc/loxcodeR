@@ -100,7 +100,8 @@ sidebar <- dashboardSidebar(
       actionButton("save_data", "Export")),
     tabPanel(
       "Reload Data", tabName = "reload-data",
-      actionButton("reload_data", "Import"))
+      actionButton("reload_data", "Import")),
+    tabPanel("Refresh Graph",tabName = "refresh-graph",actionButton("refresh", "Refresh Graph"),)
 
     # menuItem(
     #   "View code set", tabName = "codeset-create",
@@ -267,6 +268,7 @@ body <- dashboardBody(
         actionButton("select_exp", "Select"),
         actionButton("merge_exp", "Merge selected"),
         actionButton("del_exp", "Delete"),
+        actionButton("refresh", "Refresh Graph"),
         downloadButton("save_exp", "Download Current")
       ),
       box(

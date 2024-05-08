@@ -22,9 +22,9 @@ Deletes a specified codeset from a loxcode experiment
 }
 \examples{
 # Create a sample loxcode_experiment object
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS('~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds')
 
 
-# Delete a codeset named "example_codeset" from the loxcode experiment
-lox_updated <- delete_codeset(lox, "all_codes")
+# Delete a codeset named 'example_codeset' from the loxcode experiment
+lox_updated <- delete_codeset(lox, 'all_codes')
 }

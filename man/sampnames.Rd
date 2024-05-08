@@ -22,7 +22,7 @@ The names returned by this function can be used to refer to each individual samp
 # Example usage:
 # Assuming 'experiment' is a loxcode_experiment object
 # Retrieve the names of all samples in the experiment
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS('~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds')
 sample_names <- sampnames(lox)
 sample_names
 }

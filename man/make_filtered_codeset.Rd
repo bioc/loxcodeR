@@ -32,7 +32,7 @@ Create new filtered code set according to defined parameters
 # Example usage:
 # Assuming 'experiment' is a loxcode_experiment object
 # Create a new filtered code set named 'filtered_codeset' based on parameters
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
-new_experiment <- make_filtered_codeset(lox,"all_samples","all_codes",0.1,3,"test")
+lox <- readRDS('~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds')
+new_experiment <- make_filtered_codeset(lox,'all_samples','all_codes',0.1,3,'test')
 new_experiment
 }

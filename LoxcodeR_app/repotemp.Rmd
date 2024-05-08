@@ -280,12 +280,12 @@ Row {.tabset .tabset-fade}
 -------------------------------------
 ### Ratio Plot
 ```{r results='asis',autodep=TRUE}
-ggplotly(do.call(params$functions[[3]], params$inputs[[3]]),height = 6000)
+ggplotly(do.call(params$functions[[3]], params$inputs[[3]]),height = 200*length(params$inputs[[3]][[1]]@count_matrixes[[length(params$inputs[[3]][[1]]@count_matrixes)]]/4))
 ```
 
 ### Both Plot
 ```{r results='asis',autodep=TRUE}
-ggplotly(do.call(params$functions[[4]], params$inputs[[4]]),height = 6000)
+ggplotly(do.call(params$functions[[4]], params$inputs[[4]]),height = 200*length(params$inputs[[4]][[1]]@count_matrixes[[length(params$inputs[[4]][[1]]@count_matrixes)]]/4))
 ```
 Experiment Data
 =====================================

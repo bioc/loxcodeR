@@ -40,9 +40,9 @@ Must contain the following columns:
 }
 \examples{
 # Example usage:
-name <- "MyExperiment"
-s <- "path/to/excel_file.xlsx"
-dir <- "path/to/fastq_directory"
+name <- 'MyExperiment'
+s <- 'path/to/excel_file.xlsx'
+dir <- 'path/to/fastq_directory'
 #experiment <- create_experiment(name, s, dir)
 #experiment
 }

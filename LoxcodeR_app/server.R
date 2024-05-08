@@ -1369,6 +1369,9 @@ function(input, output, session) {
     a=input$matrix_stats
     length(react$curr@count_matrixes$a)*250
   })
+  output$var112=renderText({
+      paste("1000")
+  })
   output$ratio_plot = renderPlotly({
     #graph <-
     readstats_plot_old(react$curr, count_matrix=input$matrix_stats,
@@ -2217,6 +2220,30 @@ function(input, output, session) {
     ##############
   }
 
+  # refresh report
+  observeEvent(
+      input$refresh, {
+          print(length(params$inputs[[3]][[1]]@count_matrixes[[length(params$inputs[[3]][[1]]@count_matrixes)]]))
+          l1=length(params$types)
+          includeSize()
+          includeComplexity()
+          includeRatio()
+          includeBoth()
+          includeSampleSize()
+          includeSampleComplexity()
+          includeSaturation()
+          includeRead()
+          for(i in 1:l1){
+              params$functions[1] <- NULL
+              params$types[1] <- NULL
+              params$inputs[1] <- NULL
+              params$annotations[1] <- NULL
+              params$loxcodes[1] <- NULL
+
+          }
+      }
+  )
+
   # remove a component
   observeEvent(
     input$remove_component, {
@@ -2500,7 +2527,7 @@ for (i in 8:length(params$types)){
   if (params$inputs[[i]][[2]]==list1[1]){
 if(params$types[[i]]=='ratio_plot' || params$types[[i]]=='both_plot'){
 g <- do.call(params$functions[[i]], params$inputs[[i]])
-plt[[j]]=ggplotly(g,height = 6000)
+plt[[j]]=ggplotly(g,height = 200*length(params$inputs[[i]][[1]]@count_matrixes[[length(params$inputs[[i]][[1]]@count_matrixes)]]/4))
 j=j+1
 plt[[j]]=params$annotations[[i]]
 j=j+1 }else if(params$types[[i]]=='sample_complexity'){

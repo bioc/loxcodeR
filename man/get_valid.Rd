@@ -23,7 +23,7 @@ Equivalent to performing loxcoder::valid() on the sample s
 \examples{
 # Load necessary libraries and data
 library(loxcoder)
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS('~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds')
 
-valid_data <- get_valid(lox, "N709_N501")
+valid_data <- get_valid(lox, 'N709_N501')
 }
