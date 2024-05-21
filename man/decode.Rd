@@ -31,5 +31,5 @@ Recover loxcodes from raw Illumina FASTQ output
 }
 \examples{
 # Example usage:
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 }

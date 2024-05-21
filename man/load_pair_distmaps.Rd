@@ -18,7 +18,7 @@ Load distance maps for pairwise distances
 \examples{
 # Example usage:
 #path <- "path/to/your/directory"
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #pairwise_distance_maps <- load_distance_maps(path)
 #pairwise_distance_maps
 }

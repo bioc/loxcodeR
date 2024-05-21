@@ -20,7 +20,7 @@ Generate all recombination events
 }
 \examples{
 # Load required packages
-library(loxcoder)
+library(loxcodeR)
 
 # Example usage
 # Assuming lox is defined and has the required structure

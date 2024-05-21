@@ -19,10 +19,10 @@ Get a list of sizes from the sample
 }
 \examples{
 # Load required packages
-library(loxcoder)
+library(loxcodeR)
 
 # Example usage
 # Assuming sample is defined
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 getData(lox@samples$N709_N501)
 }

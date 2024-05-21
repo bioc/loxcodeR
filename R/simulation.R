@@ -32,7 +32,7 @@ lox_casette <- setClass(
 #' @export
 #' @examples
 #' # Assuming you have a vector of lox sites called lox
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #new_lox <- invert(lox, 2, 3)  # Invert positions 1 to 3
 
 setGeneric("invert", function(lox, a, b) {standardGeneric("invert")})
@@ -65,7 +65,7 @@ setMethod("invert", "lox_casette", function(lox, a, b) {
  #' @export
  #' @examples
  #' # Load required packages
- #' library(loxcoder)
+ #' library(loxcodeR)
  #'
  #' # Example usage
  #' # Assuming lox is defined and has the required structure
@@ -92,7 +92,7 @@ setMethod("invert", "lox_casette", function(lox, a, b) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming lox is defined and has the required structure
@@ -119,7 +119,7 @@ setMethod("simulate_runs", "lox_casette", function(lox, n) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming lox is defined and has the required structure
@@ -149,7 +149,7 @@ setMethod("simulate_reads", "lox_casette", function(lox, c, n) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming lox is defined and has the required structure
@@ -243,7 +243,7 @@ setMethod("simulate_sample", "lox_casette", function(lox=NULL, c=3000, n=3, ref 
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming lox is defined and has the required structure

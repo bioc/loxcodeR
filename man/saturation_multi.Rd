@@ -36,10 +36,10 @@ Multiple lined saturation plot
 }
 \examples{
 # Load required packages
-library(loxcoder)
+library(loxcodeR)
 
 # Example usage
 # Assuming loxcode_experiment, loxcode_samples, and codesets are defined
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 saturation_multi(lox,"N708_N508","all_codes")
 }

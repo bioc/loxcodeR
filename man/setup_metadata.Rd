@@ -22,7 +22,7 @@ Generate metadata for the loxcode experiment
 # Example usage:
 # Assuming 'lox_data' is a loxcode object
 # Generate metadata for the loxcode experiment
-lox <- readRDS('~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds')
+lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
 experiment_metadata <- setup_metadata(lox)
 experiment_metadata
 }

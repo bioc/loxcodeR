@@ -7,7 +7,7 @@
 #' @examples
 #' # Example usage:
 #' #path <- "path/to/your/directory"
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #distance_maps <- load_distance_maps(path)
 #' #distance_maps
 load_origin_distmaps <- function(path) {
@@ -28,7 +28,7 @@ load_origin_distmaps <- function(path) {
 #' @examples
 #' # Example usage:
 #' #path <- "path/to/your/directory"
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #pairwise_distance_maps <- load_distance_maps(path)
 #' #pairwise_distance_maps
 load_pair_distmaps <- function(path) {
@@ -44,7 +44,7 @@ load_pair_distmaps <- function(path) {
 #' @examples
 #' # Example usage:
 #' #path <- "path/to/markov_chain_tables_directory"
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #probability_table <- load_probability_tables(path)
 #' #probability_table
 load_prob_files <- function(path) {
@@ -108,10 +108,10 @@ remove_existing <- function(x, n) {
 
 #' S4 class to represent loxcode experimental sample data
 #'
-#' @slot decode A data.frame to contain raw decode data from loxcoder::decode()
+#' @slot decode A data.frame to contain raw decode data from loxcodeR::decode()
 #' @slot meta A data.frame for user-defined sample metadata
 #' @slot name Contains name of the experiment
-#' @slot files A vector containing file names of loxcoder experiment
+#' @slot files A vector containing file names of loxcodeR experiment
 #' @slot decode_stats A list containing statistics of decoded data
 #' @slot consensus_filtered_data A vector containing filtered data
 #' @return Loxcode experiment sample data
@@ -206,7 +206,7 @@ setMethod("name", "loxcode_sample", function(x)
 #' # Example usage:
 #' # Assuming 'cassette_data' is a loxcode cassette object
 #' # Add a validation column to the decoded cassette data
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' validated_cassette <- validate(lox@samples$N709_N501)
 #' validated_cassette
 
@@ -234,7 +234,7 @@ setMethod("validate", "loxcode_sample", function(x) {
 #' # Example usage:
 #' # Assuming 'lox_data' is a loxcode object containing 13-element cassettes
 #' # Impute the missing code in each 13-element cassette
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #imputed_cassettes <- impute_missing_code_in_13_element_cassettes(lox_data)
 #' #imputed_cassettes
 
@@ -260,7 +260,7 @@ setMethod("impute", "loxcode_sample", function(x) {
 #' # Example usage:
 #' # Assuming 'lox_data' is a loxcode data object
 #' # Get cassette IDs and append them as a new column
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' cassette_ids <- makeid(lox@samples$N709_N501)
 #' cassette_ids
 setGeneric("makeid", function(x) {
@@ -289,8 +289,8 @@ setMethod("makeid", "loxcode_sample", function(x) {
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(loxcoder)
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' library(loxcodeR)
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #'
 #' # Fetch distances from origin
 #' #dist_orig_values <- get_origin_dist(lox)
@@ -323,8 +323,8 @@ setMethod("get_origin_dist", "loxcode_sample", function(x) {
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(loxcoder)
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' library(loxcodeR)
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #'
 #' # Assuming you have a Loxcode object called lox
 #' size <- 10  # Set the size of the Loxcode
@@ -357,7 +357,7 @@ setMethod("get_rec_prob", "loxcode_sample", function(x, size) {
 #' # Example usage:
 #' # Assuming 'sample' is a loxcode_sample object
 #' # Retrieve ensemble generation probability for the sample
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' ensemble_probability <- retrieve_prob_ensemble(lox@samples$N709_N501)
 #' ensemble_probability
 setGeneric("retrieve_prob_ensemble", function(x) {
@@ -366,7 +366,7 @@ setGeneric("retrieve_prob_ensemble", function(x) {
 
 #' @rdname retrieve_prob_ensemble
 setMethod("retrieve_prob_ensemble", "loxcode_sample", function(x) {
-    sizes <- unique(loxcoder::valid(x)$size)
+    sizes <- unique(loxcodeR::valid(x)$size)
     x@decode@data$prob <- NA
     for (i in sizes) {
         # stratify by size
@@ -377,7 +377,7 @@ setMethod("retrieve_prob_ensemble", "loxcode_sample", function(x) {
         for (j in seq_len(nrow(r))) {
             print(paste('Weight: ', r$prob[j]))
             probs <-
-                probs + r$prob[j] * loxcoder::retrieve_prob(x@decode@data[mask,]$id,
+                probs + r$prob[j] * loxcodeR::retrieve_prob(x@decode@data[mask,]$id,
                                                                 x@decode@data[mask,]$size,
                                                                 rep(r$rec[j], sum(mask)))
         }
@@ -396,7 +396,7 @@ setMethod("retrieve_prob_ensemble", "loxcode_sample", function(x) {
 #' # Example usage:
 #' # Assuming 'sample' is a loxcode_sample object
 #' # Access the decoded cassette data for valid cassettes only
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' valid_cassettes <- valid(lox@samples$N709_N501)
 #' valid_cassettes
 setGeneric("valid", function(x) {

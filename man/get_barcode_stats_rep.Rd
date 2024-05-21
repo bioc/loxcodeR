@@ -19,12 +19,12 @@ Number of times a barcode is seen in a sample
 }
 \examples{
 # Load required packages
-library(loxcoder)
+library(loxcodeR)
 
 # Example usage
 # Assuming union_bc and rep are defined
-rep1 <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")@samples$N709_N501
-rep2 <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")@samples$N709_N502
+rep1 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")@samples$N709_N501
+rep2 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")@samples$N709_N502
 bc_union <- barcode_union(rep1, rep2, type="size", range=c(1, 13))
 get_barcode_stats_rep(bc_union, rep1)
 }

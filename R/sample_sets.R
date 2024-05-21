@@ -10,7 +10,7 @@
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object and 'sample_set' is the sample set to summarize
 #' # Generate a summary table for the specified sample set in the experiment
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' summary_table <- summary_table(lox)
 #' summary_table
 setGeneric("summary_table", function(lox, sample_set = "all_samples") {
@@ -99,7 +99,7 @@ fillSetAliases <- function(lox, count_matrix) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object and 'old_set_name' is the old sample set name to be renamed
 #' # Rename the sample set named 'old_set_name' to 'new_set_name'
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' new_experiment <- rename_sampleset(lox,"all_samples","new")
 #' new_experiment
 setGeneric("rename_sampleset", function(x, s, n) {
@@ -139,10 +139,10 @@ concat_unique <- function(x) {
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Create a loxcode experiment object
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #'
 #' # Get collapsed metadata
 #' meta <- get_collapsed_meta(lox,"all_sample")
@@ -214,11 +214,11 @@ setMethod("get_collapsed_meta", "loxcode_experiment", function(x, s) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming lox, count_matrix, code_set, index, name, union, and average are defined and have the required structure
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' collapse_selection(lox, count_matrix = "all_samples", code_set = "all_codes", index = c(1, 3, 5), name = NULL, union = TRUE, average = FALSE)
 
 setGeneric("collapse_selection", function(lox,
@@ -290,11 +290,11 @@ setMethod("collapse_selection", "loxcode_experiment", function(lox,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming lox, count_matrix, collapse, name, union, and average are defined and have the required structure
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' count_matrix="all_samples"
 #' name="new"
 #' collapse="Organ"
@@ -393,7 +393,7 @@ setMethod("collapse", "loxcode_experiment", function(lox,
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object and 'sample_list' is a list of sample names to be merged
 #' # Merge the samples in 'sample_list' into a single loxcode_sample object, summing their counts
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' # merged_sample <- merge_sample_list(lox = experiment, samples = sample_list, union = TRUE, average = FALSE)
 #' # merged_sample
 setGeneric("merge_sample_list", function(lox,
@@ -486,7 +486,7 @@ setMethod("merge_sample_list", "loxcode_experiment", function(lox,
 #' @examples
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' # Create a new count_matrix named 'new_count_matrix' by selecting indices 1, 3, and 5 from an existing count_matrix 'old_count_matrix'
 #' new_experiment <- make_count_matrix(lox,"all_samples",c(1,3,5))
 #' new_experiment

@@ -26,7 +26,7 @@ Get loxcode sample name (description)
 # Example usage:
 # Assuming 'experiment' is a loxcode_experiment object
 # Retrieve the name of the experiment
-lox <- readRDS('~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds')
+lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
 #experiment_name <- name(lox)
 #experiment_name
 # Example usage:

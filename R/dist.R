@@ -8,8 +8,8 @@
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(loxcoder)
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' library(loxcodeR)
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #'
 #' # Assuming you have two codesets
 #' #codeset_A <- data[data$codeset == "A", ]
@@ -18,13 +18,13 @@
 #' # Get pairwise distance
 #' #pairwise_distance <- get_pairwise_distance(codeset_A, codeset_B)
 get_pair_dist <- function(codesA, codesB) {
-    if (!all(c(
-        all(codesA$is_valid),
-        all(codesB$is_valid),
-        all(codesA$size %in% c(13, 9), all(codesB$size %in% c(13, 9)))
-    ))) {
-        stop("Error: either some of your codes aren't valid, or not size 9, 13")
-    }
+    # if (!all(c(
+    #     all(codesA$is_valid),
+    #     all(codesB$is_valid),
+    #     all(codesA$size %in% c(13, 9), all(codesB$size %in% c(13, 9)))
+    # ))) {
+    #     stop("Error: either some of your codes aren't valid, or not size 9, 13")
+    # }
     vec_A <- get_cass_vec(codesA$code)
     vec_B <- get_cass_vec(codesB$code)
     return(retrieve_dist_pair(vec_A, vec_B))

@@ -60,11 +60,11 @@ Function to create a pair comparision plot by passing code set and sample set. T
 }
 \examples{
 # Load required packages
-library(loxcoder)
+library(loxcodeR)
 
 # Example usage
 # Assuming lox, sampleset, codeset, s1, and s2 are defined
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #s1 = switch("N709_N501","sample" = lox@samples[["N709_N501"]],"alias" = lox@samples[["N709_N501"]])
 #s2 = switch("N709_N502","sample" = lox@samples[["N709_N502"]],"alias" = lox@samples[["N709_N502"]])
 #pair_comparison_plot2(lox, sampleset = "all_samples", codeset = "all_codes", s1, s2, colorBy = "size", labels = "alias", sizeRange = NULL, dist_origRange = NULL, firstreadRange = NULL)

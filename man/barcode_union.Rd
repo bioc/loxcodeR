@@ -23,11 +23,11 @@ Function to perform union of barcodes based on size or complexity
 }
 \examples{
 # Load required packages
-library(loxcoder)
+library(loxcodeR)
 
 # Example usage
 # Assume rep1, rep2, type, and range are defined
-rep1 <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")@samples$N709_N501
-rep2 <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")@samples$N709_N502
+rep1 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")@samples$N709_N501
+rep2 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")@samples$N709_N502
 barcode_union(rep1, rep2, type = "size", range = list(start = 10, end = 100))
 }

@@ -24,11 +24,11 @@ Display the frequency proportions of codes of every permutation of size and comp
 }
 \examples{
 # Load required packages
-library(loxcoder)
+library(loxcodeR)
 library(scatterpie)
 
 # Example usage
 # Assuming x, s, and c are defined and have the required structure
-x <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+x <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 code_frequency_pie(x, s="all_samples", c="all_codes")
 }

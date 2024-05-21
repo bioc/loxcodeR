@@ -36,10 +36,10 @@ A function used to generate table for the barcode details.
 }
 \examples{
 # Load required packages
-library(loxcoder)
+library(loxcodeR)
 
 # Example usage
 # Assume lox, code_set, and count_matrix are defined
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 barcode_table(lox, code_set= "all_codes", count_matrix= "all_samples", labels = "alias")
 }

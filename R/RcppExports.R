@@ -10,10 +10,10 @@
 #' # Example usage:
 #' # Assuming 'cassette_strings' is a vector of cassette strings
 #' # Convert the vector of cassette strings to a list of numeric vectors
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' # numeric_vectors <- get_cass_vec("test")
 get_cass_vec <- function(c) {
-    .Call(`_loxcoder_get_cass_vec`, c)
+    .Call(`_loxcodeR_get_cass_vec`, c)
 }
 
 #' Check if cassette is valid
@@ -28,11 +28,11 @@ get_cass_vec <- function(c) {
 #' # Assuming 'cassette' is a list of numeric vectors representing the cassette,
 #' # or a character vector of decoded loxcodes
 #' # Check if the cassette is valid
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' is_v <- is_valid(lox)
 #' is_v
 is_valid <- function(c) {
-    .Call(`_loxcoder_is_valid`, c)
+    .Call(`_loxcodeR_is_valid`, c)
 }
 
 #' Impute missing element in a 13-element cassette
@@ -43,11 +43,11 @@ is_valid <- function(c) {
 #' # Example usage:
 #' # Assuming 'cassette_string' is a string representing the number of lox present
 #' # Impute the missing element in the 13-element cassette
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' # cassette <- impute_13_impl(cassette_string)
 #' # cassette
 impute_13_impl <- function(c2) {
-    .Call(`_loxcoder_impute_13_impl`, c2)
+    .Call(`_loxcodeR_impute_13_impl`, c2)
 }
 
 #' Impute missing elements
@@ -61,11 +61,11 @@ impute_13_impl <- function(c2) {
 #' # Assuming 'cassette_list' is a list of loxcode numbers present in each cassette,
 #' # and 'loxcode_sizes' is a vector containing the sizes of the loxcode.
 #' # Impute the missing elements in each cassette to form a 13-element cassette
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #cassette <- impute_13(cassette_list, loxcode_sizes)
 #' #cassette
 impute_13 <- function(c, sizes) {
-    .Call(`_loxcoder_impute_13`, c, sizes)
+    .Call(`_loxcodeR_impute_13`, c, sizes)
 }
 
 #' Distance at which the flip happened
@@ -80,11 +80,11 @@ impute_13 <- function(c, sizes) {
 #' # Assuming 'cassette_list' is a list of loxcode numbers present in each cassette,
 #' # 'loxcode_sizes' is a vector containing the sizes of the loxcode, and 'flip_distance_value' is the flip distance.
 #' # Calculate the distance at which the flip happened
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' # flip_dist <- min_flip_dist(cassette_list, loxcode_sizes, flip_distance_value)
 #' # flip_dist
 min_flip_dist <- function(c, size, v) {
-    .Call(`_loxcoder_min_flip_dist`, c, size, v)
+    .Call(`_loxcodeR_min_flip_dist`, c, size, v)
 }
 
 #' Decode FASTQ
@@ -99,26 +99,26 @@ min_flip_dist <- function(c, size, v) {
 #' @return S4 loxcode_sample object with decoded results
 #' @examples
 #' # Example usage:
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' @export
 decode <- function(r, name, meta, min_r1_len, min_r2_len, full, sat) {
-    .Call(`_loxcoder_decode`, r, name, meta, min_r1_len, min_r2_len, full, sat)
+    .Call(`_loxcodeR_decode`, r, name, meta, min_r1_len, min_r2_len, full, sat)
 }
 
 load_origin_files_wrapper <- function(paths) {
-    invisible(.Call(`_loxcoder_load_origin_files_wrapper`, paths))
+    invisible(.Call(`_loxcodeR_load_origin_files_wrapper`, paths))
 }
 
 load_pair_files_wrapper <- function(paths) {
-    invisible(.Call(`_loxcoder_load_pair_files_wrapper`, paths))
+    invisible(.Call(`_loxcodeR_load_pair_files_wrapper`, paths))
 }
 
 load_prob_files_wrapper <- function(paths) {
-    invisible(.Call(`_loxcoder_load_prob_files_wrapper`, paths))
+    invisible(.Call(`_loxcodeR_load_prob_files_wrapper`, paths))
 }
 
 wrapper_fill_tables <- function() {
-    invisible(.Call(`_loxcoder_wrapper_fill_tables`))
+    invisible(.Call(`_loxcodeR_wrapper_fill_tables`))
 }
 
 #' Pack cassettes into cassette ID
@@ -132,11 +132,11 @@ wrapper_fill_tables <- function() {
 #' # Assuming 'cassette' is a list of numeric vectors representing the cassette,
 #' # 'validity_vector' is a vector of boolean values indicating the validity of each cassette.
 #' # Pack the cassettes into cassette IDs
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' # cassettes_with_ID <- pack(cassette, validity_vector)
 #' # cassettes_with_ID
 pack <- function(c, v) {
-    .Call(`_loxcoder_pack`, c, v)
+    .Call(`_loxcodeR_pack`, c, v)
 }
 
 #' Assumes that input cassette is valid already!
@@ -149,12 +149,12 @@ pack <- function(c, v) {
 #' # Example usage:
 #' # Assuming 'cassette' is a valid input cassette and 'loxcode_size' is the size of a single loxcode.
 #' # Calculate the distance from the origin
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #dist_from_origin <- retrieve_dist_origin_single(cassette, loxcode_size)
 #' #dist_from_origin
 retrieve_dist_origin_single <- function(c, size) {
-    .Call(`_loxcoder_retrieve_dist_origin_single`, c, size)
+    .Call(`_loxcodeR_retrieve_dist_origin_single`, c, size)
 }
 
 #' Assumes that input cassette is valid already!
@@ -167,11 +167,11 @@ retrieve_dist_origin_single <- function(c, size) {
 #' # Example usage:
 #' # Assuming 'cassette' is a valid input cassette and 'loxcode_sizes' is a vector containing sizes of all loxcodes.
 #' # Calculate the distance from the origin
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #dist_from_origin <- retrieve_dist_origin(cassette, loxcode_sizes)
 #' #dist_from_origin
 retrieve_dist_origin <- function(c, sizes) {
-    .Call(`_loxcoder_retrieve_dist_origin`, c, sizes)
+    .Call(`_loxcodeR_retrieve_dist_origin`, c, sizes)
 }
 
 #' Assumes that input cassette is valid already!
@@ -186,11 +186,11 @@ retrieve_dist_origin <- function(c, sizes) {
 #' # Assuming 'cassette' is a valid input cassette, 'loxcode_sizes' is a vector containing sizes of all loxcodes,
 #' # and 'position' is the position in the cassette.
 #' # Calculate the probability of the cassette at the given position
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #cassette_prob <- retrieve_prob(cassette, loxcode_sizes, position)
 #' #cassette_prob
 retrieve_prob <- function(c, sizes, nrec) {
-    .Call(`_loxcoder_retrieve_prob`, c, sizes, nrec)
+    .Call(`_loxcodeR_retrieve_prob`, c, sizes, nrec)
 }
 
 #' Assumes that input cassette is valid already!
@@ -203,11 +203,11 @@ retrieve_prob <- function(c, sizes, nrec) {
 #' # Example usage:
 #' # Assuming 'cassette1' and 'cassette2' are valid input cassettes.
 #' # Calculate the distance between the two cassettes
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #dist_between_cassettes <- retrieve_dist_pair(cassette1, cassette2)
 #' #dist_between_cassettes
 retrieve_dist_pair <- function(c1, c2) {
-    .Call(`_loxcoder_retrieve_dist_pair`, c1, c2)
+    .Call(`_loxcodeR_retrieve_dist_pair`, c1, c2)
 }
 
 #' Calculate generation probabilities using Markov chain formulation
@@ -232,10 +232,10 @@ retrieve_dist_pair <- function(c1, c2) {
 #' # 'steps' is the number of steps to generate, 'start_index' is the size_idx from which to start,
 #' # and 'start_id' is the id of the cassette to initialize the Markov chain from.
 #' # Calculate the generation probabilities for the specified parameters
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #generation_probs <- run_markov(steps, transition_probabilities, start_index, start_id)
 #' #generation_probs
 run_markov <- function(n, To, start_idx, start_id) {
-    .Call(`_loxcoder_run_markov`, n, To, start_idx, start_id)
+    .Call(`_loxcodeR_run_markov`, n, To, start_idx, start_id)
 }
 

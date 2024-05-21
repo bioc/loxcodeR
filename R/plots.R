@@ -32,8 +32,8 @@
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' library(loxcodeR)
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' # Example usage
 #' # Assuming lox, sample, count_matrix, code_set, and labels are defined
 #' size_plot(lox, sample="Sample 1", count_matrix="all_samples", code_set="all_codes", labels = "alias")
@@ -129,7 +129,7 @@ setMethod("size_plot", "loxcode_experiment", function(lox,
 # #' @export
 # #' @examples
 # #' # Load required packages
-# #' library(loxcoder)
+# #' library(loxcodeR)
 # #'
 # #' # Example usage
 # #' # Assuming sample is a loxcode sample object
@@ -171,7 +171,7 @@ setMethod("size_plot", "loxcode_experiment", function(lox,
 #' @export
 #' @examples
 #' # Load a sample loxcode experiment object and sample
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #'
 #' # Plot the distribution of distance from origin
 #' dist_orig_plot(lox, sample="Sample 1", count_matrix= "all_samples", code_set= "all_codes", labels = "alias")
@@ -197,7 +197,7 @@ setMethod("dist_orig_plot", "loxcode_experiment", function(lox,
     # #u <- u[u$size == size, ]
     # fill_scale <- scale_fill_manual(breaks = 0:15, values = rep('blue', 16)) # use twice since gradient is hard to see otherwise
     # g <- ggplot(data = u) + facet_wrap(~size) + geom_bar(aes(x = dist_orig, fill = factor(dist_orig)), show.legend = F) + scale_x_continuous(breaks = 0:10, limits = c(0, 10)) +
-    #   xlab("Distance from origin") + ylab("Diversity") + ggtitle(loxcoder::name(x))
+    #   xlab("Distance from origin") + ylab("Diversity") + ggtitle(loxcodeR::name(x))
 
     # If labels is equal to "alias", certain operations are performed,
     # including filtering the counts data based on the specified sample,
@@ -262,12 +262,12 @@ setMethod("dist_orig_plot", "loxcode_experiment", function(lox,
 #' @importFrom dplyr filter
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assume rep1, rep2, type, and range are defined
-#' rep1 <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")@samples$N709_N501
-#' rep2 <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")@samples$N709_N502
+#' rep1 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")@samples$N709_N501
+#' rep2 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")@samples$N709_N502
 #' barcode_union(rep1, rep2, type = "size", range = list(start = 10, end = 100))
 barcode_union <- function(rep1, rep2, type = "size", range) {
     size <- NULL
@@ -313,19 +313,19 @@ barcode_union <- function(rep1, rep2, type = "size", range) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming union_bc and rep are defined
-#' rep1 <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")@samples$N709_N501
-#' rep2 <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")@samples$N709_N502
+#' rep1 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")@samples$N709_N501
+#' rep2 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")@samples$N709_N502
 #' bc_union <- barcode_union(rep1, rep2, type="size", range=c(1, 13))
 #' get_barcode_stats_rep(bc_union, rep1)
 get_barcode_stats_rep <- function(union_bc, rep) {
     # the match function is used to find the indices of the elements in union_bc that match the
     # codes in rep@decode@data$code. These indices are stored in the index variable.
     index <- match(union_bc, rep@decode@data$code)
-    # u <- loxcoder::valid(rep)[index, ]
+    # u <- loxcodeR::valid(rep)[index, ]
     # The function then selects the corresponding rows from rep@decode@data using the indices in
     # index and assigns the result to the variable u. This step retrieves the rows in
     # rep@decode@data that match the codes in union_bc
@@ -361,11 +361,11 @@ get_barcode_stats_rep <- function(union_bc, rep) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming lox, sampleset, codeset, s1, and s2 are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #s1 = switch("N709_N501","sample" = lox@samples[["N709_N501"]],"alias" = lox@samples[["N709_N501"]])
 #' #s2 = switch("N709_N502","sample" = lox@samples[["N709_N502"]],"alias" = lox@samples[["N709_N502"]])
 #' #pair_comparison_plot2(lox, sampleset = "all_samples", codeset = "all_codes", s1, s2, colorBy = "size", labels = "alias", sizeRange = NULL, dist_origRange = NULL, firstreadRange = NULL)
@@ -546,11 +546,11 @@ setMethod("pair_comparison_plot2", "loxcode_experiment", function(lox,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming lox, min_reads, matrix, and codeset are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' #pair_comparison_plot_all(lox,matrix = lox@count_matrixes$`all_samples_ST114_Bcells ST114_2 NN167_Week2`,codeset = lox@code_sets$invalid_codes_ST111)
 
 setGeneric("pair_comparison_plot_all", function(lox,
@@ -725,8 +725,8 @@ gatherpairs <- function(data,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' library(loxcodeR)
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' s1=lox@samples$N709_N501
 #' s2=lox@samples$N709_N502
 #' # Example usage
@@ -798,11 +798,11 @@ get_comparison_table2 <- function(s1, s2) {
 # #' @export
 # #' @examples
 # #' # Load required packages
-# #' library(loxcoder)
+# #' library(loxcodeR)
 # #'
 # #' # Example usage
 # #' # Assume x and count_threshold are defined
-# #' x <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+# #' x <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 # #' dist_count_beeswarm_plot(x, count_threshold = 100)
 # #'
 # setGeneric("dist_count_beeswarm_plot", function(x, count_threshold) {
@@ -814,10 +814,10 @@ get_comparison_table2 <- function(s1, s2) {
 #     count = NULL
 #     dist_orig = NULL
 #     size = NULL
-#     # The function first applies the valid function from the loxcoder package to the input
+#     # The function first applies the valid function from the loxcodeR package to the input
 #     # sample x, and filters the results to include only barcodes with a "count" value below the
 #     # specified "count_threshold". The filtered data is assigned to the variable y.
-#     loxcoder::valid(x) %>% filter(count < count_threshold) -> y
+#     loxcodeR::valid(x) %>% filter(count < count_threshold) -> y
 #     # The ggplot function is used to initialize the plotting object, with the data set to y.
 #     # The ggbeeswarm::geom_quasirandom function is called to create a beeswarm plot.
 #     g <- ggplot(data = y) +
@@ -836,7 +836,7 @@ get_comparison_table2 <- function(s1, s2) {
 #         scale_x_continuous("distance from origin", breaks = 0:15) +
 #         scale_y_continuous("size", breaks = c(3, 5, 7, 9, 13)) +
 #         scale_color_gradient(low = 'blue', high = 'red') +
-#         ggtitle(loxcoder::name(x))
+#         ggtitle(loxcodeR::name(x))
 #     return(g)
 # })
 
@@ -895,11 +895,11 @@ get_comparison_table2 <- function(s1, s2) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming loxcode_experiment, count_matrix, and code_set are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' heatmap_plot(lox)
 setGeneric("heatmap_plot", function(loxcode_experiment,
                                     count_matrix = "all_samples",
@@ -1194,11 +1194,11 @@ setMethod("heatmap_plot", "loxcode_experiment",
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assume loxcode_experiment, count_matrix, and code_set are defined
-#' loxcode_experiment <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' loxcode_experiment <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' bubble_plot(loxcode_experiment,count_matrix="all_samples",code_set="all_codes",style="ggplot", labels="sample", clustering="none",agglomeration="complete",min_reads=0,max_repeats=100,min_repeats=1,split_by1="none",split_by2="none")
 
 setGeneric("bubble_plot", function(loxcode_experiment,
@@ -1454,11 +1454,11 @@ setMethod("bubble_plot", "loxcode_experiment", function(loxcode_experiment,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming x, count_matrix, code_set, plot, fill, and labels are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' readstats_plot_old(lox)
 setGeneric("readstats_plot_old", function(x,
                                           count_matrix = "all_samples",
@@ -1681,11 +1681,11 @@ setMethod("readstats_plot_old", "loxcode_experiment", function(x,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming loxcode_experiment, count_matrix, code_set, plot, fill, and labels are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' readstats_plot2(lox)
 setGeneric("readstats_plot2", function(loxcode_experiment,
                                        count_matrix = "all_samples",
@@ -2001,11 +2001,11 @@ setMethod("readstats_plot2", "loxcode_experiment", function(loxcode_experiment,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming loxcode_experiment, loxcode_sample, and code_set are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' saturation_plot(lox,"N708_N508")
 setGeneric("saturation_plot", function(loxcode_experiment,
                                        loxcode_sample,
@@ -2052,11 +2052,11 @@ setMethod("saturation_plot", "loxcode_experiment", function(loxcode_experiment,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming loxcode_experiment, loxcode_samples, and codesets are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' saturation_multi(lox,"N708_N508","all_codes")
 
 setGeneric("saturation_multi", function(loxcode_experiment,
@@ -2137,11 +2137,11 @@ setMethod("saturation_multi", "loxcode_experiment", function(loxcode_experiment,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming x and c are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' sample_table(lox,"all_samples")
 setGeneric("sample_table", function(x, c) {
     standardGeneric("sample_table")
@@ -2191,11 +2191,11 @@ capitalize <- function(w) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming x and c are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' summary_table1(lox,"all_samples")
 setGeneric("summary_table1", function(x, c = "all_samples") {
     standardGeneric("summary_table1")
@@ -2282,11 +2282,11 @@ setMethod("summary_table1", "loxcode_experiment", function(x, c = "all_samples")
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming lox and s are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' summary_table2(lox, "all_samples")
 setGeneric("summary_table2", function(lox, s = "all_samples") {
     standardGeneric("summary_table2")
@@ -2346,11 +2346,11 @@ setMethod("summary_table2", "loxcode_experiment", function(lox, s = "all_samples
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assume x and n are defined
-#' x <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' x <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' n="all_codes"
 #' codeset_table(x, n)
 #'
@@ -2397,11 +2397,11 @@ setMethod("codeset_table", "loxcode_experiment", function(x, n) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assume exp is a list of loxcode experiment objects
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' exp_table(c(lox))
 #'
 setGeneric("exp_table", function(exp) {
@@ -2445,11 +2445,11 @@ setMethod("exp_table", "list", function(exp) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assume x, s, and c are defined
-#' x <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' x <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' code_freq_table(x, s="all_samples", c="all_codes")
 #'
 setGeneric("code_freq_table", function(x, s = "all_samples", c = "all_codes") {
@@ -2511,11 +2511,11 @@ setMethod("code_freq_table", "loxcode_experiment", function(x, s = "all_samples"
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assume x, s, c, t, and m are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' filtered_codes_table(lox, s = "all_samples", c = "all_codes", t = 3, m = 5)
 setGeneric("filtered_codes_table", function(x,
                                             s = "all_samples",
@@ -2568,12 +2568,12 @@ setMethod("filtered_codes_table", "loxcode_experiment", function(x,
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #' library(scatterpie)
 #'
 #' # Example usage
 #' # Assuming x, s, and c are defined and have the required structure
-#' x <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' x <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' code_frequency_pie(x, s="all_samples", c="all_codes")
 setGeneric("code_frequency_pie", function(x, s = "all_samples", c = "all_codes") {
     standardGeneric("code_frequency_pie")
@@ -2625,11 +2625,11 @@ setMethod("code_frequency_pie", "loxcode_experiment", function(x, s = "all_sampl
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assume x, s, c, t, and m are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' filtered_codes_pie(lox, s = "all_samples", c = "all_codes", t = 3, m = 5)
 setGeneric("filtered_codes_pie", function(x,
                                           s = "all_samples",
@@ -2679,8 +2679,8 @@ setMethod("filtered_codes_pie", "loxcode_experiment", function(x,
 #' @export
 #' @examples
 #' # Load necessary libraries and data
-#' library(loxcoder)
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' library(loxcodeR)
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #'
 #' # Get sample alias
 #' alias <- get_alias(lox,"N709_N501","all_sample")
@@ -2709,11 +2709,11 @@ setMethod("get_alias", "loxcode_experiment", function(lox, set, name) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming lox, set, and name are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' get_samplename(lox, set = "all_samples", name = "Sample 1")
 setGeneric("get_samplename", function(lox, set, name) {
     standardGeneric("get_samplename")
@@ -2746,8 +2746,8 @@ setMethod("get_samplename", "loxcode_experiment", function(lox, set, name) {
 # #' @export
 # #' @examples
 # #' # Load required packages
-# #' library(loxcoder)
-# #' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+# #' library(loxcodeR)
+# #' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 # #' # Example usage
 # #' # Assume ref, npois, dist_type, samples, and plot_type are defined
 # #' density_distributions(ref, npois, dist_type, samples, plot_type = "size")
@@ -2799,11 +2799,11 @@ setMethod("get_samplename", "loxcode_experiment", function(lox, set, name) {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming sample is defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' getData(lox@samples$N709_N501)
 getData <- function(sample, plot_type = "size") {
     size <- NULL
@@ -2841,11 +2841,11 @@ getData <- function(sample, plot_type = "size") {
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming lox, code_set, and count_matrix are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' read_plot(lox)
 
 setGeneric("read_plot",
@@ -2906,11 +2906,11 @@ setMethod("read_plot",
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assume lox, code_set, and count_matrix are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' barcode_table(lox, code_set= "all_codes", count_matrix= "all_samples", labels = "alias")
 
 setGeneric("barcode_table",
@@ -3056,11 +3056,11 @@ setMethod("barcode_table",
 #' @export
 #' @examples
 #' # Load required packages
-#' library(loxcoder)
+#' library(loxcodeR)
 #'
 #' # Example usage
 #' # Assuming lox, count_matrix, code_set, plot, and fill are defined
-#' lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #' readstats_plot(lox)
 
 setGeneric("readstats_plot",

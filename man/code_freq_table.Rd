@@ -24,11 +24,11 @@ Creates a data.frame of the frequency for each size and complexity combination
 }
 \examples{
 # Load required packages
-library(loxcoder)
+library(loxcodeR)
 
 # Example usage
 # Assume x, s, and c are defined
-x <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+x <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 code_freq_table(x, s="all_samples", c="all_codes")
 
 }

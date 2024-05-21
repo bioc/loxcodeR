@@ -68,10 +68,10 @@ Generate heatmap from count_matrix and also perform clustering while plotting
 }
 \examples{
 # Load required packages
-library(loxcoder)
+library(loxcodeR)
 
 # Example usage
 # Assuming loxcode_experiment, count_matrix, and code_set are defined
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 heatmap_plot(lox)
 }

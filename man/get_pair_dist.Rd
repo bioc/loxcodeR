@@ -19,8 +19,8 @@ Funtion to get pairwise distance of two codesets
 }
 \examples{
 # Load necessary libraries and data
-library(loxcoder)
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+library(loxcodeR)
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 
 # Assuming you have two codesets
 #codeset_A <- data[data$codeset == "A", ]

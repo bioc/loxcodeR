@@ -28,10 +28,10 @@ Filters out codes that have an overlap between independent samples
 }
 \examples{
 # Load required packages
-library(loxcoder)
+library(loxcodeR)
 
 # Example usage
 # Assume x, s, c, t, and m are defined
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 filtered_codes_pie(lox, s = "all_samples", c = "all_codes", t = 3, m = 5)
 }

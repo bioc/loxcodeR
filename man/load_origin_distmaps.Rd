@@ -19,7 +19,7 @@ Load distance maps for distance-to-origin
 \examples{
 # Example usage:
 #path <- "path/to/your/directory"
-lox <- readRDS("~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
 #distance_maps <- load_distance_maps(path)
 #distance_maps
 }

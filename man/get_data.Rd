@@ -18,12 +18,12 @@ get_data(x, s)
 data.frame containing unvalidated readout data for sample s
 }
 \description{
-Equivalent to performing loxcoder::data() on the sample s
+Equivalent to performing loxcodeR::data() on the sample s
 }
 \examples{
 # Load necessary libraries and data
-library(loxcoder)
-lox <- readRDS('~/Desktop/LoxCodeR2024/LoxcodeR_app/Week2.rds')
+library(loxcodeR)
+lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
 
 # Get unvalidated readout data for a sample
 sample_data <- get_data(lox, 'N709_N501')

@@ -43,14 +43,13 @@ load_origin_distmaps('/media/arnav/Storage/origin/')
 #########0#########1#########2#########3#########4#########5#########6#########7
 # Loxcode experiment object
 
-lox <- readRDS("~/Desktop/temp22/temp221/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+lox <- readRDS("Week2.rds")
 
 #lox <- readRDS("test_data.rds")
 
 #########0#########1#########2#########3#########4#########5#########6#########7
 exp = list(lox)
 d <- summary_table(lox, "all_samples")
-
 chart_choices = c("Statistics Plots", "Heatmap", "Saturation Plot",
                   "Pair Comparison Plot")
 codeset_selectionID = c("codeset_stats", "view_codeset",
@@ -465,6 +464,7 @@ function(input, output, session) {
             }
         }
     )
+
     observeEvent(
         input$submit_fastq, {
             path = readDirectoryInput(session, 'directory')
