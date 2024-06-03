@@ -37,13 +37,14 @@ options(shiny.maxRequestSize=50*1024^2)
 #########0#########1#########2#########3#########4#########5#########6#########7
 
 # Initialize dist maps
+# set location to where you store distmaps
 load_origin_distmaps('/media/arnav/Storage/origin/')
 # load_pair_distmaps('/wehisan/general/user_managed/grpu_naik.s_2/TW/maps/origin/')
 
 #########0#########1#########2#########3#########4#########5#########6#########7
 # Loxcode experiment object
 
-lox <- readRDS("~/Desktop/temp22/temp221/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+lox <- readRDS("data-2024-05-20.rds")
 
 #lox <- readRDS("test_data.rds")
 

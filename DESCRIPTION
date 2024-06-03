@@ -3,7 +3,7 @@ Type: Package
 Title: Loxcode Tools
 Version: 0.99.1
 Authors@R: c(person("Stephen", "Zhang", email = "zhang.s@wehi.edu.au", role = c("aut")),
-            person("Arnav", "Garg", email = "garg.a@wehi.edu.au", role = c("cre", "aut")), 
+            person("Arnav", "Garg", email = "garg.a@wehi.edu.au", role = c("cre", "aut"), comment= c(ORCID = "0009-0007-7156-5382")), 
             person("Tom","Weber", email = "weber.ts@wehi.edu.au", role = c("cph", "aut")))
 Description: A system to explore and visualise Loxcodes. This is a Web application to visualise and analyse different aspects of a Loxcode. The app can be used to manipulate and extract meaningful insights from experiment data. The app has Pdf and Web page based report creation to present data analysed in the application.
 License: MIT + file LICENSE
@@ -30,13 +30,13 @@ Imports:
     shiny,
     pals
 Suggests: 
-    knitr, 
-    rmarkdown, 
-    qpdf, 
-    ggthemes, 
-    matrixStats, 
-    devtools, 
-    viridis, 
+    knitr,
+    rmarkdown,
+    qpdf,
+    ggthemes,
+    matrixStats,
+    devtools,
+    viridis,
     dygraphs,
     htmlwidgets,
     digest,
@@ -49,8 +49,10 @@ Suggests:
     tidyverse,
     plotly,
     gridExtra,
+    testthat (>= 3.0.0)
 URL: https://github.com/tomsergeweber/LoxCodeR2024
 BugReports: https://github.com/tomsergeweber/LoxCodeR2024/issues
 VignetteBuilder: knitr
 RoxygenNote: 7.3.1
 biocViews: Software, Visualization, Genetics
+Config/testthat/edition: 3
