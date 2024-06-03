@@ -48,6 +48,6 @@ library(loxcodeR)
 
 # Example usage
 # Assuming lox, count_matrix, code_set, plot, and fill are defined
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 readstats_plot(lox)
 }

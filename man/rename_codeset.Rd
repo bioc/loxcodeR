@@ -26,7 +26,7 @@ rename code set
 # Example usage:
 # Assuming 'experiment' is a loxcode_experiment object
 # Rename the code set 'old_code_set' to 'new_code_set'
-lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 new_experiment <- rename_codeset(lox,'all_codes','test')
 new_experiment
 }

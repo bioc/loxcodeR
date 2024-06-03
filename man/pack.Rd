@@ -22,7 +22,7 @@ Pack cassettes into cassette ID
 # Assuming 'cassette' is a list of numeric vectors representing the cassette,
 # 'validity_vector' is a vector of boolean values indicating the validity of each cassette.
 # Pack the cassettes into cassette IDs
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 # cassettes_with_ID <- pack(cassette, validity_vector)
 # cassettes_with_ID
 }

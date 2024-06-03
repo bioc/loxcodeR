@@ -30,7 +30,7 @@ Merges a list of samples into one loxcode_sample object
 # Example usage:
 # Assuming 'experiment' is a loxcode_experiment object and 'sample_list' is a list of sample names to be merged
 # Merge the samples in 'sample_list' into a single loxcode_sample object, summing their counts
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 # merged_sample <- merge_sample_list(lox = experiment, samples = sample_list, union = TRUE, average = FALSE)
 # merged_sample
 }

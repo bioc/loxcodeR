@@ -21,7 +21,7 @@ Assumes that input cassette is valid already!
 # Example usage:
 # Assuming 'cassette' is a valid input cassette and 'loxcode_sizes' is a vector containing sizes of all loxcodes.
 # Calculate the distance from the origin
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #dist_from_origin <- retrieve_dist_origin(cassette, loxcode_sizes)
 #dist_from_origin
 }

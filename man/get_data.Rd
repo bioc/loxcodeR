@@ -23,8 +23,8 @@ Equivalent to performing loxcodeR::data() on the sample s
 \examples{
 # Load necessary libraries and data
 library(loxcodeR)
-lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 
 # Get unvalidated readout data for a sample
-sample_data <- get_data(lox, 'N709_N501')
+sample_data <- get_data(lox, 'N712_N501')
 }

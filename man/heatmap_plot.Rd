@@ -72,6 +72,6 @@ library(loxcodeR)
 
 # Example usage
 # Assuming loxcode_experiment, count_matrix, and code_set are defined
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 heatmap_plot(lox)
 }

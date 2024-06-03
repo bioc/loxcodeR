@@ -19,6 +19,6 @@ Convert vector of cassette strings to list of numeric vectors
 # Example usage:
 # Assuming 'cassette_strings' is a vector of cassette strings
 # Convert the vector of cassette strings to a list of numeric vectors
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 # numeric_vectors <- get_cass_vec("test")
 }

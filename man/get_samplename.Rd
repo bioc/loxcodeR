@@ -28,6 +28,6 @@ library(loxcodeR)
 
 # Example usage
 # Assuming lox, set, and name are defined
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 get_samplename(lox, set = "all_samples", name = "Sample 1")
 }

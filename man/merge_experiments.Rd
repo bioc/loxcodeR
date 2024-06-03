@@ -26,7 +26,7 @@ Merge two experiments
 # Example usage:
 # Assuming 'experiment1' and 'experiment2' are loxcode_experiment objects
 # Merge the two experiments into a new experiment named 'merged_experiment'
-lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 merged_experiment <- merge_experiments(lox,lox,'test')
 merged_experiment
 }

@@ -26,6 +26,6 @@ library(loxcodeR)
 
 # Example usage
 # Assuming x and c are defined
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 sample_table(lox,"all_samples")
 }

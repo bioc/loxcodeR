@@ -34,7 +34,7 @@ library(loxcodeR)
 
 # Example usage
 # Assuming lox, count_matrix, collapse, name, union, and average are defined and have the required structure
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 count_matrix="all_samples"
 name="new"
 collapse="Organ"

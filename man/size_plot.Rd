@@ -41,7 +41,7 @@ Plots distribution of loxcode sizes found in sample
 \examples{
 # Load required packages
 library(loxcodeR)
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 # Example usage
 # Assuming lox, sample, count_matrix, code_set, and labels are defined
 size_plot(lox, sample="Sample 1", count_matrix="all_samples", code_set="all_codes", labels = "alias")

@@ -27,7 +27,7 @@ library(loxcodeR)
 
 # Example usage
 # Assume rep1, rep2, type, and range are defined
-rep1 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")@samples$N709_N501
-rep2 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")@samples$N709_N502
+rep1 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")@samples$N712_N501
+rep2 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")@samples$N712_N506
 barcode_union(rep1, rep2, type = "size", range = list(start = 10, end = 100))
 }

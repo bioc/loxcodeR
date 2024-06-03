@@ -40,6 +40,6 @@ library(loxcodeR)
 
 # Example usage
 # Assuming lox, min_reads, matrix, and codeset are defined
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #pair_comparison_plot_all(lox,matrix = lox@count_matrixes$`all_samples_ST114_Bcells ST114_2 NN167_Week2`,codeset = lox@code_sets$invalid_codes_ST111)
 }

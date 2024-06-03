@@ -20,9 +20,9 @@ Function used to compare two samples based on barcode counts
 \examples{
 # Load required packages
 library(loxcodeR)
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
-s1=lox@samples$N709_N501
-s2=lox@samples$N709_N502
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+s1=lox@samples$N712_N501
+s2=lox@samples$N712_N506
 # Example usage
 # Assuming s1 and s2 are defined
 get_comparison_table2(s1, s2)

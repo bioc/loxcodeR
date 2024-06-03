@@ -23,6 +23,6 @@ library(loxcodeR)
 
 # Example usage
 # Assuming sample is defined
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
-getData(lox@samples$N709_N501)
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+getData(lox@samples$N712_N501)
 }

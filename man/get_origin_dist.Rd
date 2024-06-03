@@ -21,7 +21,7 @@ Appends a column of dist_orig values for valid cassettes
 \examples{
 # Load necessary libraries and data
 library(loxcodeR)
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 
 # Fetch distances from origin
 #dist_orig_values <- get_origin_dist(lox)

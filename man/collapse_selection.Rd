@@ -52,6 +52,6 @@ library(loxcodeR)
 
 # Example usage
 # Assuming lox, count_matrix, code_set, index, name, union, and average are defined and have the required structure
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
-collapse_selection(lox, count_matrix = "all_samples", code_set = "all_codes", index = c(1, 3, 5), name = NULL, union = TRUE, average = FALSE)
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+collapse_selection(lox, count_matrix = "all_samples", code_set = "all_codes", index = c(1, 3), name = NULL, union = TRUE, average = FALSE)
 }

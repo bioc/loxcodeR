@@ -34,7 +34,7 @@ library(dplyr)
 # load_origin_distmaps('/wehisan/general/user_managed/grpu_naik.s_2/TW/maps/origin/')
 # load_pair_distmaps('/wehisan/general/user_managed/grpu_naik.s_2/TW/maps/origin/')
 
-lox <- readRDS("test_data.rds")
+lox <- readRDS("data-2024-05-20.rds")
 exp = list(lox)
 
 

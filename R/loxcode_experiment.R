@@ -65,9 +65,9 @@ shiny_running <- function() {
 #' @examples
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
-#' experiment <- load_samples(lox)
-#' experiment
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' #experiment <- load_samples(lox)
+#' #experiment
 setGeneric("load_samples", function(x, ...) {
     standardGeneric("load_samples")
 })
@@ -131,7 +131,7 @@ setMethod("load_samples", "loxcode_experiment", function(x,
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
 #' # Retrieve the names of all samples in the experiment
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' sample_names <- sampnames(lox)
 #' sample_names
 setGeneric("sampnames", function(x) {
@@ -157,7 +157,7 @@ setMethod("sampnames", "loxcode_experiment", function(x) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
 #' # Retrieve the name of the experiment
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' #experiment_name <- name(lox)
 #' #experiment_name
 setGeneric("name", function(x) {
@@ -183,8 +183,8 @@ setMethod("name", "loxcode_experiment", function(x) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object and 'sample_name' is the name of the sample to retrieve
 #' # Retrieve the loxcode_sample object corresponding to the sample named 'sample_name'
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
-#' sample_object <- sample(x = lox, s = 'N709_N501')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' sample_object <- sample(x = lox, s = 'N712_N501')
 #' sample_object
 setGeneric("sample", function(x, s) {
     standardGeneric("sample")
@@ -204,10 +204,10 @@ setMethod("sample", "loxcode_experiment", function(x, s) {
 #' @examples
 #' # Load necessary libraries and data
 #' library(loxcodeR)
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #'
 #' # Get unvalidated readout data for a sample
-#' sample_data <- get_data(lox, 'N709_N501')
+#' sample_data <- get_data(lox, 'N712_N501')
 setGeneric("get_data", function(x, s) {
     standardGeneric("get_data")
 })
@@ -226,9 +226,9 @@ setMethod("get_data", "loxcode_experiment", function(x, s) {
 #' @examples
 #' # Load necessary libraries and data
 #' library(loxcodeR)
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #'
-#' valid_data <- get_valid(lox, 'N709_N501')
+#' valid_data <- get_valid(lox, 'N712_N501')
 setGeneric("get_valid", function(x, s) {
     standardGeneric("get_valid")
 })
@@ -246,7 +246,7 @@ setMethod("get_valid", "loxcode_experiment", function(x, s) {
 #' # Example usage:
 #' # Assuming 'lox_data' is a loxcode object
 #' # Retrieve the sample table from the loxcode object
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' sample_table <- samptable(lox)
 #' sample_table
 setGeneric("samptable", function(x) {
@@ -267,7 +267,7 @@ setMethod("samptable", "loxcode_experiment", function(x) {
 #' # Example usage:
 #' # Assuming 'lox_data' is a loxcode object and 'new_sample_table' is the new sample table to set
 #' # Set the sample table of the loxcode object to 'new_sample_table'
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' #lox_data$samptable <- new_sample_table
 #' #lox_data
 setGeneric("samptable<-", function(x, value) {
@@ -349,8 +349,8 @@ load_from_xlsx_multi <- function(name, s, dir, suffix_R1, suffix_R2,
 #' # Example usage:
 #' # Assuming 'sample1' and 'sample2' are loxcode_sample objects
 #' # Merge the two samples into a new loxcode_sample object
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
-#' merged_sample <- merge_sample(lox@samples$N709_N501,lox@samples$N709_N502)
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' merged_sample <- merge_sample(lox@samples$N712_N501,lox@samples$N712_N506)
 #' merged_sample
 merge_sample <- function(s1, s2) {
     m <- merge(s1@decode@data, s2@decode@data, by = c("code",
@@ -391,7 +391,7 @@ merge_sample <- function(s1, s2) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object and 'label_column' is the name of the column to merge by
 #' # Merge samples based on the values in the 'label_column'
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' # merged_experiment <- merge_by(lox, by = 'sample')
 #' # merged_experiment
 setGeneric("merge_by", function(x, by) {
@@ -429,7 +429,7 @@ setMethod("merge_by", "loxcode_experiment", function(x, by) {
 #' # Example usage:
 #' # Assuming 'lox_data' is a loxcode object and 'count_matrix_1', 'count_matrix_2', etc. are individual count matrices
 #' # Generate count matrices from individual samples and add standard code sets
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' updated_lox <- setup_count_matrix_codesets(lox)
 #' updated_lox
 setGeneric("setup_count_matrix_codesets", function(x, ...) {
@@ -510,7 +510,7 @@ setMethod("setup_count_matrix_codesets", "loxcode_experiment", function(x) {
 #' # Example usage:
 #' # Assuming 'lox_data' is a loxcode object
 #' # Generate metadata for the loxcode experiment
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' experiment_metadata <- setup_metadata(lox)
 #' experiment_metadata
 setGeneric("setup_metadata", function(x) {
@@ -536,7 +536,7 @@ setMethod("setup_metadata", "loxcode_experiment", function(x) {
 #' @examples
 #' # Load necessary libraries and data
 #' library(loxcodeR)
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #'
 #'
 #' # Generate alias for the samples
@@ -568,7 +568,7 @@ setMethod("fill_alias", "loxcode_experiment", function(x) {
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
 #' # Create a new codeset named 'new_codeset' by selecting indices 1, 3, and 5 from an existing codeset 'old_codeset'
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' # new_experiment <- make_codeset_index(experiment, c = 'old_codeset', I = c(1, 3, 5), n = 'new_codeset')
 #' # new_experiment
 setGeneric("make_codeset_index", function(x, c, I, n) {
@@ -595,7 +595,7 @@ setMethod("make_codeset_index", "loxcode_experiment", function(x, c,
 #' @export
 #' @examples
 #' # Create a sample loxcode_experiment object
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #'
 #'
 #' # Delete a codeset named 'example_codeset' from the loxcode experiment
@@ -625,7 +625,7 @@ setMethod("delete_codeset", "loxcode_experiment", function(x,
 #' @export
 #' @examples
 #' # Load a sample loxcode_experiment object
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #'
 #'
 #' # Delete the existing count_matrix named 'count_matrix_1'
@@ -657,7 +657,7 @@ setMethod("delete_count_matrix", "loxcode_experiment", function(x,
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object and 'old_name' is the old sample name to be renamed
 #' # Rename the sample named 'old_name' to 'new_name' in the count matrix 'count_matrix_name'
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' #new_experiment <- rename_sample(x = experiment, c = 'count_matrix_name', n = 'new_name', o = 'old_name')
 #' #new_experiment
 setGeneric("rename_sample", function(x, c, n, o) {
@@ -699,8 +699,8 @@ setMethod("rename_sample", "loxcode_experiment", function(x, c, n,
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
 #' # Change the alias of the sample named 'old_sample' to 'new_sample'
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
-#' new_experiment <- new_alias(lox,'all_samples','N709_N501','test')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' new_experiment <- new_alias(lox,'all_samples','N712_N501','test')
 #' new_experiment
 setGeneric("new_alias", function(x, c, s, n) {
     standardGeneric("new_alias")
@@ -765,7 +765,7 @@ setMethod("new_alias", "loxcode_experiment", function(x, c, s, n) {
 #' @examples
 #' # Load necessary libraries and data
 #' library(loxcodeR)
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #'
 #' # Get collapsed metadata (old version)
 #' meta <- get_collapsed_meta2(lox, 'all_sample')
@@ -824,7 +824,7 @@ setMethod("get_collapsed_meta2", "loxcode_experiment", function(x,
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
 #' # Create a new filtered code set named 'filtered_codeset' based on parameters
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' new_experiment <- make_filtered_codeset(lox,'all_samples','all_codes',0.1,3,'test')
 #' new_experiment
 setGeneric("make_filtered_codeset", function(x, s, c, t, m, n) {
@@ -851,7 +851,7 @@ setMethod("make_filtered_codeset", "loxcode_experiment", function(x,
 #' # Example usage:
 #' # Assuming 'experiment' is a loxcode_experiment object
 #' # Rename the code set 'old_code_set' to 'new_code_set'
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' new_experiment <- rename_codeset(lox,'all_codes','test')
 #' new_experiment
 setGeneric("rename_codeset", function(x, c, n) {
@@ -880,10 +880,10 @@ setMethod("rename_codeset", "loxcode_experiment", function(x, c, n) {
 #' library(loxcodeR)
 #'
 #' # Create a loxcode experiment object
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #'
 #' # Generate sample aliases
-#' lox_experiment <- generate_alias(lox, s = 'all_samples', 'mouse')
+#' lox_experiment <- generate_alias(lox, s = 'all_samples', 'tissue')
 setGeneric("generate_alias", function(lox, s = "all_samples", meta) {
     standardGeneric("generate_alias")
 })
@@ -931,7 +931,7 @@ setMethod("generate_alias", "loxcode_experiment", function(lox,
 #' # Example usage:
 #' # Assuming 'experiment1' and 'experiment2' are loxcode_experiment objects
 #' # Merge the two experiments into a new experiment named 'merged_experiment'
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' merged_experiment <- merge_experiments(lox,lox,'test')
 #' merged_experiment
 setGeneric("merge_experiments", function(lox1, lox2, name = NULL) {
@@ -1090,7 +1090,7 @@ setMethod("merge_experiments", "loxcode_experiment", function(lox1, lox2,
 #' # Example usage:
 #' # Assuming 'experiment1', 'experiment2', and 'experiment3' are loxcode_experiment objects
 #' # Merge the three experiments into a new experiment named 'merged_experiment'
-#' lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 #' merged_experiment <- merge_experiments2(c(lox,lox),'test')
 #' merged_experiment
 merge_experiments2 <- function(experiments, name) {

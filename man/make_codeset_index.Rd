@@ -28,7 +28,7 @@ Creates a new codeset with dataframe of codesets testing
 # Example usage:
 # Assuming 'experiment' is a loxcode_experiment object
 # Create a new codeset named 'new_codeset' by selecting indices 1, 3, and 5 from an existing codeset 'old_codeset'
-lox <- readRDS('~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds')
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 # new_experiment <- make_codeset_index(experiment, c = 'old_codeset', I = c(1, 3, 5), n = 'new_codeset')
 # new_experiment
 }

@@ -72,6 +72,6 @@ library(loxcodeR)
 
 # Example usage
 # Assume loxcode_experiment, count_matrix, and code_set are defined
-loxcode_experiment <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+loxcode_experiment <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 bubble_plot(loxcode_experiment,count_matrix="all_samples",code_set="all_codes",style="ggplot", labels="sample", clustering="none",agglomeration="complete",min_reads=0,max_repeats=100,min_repeats=1,split_by1="none",split_by2="none")
 }

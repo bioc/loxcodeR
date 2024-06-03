@@ -224,7 +224,7 @@ std::vector<long long> pack_impl(std::vector<std::string> c, std::vector<bool> v
 //' # Assuming 'cassette' is a list of numeric vectors representing the cassette,
 //' # 'validity_vector' is a vector of boolean values indicating the validity of each cassette.
 //' # Pack the cassettes into cassette IDs
-//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 //' # cassettes_with_ID <- pack(cassette, validity_vector)
 //' # cassettes_with_ID
 // [[Rcpp::export]]
@@ -250,8 +250,8 @@ std::vector<long long> pack(SEXP c, std::vector<bool> v){
 //' # Example usage:
 //' # Assuming 'cassette' is a valid input cassette and 'loxcode_size' is the size of a single loxcode.
 //' # Calculate the distance from the origin
-//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
-//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 //' #dist_from_origin <- retrieve_dist_origin_single(cassette, loxcode_size)
 //' #dist_from_origin
 // [[Rcpp::export]]
@@ -272,7 +272,7 @@ int retrieve_dist_origin_single(long long c, int size){
 //' # Example usage:
 //' # Assuming 'cassette' is a valid input cassette and 'loxcode_sizes' is a vector containing sizes of all loxcodes.
 //' # Calculate the distance from the origin
-//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 //' #dist_from_origin <- retrieve_dist_origin(cassette, loxcode_sizes)
 //' #dist_from_origin
 // [[Rcpp::export]]
@@ -307,7 +307,7 @@ std::vector<int> retrieve_dist_origin(std::vector<long long> c, std::vector<int>
 //' # Assuming 'cassette' is a valid input cassette, 'loxcode_sizes' is a vector containing sizes of all loxcodes,
 //' # and 'position' is the position in the cassette.
 //' # Calculate the probability of the cassette at the given position
-//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 //' #cassette_prob <- retrieve_prob(cassette, loxcode_sizes, position)
 //' #cassette_prob
 // [[Rcpp::export]]
@@ -418,7 +418,7 @@ std::vector<int> transform_13_9_pair(std::pair<std::vector<int>, std::vector<int
 //' # Example usage:
 //' # Assuming 'cassette1' and 'cassette2' are valid input cassettes.
 //' # Calculate the distance between the two cassettes
-//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 //' #dist_between_cassettes <- retrieve_dist_pair(cassette1, cassette2)
 //' #dist_between_cassettes
 // [[Rcpp::export]]

@@ -28,6 +28,6 @@ library(loxcodeR)
 
 # Example usage
 # Assuming loxcode_experiment, loxcode_sample, and code_set are defined
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
-saturation_plot(lox,"N708_N508")
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+saturation_plot(lox,"N712_N501")
 }

@@ -280,7 +280,7 @@ vector<int> decR(string R, string head_seq, int head_length, string tail_seq, in
 //' @return S4 loxcode_sample object with decoded results
 //' @examples
 //' # Example usage:
-//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
+//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
 //' @export
 // [[Rcpp::export]]
    Rcpp::S4 decode(std::vector<std::string> r, std::string name, Rcpp::DataFrame meta,

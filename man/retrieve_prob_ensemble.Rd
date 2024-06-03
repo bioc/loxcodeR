@@ -26,7 +26,7 @@ Results are appended to readout data as a 'prob' column.
 # Example usage:
 # Assuming 'sample' is a loxcode_sample object
 # Retrieve ensemble generation probability for the sample
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/Week2.rds")
-ensemble_probability <- retrieve_prob_ensemble(lox@samples$N709_N501)
+lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+ensemble_probability <- retrieve_prob_ensemble(lox@samples$N712_N501)
 ensemble_probability
 }
