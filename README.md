@@ -36,7 +36,8 @@ Main objective of the app is to perform data manipulation and data visualization
 
 ## Data
 App can take raw data in the format 
-Raw data is converted to rds format which is easier to store and manipulate by the app.
+Raw data is converted to rds format which is easier to store and manipulate by the app.</br>
+Resource required to manipulate raw data can be downloaded from https://github.com/tomsergeweber/loxcodeR_data.
 
 ## Data Manipulation
 All data manipulation is done on the rds data object. Code set and the sample set can be both manipulated to select only the desired subset from the experiment. 
