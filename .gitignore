@@ -7,7 +7,6 @@ src/*.so
 src/*.dll
 R/.Rhistory
 loxcodeR.Rproj
-LoxcodeR_app/*.rds
 src/cassutil.o
 src/decode.o
 src/dist.o
@@ -17,4 +16,3 @@ src/loxcoder.so
 src/map_markov.o
 src/pack.o
 src/RcppExports.o
-*.rds
