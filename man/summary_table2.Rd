@@ -26,6 +26,7 @@ library(loxcodeR)
 
 # Example usage
 # Assuming lox and s are defined
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 summary_table2(lox, "all_samples")
 }

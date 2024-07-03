@@ -28,7 +28,8 @@ library(loxcodeR)
 
 # Example usage
 # Assume x, s, and c are defined
-x <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+x <- readRDS(datards)
 code_freq_table(x, s="all_samples", c="all_codes")
 
 }

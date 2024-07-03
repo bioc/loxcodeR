@@ -40,7 +40,8 @@ Plots distribution of distance from origin found in sample
 }
 \examples{
 # Load a sample loxcode experiment object and sample
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 
 # Plot the distribution of distance from origin
 dist_orig_plot(lox, sample="Sample 1", count_matrix= "all_samples", code_set= "all_codes", labels = "alias")

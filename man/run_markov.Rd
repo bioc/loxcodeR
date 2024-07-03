@@ -35,7 +35,8 @@ for varying values of n (step number)
 # 'steps' is the number of steps to generate, 'start_index' is the size_idx from which to start,
 # and 'start_id' is the id of the cassette to initialize the Markov chain from.
 # Calculate the generation probabilities for the specified parameters
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 #generation_probs <- run_markov(steps, transition_probabilities, start_index, start_id)
 #generation_probs
 }

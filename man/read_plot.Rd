@@ -40,6 +40,7 @@ library(loxcodeR)
 
 # Example usage
 # Assuming lox, code_set, and count_matrix are defined
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 read_plot(lox)
 }

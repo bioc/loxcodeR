@@ -23,8 +23,9 @@ library(loxcodeR)
 
 # Example usage
 # Assuming union_bc and rep are defined
-rep1 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")@samples$N712_N501
-rep2 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")@samples$N712_N506
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+rep1 <- readRDS(datards)@samples$N712_N501
+rep2 <- readRDS(datards)@samples$N712_N506
 bc_union <- barcode_union(rep1, rep2, type="size", range=c(1, 13))
 get_barcode_stats_rep(bc_union, rep1)
 }

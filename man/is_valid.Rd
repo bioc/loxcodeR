@@ -21,7 +21,8 @@ and that there are no repeated elements.
 # Assuming 'cassette' is a list of numeric vectors representing the cassette,
 # or a character vector of decoded loxcodes
 # Check if the cassette is valid
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 is_v <- is_valid(lox)
 is_v
 }

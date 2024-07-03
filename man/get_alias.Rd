@@ -25,7 +25,8 @@ Get sample alias
 \examples{
 # Load necessary libraries and data
 library(loxcodeR)
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 
 # Get sample alias
 alias <- get_alias(lox,"N712_N501","all_sample")

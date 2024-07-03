@@ -24,7 +24,8 @@ Distance at which the flip happened
 # Assuming 'cassette_list' is a list of loxcode numbers present in each cassette,
 # 'loxcode_sizes' is a vector containing the sizes of the loxcode, and 'flip_distance_value' is the flip distance.
 # Calculate the distance at which the flip happened
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 # flip_dist <- min_flip_dist(cassette_list, loxcode_sizes, flip_distance_value)
 # flip_dist
 }

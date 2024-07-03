@@ -40,6 +40,7 @@ library(loxcodeR)
 
 # Example usage
 # Assume lox, code_set, and count_matrix are defined
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 barcode_table(lox, code_set= "all_codes", count_matrix= "all_samples", labels = "alias")
 }

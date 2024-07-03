@@ -22,7 +22,8 @@ Appends a column of packed cassette IDs, or -1 if it cannot be packed
 # Example usage:
 # Assuming 'lox_data' is a loxcode data object
 # Get cassette IDs and append them as a new column
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 cassette_ids <- makeid(lox@samples$N712_N501)
 cassette_ids
 }

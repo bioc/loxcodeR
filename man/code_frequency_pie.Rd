@@ -29,6 +29,7 @@ library(scatterpie)
 
 # Example usage
 # Assuming x, s, and c are defined and have the required structure
-x <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+x <- readRDS(datards)
 code_frequency_pie(x, s="all_samples", c="all_codes")
 }

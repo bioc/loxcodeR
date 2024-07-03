@@ -28,7 +28,8 @@ Changes the alias of a sample
 # Example usage:
 # Assuming 'experiment' is a loxcode_experiment object
 # Change the alias of the sample named 'old_sample' to 'new_sample'
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 new_experiment <- new_alias(lox,'all_samples','N712_N501','test')
 new_experiment
 }

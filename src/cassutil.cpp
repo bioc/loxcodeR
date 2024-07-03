@@ -83,7 +83,8 @@ bool is_valid_single(std::vector<int> c){
 //' # Example usage:
 //' # Assuming 'cassette_strings' is a vector of cassette strings
 //' # Convert the vector of cassette strings to a list of numeric vectors
-//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+//' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+//' lox <- readRDS(datards)
 //' # numeric_vectors <- get_cass_vec("test")
 // [[Rcpp::export]]
 std::vector<std::vector<int> > get_cass_vec(std::vector<std::string> c){
@@ -122,7 +123,8 @@ std::vector<bool> is_valid_impl(std::vector<std::string> c){
 //' # Assuming 'cassette' is a list of numeric vectors representing the cassette,
 //' # or a character vector of decoded loxcodes
 //' # Check if the cassette is valid
-//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+//' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+//' lox <- readRDS(datards)
 //' is_v <- is_valid(lox)
 //' is_v
 // [[Rcpp::export]]
@@ -159,7 +161,8 @@ std::vector<int> unpack_to_vec(long long c, int size){
 //' # Example usage:
 //' # Assuming 'cassette_string' is a string representing the number of lox present
 //' # Impute the missing element in the 13-element cassette
-//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+//' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+//' lox <- readRDS(datards)
 //' # cassette <- impute_13_impl(cassette_string)
 //' # cassette
 // [[Rcpp::export]]
@@ -220,7 +223,8 @@ std::string impute_13_impl(std::string c2){
 //' # Assuming 'cassette_list' is a list of loxcode numbers present in each cassette,
 //' # and 'loxcode_sizes' is a vector containing the sizes of the loxcode.
 //' # Impute the missing elements in each cassette to form a 13-element cassette
-//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+//' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+//' lox <- readRDS(datards)
 //' #cassette <- impute_13(cassette_list, loxcode_sizes)
 //' #cassette
 // [[Rcpp::export]]
@@ -265,7 +269,8 @@ std::pair<int, long long> min_flip_dist_single(std::vector<int> c, int size){
 //' # Assuming 'cassette_list' is a list of loxcode numbers present in each cassette,
 //' # 'loxcode_sizes' is a vector containing the sizes of the loxcode, and 'flip_distance_value' is the flip distance.
 //' # Calculate the distance at which the flip happened
-//' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+//' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+//' lox <- readRDS(datards)
 //' # flip_dist <- min_flip_dist(cassette_list, loxcode_sizes, flip_distance_value)
 //' # flip_dist
 // [[Rcpp::export]]

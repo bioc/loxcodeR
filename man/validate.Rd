@@ -22,7 +22,8 @@ Add cassette validation column to decoded cassette data
 # Example usage:
 # Assuming 'cassette_data' is a loxcode cassette object
 # Add a validation column to the decoded cassette data
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 validated_cassette <- validate(lox@samples$N712_N501)
 validated_cassette
 }

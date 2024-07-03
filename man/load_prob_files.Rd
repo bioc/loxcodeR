@@ -18,7 +18,8 @@ Load probability tables (Markov chain)
 \examples{
 # Example usage:
 #path <- "path/to/markov_chain_tables_directory"
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 #probability_table <- load_probability_tables(path)
 #probability_table
 }

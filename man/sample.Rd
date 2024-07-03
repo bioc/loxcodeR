@@ -26,7 +26,8 @@ Get loxcode_sample object by sample name
 # Example usage:
 # Assuming 'experiment' is a loxcode_experiment object and 'sample_name' is the name of the sample to retrieve
 # Retrieve the loxcode_sample object corresponding to the sample named 'sample_name'
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 sample_object <- sample(x = lox, s = 'N712_N501')
 sample_object
 }

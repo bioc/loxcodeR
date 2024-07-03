@@ -24,7 +24,8 @@ Assumes that input cassette is valid already!
 # Assuming 'cassette' is a valid input cassette, 'loxcode_sizes' is a vector containing sizes of all loxcodes,
 # and 'position' is the position in the cassette.
 # Calculate the probability of the cassette at the given position
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 #cassette_prob <- retrieve_prob(cassette, loxcode_sizes, position)
 #cassette_prob
 }

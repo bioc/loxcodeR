@@ -64,7 +64,8 @@ library(loxcodeR)
 
 # Example usage
 # Assuming lox, sampleset, codeset, s1, and s2 are defined
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 #s1 = switch("N709_N501","sample" = lox@samples[["N709_N501"]],"alias" = lox@samples[["N709_N501"]])
 #s2 = switch("N709_N502","sample" = lox@samples[["N709_N502"]],"alias" = lox@samples[["N709_N502"]])
 #pair_comparison_plot2(lox, sampleset = "all_samples", codeset = "all_codes", s1, s2, colorBy = "size", labels = "alias", sizeRange = NULL, dist_origRange = NULL, firstreadRange = NULL)

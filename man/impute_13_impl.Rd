@@ -19,7 +19,8 @@ Impute missing element in a 13-element cassette
 # Example usage:
 # Assuming 'cassette_string' is a string representing the number of lox present
 # Impute the missing element in the 13-element cassette
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 # cassette <- impute_13_impl(cassette_string)
 # cassette
 }

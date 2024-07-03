@@ -43,8 +43,8 @@ load_origin_distmaps('/media/arnav/Storage/origin/')
 
 #########0#########1#########2#########3#########4#########5#########6#########7
 # Loxcode experiment object
-
-lox <- readRDS("data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 
 #lox <- readRDS("test_data.rds")
 

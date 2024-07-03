@@ -33,7 +33,8 @@
 #' @examples
 #' # Load required packages
 #' library(loxcodeR)
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' # Example usage
 #' # Assuming lox, sample, count_matrix, code_set, and labels are defined
 #' size_plot(lox, sample="Sample 1", count_matrix="all_samples", code_set="all_codes", labels = "alias")
@@ -171,7 +172,8 @@ setMethod("size_plot", "loxcode_experiment", function(lox,
 #' @export
 #' @examples
 #' # Load a sample loxcode experiment object and sample
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #'
 #' # Plot the distribution of distance from origin
 #' dist_orig_plot(lox, sample="Sample 1", count_matrix= "all_samples", code_set= "all_codes", labels = "alias")
@@ -266,8 +268,9 @@ setMethod("dist_orig_plot", "loxcode_experiment", function(lox,
 #'
 #' # Example usage
 #' # Assume rep1, rep2, type, and range are defined
-#' rep1 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")@samples$N712_N501
-#' rep2 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")@samples$N712_N506
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' rep1 <- readRDS(datards)@samples$N712_N501
+#' rep2 <- readRDS(datards)@samples$N712_N506
 #' barcode_union(rep1, rep2, type = "size", range = list(start = 10, end = 100))
 barcode_union <- function(rep1, rep2, type = "size", range) {
     size <- NULL
@@ -317,8 +320,9 @@ barcode_union <- function(rep1, rep2, type = "size", range) {
 #'
 #' # Example usage
 #' # Assuming union_bc and rep are defined
-#' rep1 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")@samples$N712_N501
-#' rep2 <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")@samples$N712_N506
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' rep1 <- readRDS(datards)@samples$N712_N501
+#' rep2 <- readRDS(datards)@samples$N712_N506
 #' bc_union <- barcode_union(rep1, rep2, type="size", range=c(1, 13))
 #' get_barcode_stats_rep(bc_union, rep1)
 get_barcode_stats_rep <- function(union_bc, rep) {
@@ -365,7 +369,8 @@ get_barcode_stats_rep <- function(union_bc, rep) {
 #'
 #' # Example usage
 #' # Assuming lox, sampleset, codeset, s1, and s2 are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' #s1 = switch("N709_N501","sample" = lox@samples[["N709_N501"]],"alias" = lox@samples[["N709_N501"]])
 #' #s2 = switch("N709_N502","sample" = lox@samples[["N709_N502"]],"alias" = lox@samples[["N709_N502"]])
 #' #pair_comparison_plot2(lox, sampleset = "all_samples", codeset = "all_codes", s1, s2, colorBy = "size", labels = "alias", sizeRange = NULL, dist_origRange = NULL, firstreadRange = NULL)
@@ -550,7 +555,8 @@ setMethod("pair_comparison_plot2", "loxcode_experiment", function(lox,
 #'
 #' # Example usage
 #' # Assuming lox, min_reads, matrix, and codeset are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' #pair_comparison_plot_all(lox,matrix = lox@count_matrixes$`all_samples_ST114_Bcells ST114_2 NN167_Week2`,codeset = lox@code_sets$invalid_codes_ST111)
 
 setGeneric("pair_comparison_plot_all", function(lox,
@@ -726,7 +732,8 @@ gatherpairs <- function(data,
 #' @examples
 #' # Load required packages
 #' library(loxcodeR)
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' s1=lox@samples$N712_N501
 #' s2=lox@samples$N712_N506
 #' # Example usage
@@ -899,7 +906,8 @@ get_comparison_table2 <- function(s1, s2) {
 #'
 #' # Example usage
 #' # Assuming loxcode_experiment, count_matrix, and code_set are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' heatmap_plot(lox)
 setGeneric("heatmap_plot", function(loxcode_experiment,
                                     count_matrix = "all_samples",
@@ -1198,7 +1206,8 @@ setMethod("heatmap_plot", "loxcode_experiment",
 #'
 #' # Example usage
 #' # Assume loxcode_experiment, count_matrix, and code_set are defined
-#' loxcode_experiment <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' loxcode_experiment <- readRDS(datards)
 #' bubble_plot(loxcode_experiment,count_matrix="all_samples",code_set="all_codes",style="ggplot", labels="sample", clustering="none",agglomeration="complete",min_reads=0,max_repeats=100,min_repeats=1,split_by1="none",split_by2="none")
 
 setGeneric("bubble_plot", function(loxcode_experiment,
@@ -1458,7 +1467,8 @@ setMethod("bubble_plot", "loxcode_experiment", function(loxcode_experiment,
 #'
 #' # Example usage
 #' # Assuming x, count_matrix, code_set, plot, fill, and labels are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' readstats_plot_old(lox)
 setGeneric("readstats_plot_old", function(x,
                                           count_matrix = "all_samples",
@@ -1685,7 +1695,8 @@ setMethod("readstats_plot_old", "loxcode_experiment", function(x,
 #'
 #' # Example usage
 #' # Assuming loxcode_experiment, count_matrix, code_set, plot, fill, and labels are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' readstats_plot2(lox)
 setGeneric("readstats_plot2", function(loxcode_experiment,
                                        count_matrix = "all_samples",
@@ -2005,7 +2016,8 @@ setMethod("readstats_plot2", "loxcode_experiment", function(loxcode_experiment,
 #'
 #' # Example usage
 #' # Assuming loxcode_experiment, loxcode_sample, and code_set are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' saturation_plot(lox,"N712_N501")
 setGeneric("saturation_plot", function(loxcode_experiment,
                                        loxcode_sample,
@@ -2056,7 +2068,8 @@ setMethod("saturation_plot", "loxcode_experiment", function(loxcode_experiment,
 #'
 #' # Example usage
 #' # Assuming loxcode_experiment, loxcode_samples, and codesets are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' saturation_multi(lox,"N712_N501","all_codes")
 
 setGeneric("saturation_multi", function(loxcode_experiment,
@@ -2141,7 +2154,8 @@ setMethod("saturation_multi", "loxcode_experiment", function(loxcode_experiment,
 #'
 #' # Example usage
 #' # Assuming x and c are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' sample_table(lox,"all_samples")
 setGeneric("sample_table", function(x, c) {
     standardGeneric("sample_table")
@@ -2195,7 +2209,8 @@ capitalize <- function(w) {
 #'
 #' # Example usage
 #' # Assuming x and c are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' summary_table1(lox,"all_samples")
 setGeneric("summary_table1", function(x, c = "all_samples") {
     standardGeneric("summary_table1")
@@ -2286,7 +2301,8 @@ setMethod("summary_table1", "loxcode_experiment", function(x, c = "all_samples")
 #'
 #' # Example usage
 #' # Assuming lox and s are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' summary_table2(lox, "all_samples")
 setGeneric("summary_table2", function(lox, s = "all_samples") {
     standardGeneric("summary_table2")
@@ -2350,7 +2366,8 @@ setMethod("summary_table2", "loxcode_experiment", function(lox, s = "all_samples
 #'
 #' # Example usage
 #' # Assume x and n are defined
-#' x <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' x <- readRDS(datards)
 #' n="all_codes"
 #' codeset_table(x, n)
 #'
@@ -2401,7 +2418,8 @@ setMethod("codeset_table", "loxcode_experiment", function(x, n) {
 #'
 #' # Example usage
 #' # Assume exp is a list of loxcode experiment objects
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' exp_table(c(lox))
 #'
 setGeneric("exp_table", function(exp) {
@@ -2449,7 +2467,8 @@ setMethod("exp_table", "list", function(exp) {
 #'
 #' # Example usage
 #' # Assume x, s, and c are defined
-#' x <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' x <- readRDS(datards)
 #' code_freq_table(x, s="all_samples", c="all_codes")
 #'
 setGeneric("code_freq_table", function(x, s = "all_samples", c = "all_codes") {
@@ -2515,7 +2534,8 @@ setMethod("code_freq_table", "loxcode_experiment", function(x, s = "all_samples"
 #'
 #' # Example usage
 #' # Assume x, s, c, t, and m are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' filtered_codes_table(lox, s = "all_samples", c = "all_codes", t = 5, m = 3)
 setGeneric("filtered_codes_table", function(x,
                                             s = "all_samples",
@@ -2573,7 +2593,8 @@ setMethod("filtered_codes_table", "loxcode_experiment", function(x,
 #'
 #' # Example usage
 #' # Assuming x, s, and c are defined and have the required structure
-#' x <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' x <- readRDS(datards)
 #' code_frequency_pie(x, s="all_samples", c="all_codes")
 setGeneric("code_frequency_pie", function(x, s = "all_samples", c = "all_codes") {
     standardGeneric("code_frequency_pie")
@@ -2629,7 +2650,8 @@ setMethod("code_frequency_pie", "loxcode_experiment", function(x, s = "all_sampl
 #'
 #' # Example usage
 #' # Assume x, s, c, t, and m are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' filtered_codes_pie(lox, s = "all_samples", c = "all_codes", t = 5, m = 3)
 setGeneric("filtered_codes_pie", function(x,
                                           s = "all_samples",
@@ -2680,7 +2702,8 @@ setMethod("filtered_codes_pie", "loxcode_experiment", function(x,
 #' @examples
 #' # Load necessary libraries and data
 #' library(loxcodeR)
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #'
 #' # Get sample alias
 #' alias <- get_alias(lox,"N712_N501","all_sample")
@@ -2713,7 +2736,8 @@ setMethod("get_alias", "loxcode_experiment", function(lox, set, name) {
 #'
 #' # Example usage
 #' # Assuming lox, set, and name are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' get_samplename(lox, set = "all_samples", name = "Sample 1")
 setGeneric("get_samplename", function(lox, set, name) {
     standardGeneric("get_samplename")
@@ -2803,7 +2827,8 @@ setMethod("get_samplename", "loxcode_experiment", function(lox, set, name) {
 #'
 #' # Example usage
 #' # Assuming sample is defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' getData(lox@samples$N712_N501)
 getData <- function(sample, plot_type = "size") {
     size <- NULL
@@ -2845,7 +2870,8 @@ getData <- function(sample, plot_type = "size") {
 #'
 #' # Example usage
 #' # Assuming lox, code_set, and count_matrix are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' read_plot(lox)
 
 setGeneric("read_plot",
@@ -2910,7 +2936,8 @@ setMethod("read_plot",
 #'
 #' # Example usage
 #' # Assume lox, code_set, and count_matrix are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' barcode_table(lox, code_set= "all_codes", count_matrix= "all_samples", labels = "alias")
 
 setGeneric("barcode_table",
@@ -3060,7 +3087,8 @@ setMethod("barcode_table",
 #'
 #' # Example usage
 #' # Assuming lox, count_matrix, code_set, plot, and fill are defined
-#' lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+#' datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+#' lox <- readRDS(datards)
 #' readstats_plot(lox)
 
 setGeneric("readstats_plot",

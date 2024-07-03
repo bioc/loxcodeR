@@ -22,7 +22,8 @@ Access decoded cassette data, valid cassettes only
 # Example usage:
 # Assuming 'sample' is a loxcode_sample object
 # Access the decoded cassette data for valid cassettes only
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 valid_cassettes <- valid(lox@samples$N712_N501)
 valid_cassettes
 }

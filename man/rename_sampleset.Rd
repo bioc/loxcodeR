@@ -26,7 +26,8 @@ rename sample set
 # Example usage:
 # Assuming 'experiment' is a loxcode_experiment object and 'old_set_name' is the old sample set name to be renamed
 # Rename the sample set named 'old_set_name' to 'new_set_name'
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 new_experiment <- rename_sampleset(lox,"all_samples","new")
 new_experiment
 }

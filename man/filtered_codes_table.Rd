@@ -32,6 +32,7 @@ library(loxcodeR)
 
 # Example usage
 # Assume x, s, c, t, and m are defined
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 filtered_codes_table(lox, s = "all_samples", c = "all_codes", t = 5, m = 3)
 }

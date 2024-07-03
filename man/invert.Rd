@@ -24,6 +24,7 @@ Perform an inversion on the sequence
 }
 \examples{
 # Assuming you have a vector of lox sites called lox
-lox <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
 #new_lox <- invert(lox, 2, 3)  # Invert positions 1 to 3
 }

@@ -26,7 +26,8 @@ library(loxcodeR)
 
 # Example usage
 # Assume x and n are defined
-x <- readRDS("~/Desktop/loxcodeR/LoxcodeR_app/data-2024-05-20.rds")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+x <- readRDS(datards)
 n="all_codes"
 codeset_table(x, n)
 
