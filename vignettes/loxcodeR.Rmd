@@ -36,6 +36,7 @@ The app can also be used to export your analysis into a report of html or pdf fo
     - devtools::install_github("hadley/shinySignals")
 - Click on RunApp or type runApp('LoxcodeR_app') into the console to run the app
 
+
 # App Functionality
 
 ## Import
@@ -239,6 +240,127 @@ This page shows ratio plot and both plot for each sample in the experiment.
 This page is used to show the experiment data used for the experiment. It also shows us the custom sub experiment data.
 
 ![Details Data](DetailsData.png)<br/>
+
+# Examples with code
+
+## Sample tables
+
+```{r}
+library(DT)
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
+datatable(exp_table(c(lox)))
+```
+<br/>
+Above is a summary table of all the experiments currently loaded in the app.
+<br>
+```{r}
+library(DT)
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
+d <- summary_table(lox, "all_samples")
+datatable(d)
+```
+<br/>
+Above is a summary table of all the sample sets in our experiment.
+<br>
+```{r}
+library(DT)
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+x <- readRDS(datards)
+n="all_codes"
+datatable(codeset_table(x, n))
+```
+<br/>
+Above is a summary table of all the code sets in our experiment.
+<br>
+```{r}
+library(DT)
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
+datatable(code_freq_table(lox, s="all_samples", c="all_codes"))
+```
+<br/>
+Above is a summary table of frequency for each size and complexity combination.
+<br>
+
+
+
+## Sample graphs
+```{r}
+library(loxcodeR)
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
+size_plot(lox, sample="Sample 1", count_matrix="all_samples", code_set="all_codes", labels = "alias")
+```
+<br/>
+Above is a example of a sample size plot.
+<br/>
+```{r}
+library(loxcodeR)
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
+dist_orig_plot(lox, sample="Sample 1", count_matrix= "all_samples", code_set= "all_codes", labels = "alias")
+```
+<br/>
+Above is a example of a distance from origin plot.
+<br/>
+```{r}
+library(loxcodeR)
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
+heatmap_plot(lox)
+```
+<br/>
+Above is a example of a heatmap.
+<br/>
+```{r}
+library(loxcodeR)
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+loxcode_experiment <- readRDS(datards)
+bubble_plot(loxcode_experiment,count_matrix="all_samples",code_set="all_codes",style="ggplot", labels="sample", clustering="none",agglomeration="complete",min_reads=0,max_repeats=100,min_repeats=1,split_by1="none",split_by2="none")
+```
+<br/>
+Above is a example of a bubble plot.
+<br/>
+```{r}
+library(loxcodeR)
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
+saturation_plot(lox,"N712_N501")
+```
+<br/>
+Above is a example of a saturation plot.
+<br/>
+```{r}
+library(loxcodeR)
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+x <- readRDS(datards)
+code_frequency_pie(x, s="all_samples", c="all_codes")
+```
+<br/>
+Above is a example of a code frequency pie plot.
+<br/>
+```{r}
+library(loxcodeR)
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
+filtered_codes_pie(lox, s = "all_samples", c = "all_codes", t = 5, m = 3)
+```
+<br/>
+Above is a example of a filtered codes pie plot.
+<br/>
+```{r}
+library(loxcodeR)
+datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
+lox <- readRDS(datards)
+read_plot(lox)
+```
+<br/>
+Above is a example of a read plot.
+<br/>
+
 
 # Session Info
 ```{r session_info, echo=FALSE}

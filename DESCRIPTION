@@ -54,6 +54,6 @@ Suggests:
 URL: https://github.com/tomsergeweber/LoxCodeR2024
 BugReports: https://github.com/tomsergeweber/LoxCodeR2024/issues
 VignetteBuilder: knitr
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 biocViews: Software, Visualization, Genetics
 Config/testthat/edition: 3
