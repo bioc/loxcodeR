@@ -626,8 +626,8 @@ body <- dashboardBody(
                 collapsed = TRUE,
                 selectInput("type_heat", "Plot Types:", choices = c("ggplot", "plotly")),
                 selectInput("labels_heat", "Plot Labels:", choices=c("sample", "alias"), selected = "alias"),
-                selectInput("split_by1", "Split By1:", choices=c("mouse","Organ","Population","PCR.repicate", "none"), selected = "none"),
-                selectInput("split_by2", "Split By2:", choices=c("mouse","Organ","Population","PCR.repicate", "none"), selected = "none"),
+                selectInput("split_by1", "Split By1:", choices=c("Embryo","tissue","Max Complexity","PCR.replicate", "none"), selected = "none"),
+                selectInput("split_by2", "Split By2:", choices=c("Embryo","tissue","Max Complexity","PCR.replicate", "none"), selected = "none"),
                 selectInput("clustering", "Clustering", choices=c("none", "row", "col", "both")),
                 selectInput("agglomeration", "Agglomeration", choices=c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median","centroid","binary"),selected="complete"),
                 sliderInput("min_reads", label="Minimum # reads", min=1, max=100, value=1),
@@ -785,7 +785,7 @@ body <- dashboardBody(
                 width = 12,
                 title = "Generate report",
                 solidHeader = TRUE,
-                radioButtons("format", "Document format", c("PDF", "HTML", "Word"), inline = TRUE),
+                radioButtons("format", "Document format", c("PDF", "HTML"), inline = TRUE),
                 downloadButton("downloadReport")
             ),
             box(

@@ -269,7 +269,7 @@ plt
 ```
 
 
-```{r child = '/home/arnav/Desktop/LoxCodeR2024/LoxcodeR_app/chapter1.Rmd'}
+```{r child = 'C:/Users/arnav/OneDrive/Desktop/loxcodeR/LoxcodeR_app/chapter1.Rmd'}
 ```
 
 
@@ -321,12 +321,12 @@ datatable(params$inputs[[1]][[1]]@code_sets[["all_codes"]], options = list(pageL
 ```
 
 
-```{r child = '/home/arnav/Desktop/LoxCodeR2024/LoxcodeR_app/chapter4.Rmd'}
+```{r child = 'C:/Users/arnav/OneDrive/Desktop/loxcodeR/LoxcodeR_app/chapter4.Rmd'}
 ```
 
 
 
-```{r child = '/home/arnav/Desktop/LoxCodeR2024/LoxcodeR_app/chapter3.Rmd'}
+```{r child = 'C:/Users/arnav/OneDrive/Desktop/loxcodeR/LoxcodeR_app/chapter3.Rmd'}
 ```
 
 
@@ -334,5 +334,5 @@ datatable(params$inputs[[1]][[1]]@code_sets[["all_codes"]], options = list(pageL
 Details
 =====================================
 
-```{r child = '/home/arnav/Desktop/LoxCodeR2024/LoxcodeR_app/chapter5.Rmd'}
+```{r child = 'C:/Users/arnav/OneDrive/Desktop/loxcodeR/LoxcodeR_app/chapter5.Rmd'}
 ```

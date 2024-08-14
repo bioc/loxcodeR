@@ -247,6 +247,7 @@ This page is used to show the experiment data used for the experiment. It also s
 
 ```{r}
 library(DT)
+library(loxcodeR)
 datards <- system.file("extdata","data-2024-05-20.rds",package="loxcodeR")
 lox <- readRDS(datards)
 datatable(exp_table(c(lox)))
